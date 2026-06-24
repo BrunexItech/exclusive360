@@ -25,3 +25,11 @@ export const heroAPI = {
     return response.json();
   }
 };
+
+export const packagesAPI = {
+  getPackages: async () => {
+    const response = await fetch(`${API_BASE}/packages/`);
+    if (!response.ok) throw new Error('Failed to fetch packages');
+    return response.json();
+  }
+};

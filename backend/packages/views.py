@@ -51,3 +51,18 @@ def hero_api(request):
             'button_link': hero.button_link
         })
     return JsonResponse({'background_image': '', 'button_link': '/packages'})
+
+
+from .models import Package
+
+def packages_api(request):
+    packages = Package.objects.all()
+    data = []
+    for pkg in packages:
+        data.append({
+            'tier': pkg.tier.capitalize(),
+            'price': pkg.price,
+            'color': pkg.color,
+            'features': pkg.features,
+        })
+    return JsonResponse(data, safe=False)

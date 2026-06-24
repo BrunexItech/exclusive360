@@ -1,24 +1,26 @@
+import { useState, useEffect } from 'react';
+import { packagesAPI } from '../api';
+
 const Packages = () => {
-  const packages = [
-    {
-      tier: 'Platinum',
-      price: 'KES 650,000',
-      color: 'bg-gradient-to-r from-gray-300 to-yellow-400',
-      features: ['Luxury lodge', 'Private safari', 'Gourmet meals', 'Helicopter tour']
-    },
-    {
-      tier: 'Gold',
-      price: 'KES 350,000',
-      color: 'bg-gradient-to-r from-yellow-200 to-yellow-600',
-      features: ['Mid-range lodge', 'Group safari', 'All meals', 'Boat cruise']
-    },
-    {
-      tier: 'Bronze',
-      price: 'KES 150,000',
-      color: 'bg-gradient-to-r from-amber-600 to-amber-800',
-      features: ['Budget camp', 'Group safari', 'Basic meals', 'Nature walk']
-    }
-  ];
+  const [packages, setPackages] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    packagesAPI.getPackages()
+      .then(data => {
+        setPackages(data);
+        setLoading(false);
+      })
+      .catch(() => setLoading(false));
+  }, []);
+
+  if (loading) {
+    return (
+      <section className="py-20 px-4 bg-white">
+        <div className="container mx-auto text-center text-darkbrown">Loading packages...</div>
+      </section>
+    );
+  }
 
   return (
     <section id="packages" className="py-20 px-4 bg-white">
@@ -36,9 +38,15 @@ const Packages = () => {
                   <li key={i}>✓ {feature}</li>
                 ))}
               </ul>
-              <button className="mt-6 w-full bg-darkbrown text-white py-2 rounded-lg hover:bg-darkgreen transition">
+              <button 
+                onClick={() => {
+                    const btn = document.querySelector('.whatsapp-trigger');
+                    if (btn) btn.click();
+                }}
+                className="mt-6 w-full bg-darkbrown text-white py-2 rounded-lg hover:bg-darkgreen transition"
+                >
                 Book Now
-              </button>
+                </button>
             </div>
           ))}
         </div>
