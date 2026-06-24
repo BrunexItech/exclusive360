@@ -23,9 +23,15 @@ const Hero = () => {
     );
   }
 
+  // Build the base URL from environment variable
+  const baseUrl = import.meta.env.VITE_API_URL 
+    ? import.meta.env.VITE_API_URL.replace('/api', '')
+    : 'http://127.0.0.1:8007';
+
   const imageUrl = heroData?.background_image 
-    ? `http://127.0.0.1:8007${heroData.background_image}`
+    ? `${baseUrl}${heroData.background_image}`
     : 'https://images.unsplash.com/photo-1516426122078-c23e76319801?w=1200';
+
   const buttonLink = heroData?.button_link || '/packages';
 
   return (
