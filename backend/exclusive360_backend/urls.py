@@ -10,6 +10,8 @@ urlpatterns = [
     path('api/chat/', views.chat_api, name='chat_api'),
     path('api/hero/', views.hero_api, name='hero_api'),
     path('api/packages/', views.packages_api, name='packages_api'),
+    path('api/why-choose-us/', views.why_choose_us_api, name='why_choose_us_api'),
+    path('api/testimonials/', views.testimonials_api, name='testimonials_api'),
 ]
 
 # Serve media files in development

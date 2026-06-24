@@ -1,26 +1,26 @@
+import { useState, useEffect } from 'react';
+import { whyChooseUsAPI } from '../api';
+
 const WhyChooseUs = () => {
-  const features = [
-    {
-      icon: '🦁',
-      title: 'Expert Safari Guides',
-      desc: 'Local knowledge with 10+ years of experience across East Africa.'
-    },
-    {
-      icon: '🌍',
-      title: 'Tailored Itineraries',
-      desc: 'Custom trips designed around your preferences and budget.'
-    },
-    {
-      icon: '🏕️',
-      title: 'Luxury & Comfort',
-      desc: 'Premium lodges, camps, and transport for a seamless experience.'
-    },
-    {
-      icon: '🌅',
-      title: 'Unforgettable Moments',
-      desc: 'Sunset drives, bush dinners, and authentic cultural visits.'
-    }
-  ];
+  const [features, setFeatures] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    whyChooseUsAPI.getItems()
+      .then(data => {
+        setFeatures(data);
+        setLoading(false);
+      })
+      .catch(() => setLoading(false));
+  }, []);
+
+  if (loading) {
+    return (
+      <section className="py-20 px-4 bg-white">
+        <div className="container mx-auto text-center text-darkbrown">Loading...</div>
+      </section>
+    );
+  }
 
   return (
     <section className="py-20 px-4 bg-white">
@@ -38,7 +38,7 @@ const WhyChooseUs = () => {
             >
               <div className="text-5xl mb-4">{item.icon}</div>
               <h3 className="text-xl font-bold text-darkbrown mb-2">{item.title}</h3>
-              <p className="text-darkbrown/70 text-sm">{item.desc}</p>
+              <p className="text-darkbrown/70 text-sm">{item.description}</p>
             </div>
           ))}
         </div>

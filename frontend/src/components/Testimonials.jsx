@@ -1,37 +1,22 @@
 import { useState, useEffect } from 'react';
+import { testimonialsAPI } from '../api';
 
 const Testimonials = () => {
-  const testimonials = [
-    {
-      name: 'Sarah M.',
-      location: 'Nairobi, Kenya',
-      text: 'Exclusive 360 made our safari dream come true! The platinum package was worth every shilling.',
-      image: 'https://i.pravatar.cc/100?img=1'
-    },
-    {
-      name: 'John D.',
-      location: 'London, UK',
-      text: 'Unforgettable experience! The attention to detail and luxury was beyond expectations.',
-      image: 'https://i.pravatar.cc/100?img=2'
-    },
-    {
-      name: 'Grace W.',
-      location: 'Mombasa, Kenya',
-      text: 'From the golden savanna to the starry nights, everything was perfect. Highly recommend!',
-      image: 'https://i.pravatar.cc/100?img=3'
-    },
-    {
-      name: 'Michael O.',
-      location: 'Nakuru, Kenya',
-      text: 'The gold package offered incredible value. Our guide was knowledgeable and friendly.',
-      image: 'https://i.pravatar.cc/100?img=4'
-    }
-  ];
-
+  const [testimonials, setTestimonials] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [loading, setLoading] = useState(true);
 
-  // Auto-slide every 5 seconds (infinite loop)
   useEffect(() => {
+    testimonialsAPI.getTestimonials()
+      .then(data => {
+        setTestimonials(data);
+        setLoading(false);
+      })
+      .catch(() => setLoading(false));
+  }, []);
+
+  useEffect(() => {
+    if (testimonials.length === 0) return;
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % testimonials.length);
     }, 5000);
@@ -46,6 +31,18 @@ const Testimonials = () => {
     setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
   };
 
+  if (loading) {
+    return (
+      <section className="py-20 px-4 bg-darkgreen">
+        <div className="container mx-auto text-center text-white">Loading testimonials...</div>
+      </section>
+    );
+  }
+
+  if (testimonials.length === 0) {
+    return null;
+  }
+
   return (
     <section id="testimonials" className="py-20 px-4 bg-darkgreen overflow-hidden">
       <div className="container mx-auto">
@@ -53,10 +50,8 @@ const Testimonials = () => {
         <p className="text-center text-yellow-400 mb-12">Real stories from real adventurers</p>
 
         <div className="relative max-w-3xl mx-auto">
-          {/* Sliding Container */}
           <div className="relative h-64 overflow-hidden rounded-2xl">
             {testimonials.map((testimonial, index) => {
-              // Calculate position relative to current
               let position = index - currentIndex;
               if (position < 0) position += testimonials.length;
 
@@ -72,7 +67,7 @@ const Testimonials = () => {
                   }`}
                 >
                   <img 
-                    src={testimonial.image} 
+                    src={testimonial.image || 'https://i.pravatar.cc/100?img=1'} 
                     alt={testimonial.name}
                     className="w-20 h-20 rounded-full mx-auto mb-4 border-4 border-yellow-400 object-cover"
                   />
@@ -84,7 +79,6 @@ const Testimonials = () => {
             })}
           </div>
 
-          {/* Navigation Buttons */}
           <button 
             onClick={prevSlide}
             className="absolute left-0 top-1/2 -translate-y-1/2 bg-yellow-400 text-darkbrown rounded-full p-3 hover:bg-yellow-300 transition shadow-lg"
@@ -98,7 +92,6 @@ const Testimonials = () => {
             ❯
           </button>
 
-          {/* Dots Indicator */}
           <div className="flex justify-center gap-2 mt-6">
             {testimonials.map((_, index) => (
               <button

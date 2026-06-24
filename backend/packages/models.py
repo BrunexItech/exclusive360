@@ -21,3 +21,20 @@ class Package(models.Model):
 
     def __str__(self):
         return f"{self.tier} - {self.price}"
+    
+class WhyChooseUs(models.Model):
+    icon = models.CharField(max_length=10)  # Emoji
+    title = models.CharField(max_length=100)
+    description = models.TextField()
+
+    def __str__(self):
+        return self.title
+    
+class Testimonial(models.Model):
+    name = models.CharField(max_length=100)
+    location = models.CharField(max_length=100)
+    text = models.TextField()
+    image = models.ImageField(upload_to='testimonials/', blank=True, null=True)
+
+    def __str__(self):
+        return self.name

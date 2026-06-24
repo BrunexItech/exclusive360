@@ -66,3 +66,26 @@ def packages_api(request):
             'features': pkg.features,
         })
     return JsonResponse(data, safe=False)
+
+
+from .models import WhyChooseUs
+
+def why_choose_us_api(request):
+    items = WhyChooseUs.objects.all()
+    data = [{'icon': item.icon, 'title': item.title, 'description': item.description} for item in items]
+    return JsonResponse(data, safe=False)
+
+
+from .models import Testimonial
+
+def testimonials_api(request):
+    testimonials = Testimonial.objects.all()
+    data = []
+    for t in testimonials:
+        data.append({
+            'name': t.name,
+            'location': t.location,
+            'text': t.text,
+            'image': t.image.url if t.image else '',
+        })
+    return JsonResponse(data, safe=False)

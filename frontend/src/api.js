@@ -33,3 +33,19 @@ export const packagesAPI = {
     return response.json();
   }
 };
+
+export const whyChooseUsAPI = {
+  getItems: async () => {
+    const response = await fetch(`${API_BASE}/why-choose-us/`);
+    if (!response.ok) throw new Error('Failed to fetch');
+    return response.json();
+  }
+};
+
+export const testimonialsAPI = {
+  getTestimonials: async () => {
+    const response = await fetch(`${API_BASE}/testimonials/`);
+    if (!response.ok) throw new Error('Failed to fetch testimonials');
+    return response.json();
+  }
+};
