@@ -2,6 +2,7 @@ from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from twilio.twiml.messaging_response import MessagingResponse
 from rag import get_response
+from .models import HeroSettings
 import json
 import os
 
@@ -40,3 +41,13 @@ def chat_api(request):
             return JsonResponse({'error': str(e)}, status=500)
     
     return JsonResponse({'error': 'Method not allowed'}, status=405)
+
+
+def hero_api(request):
+    hero = HeroSettings.objects.first()
+    if hero:
+        return JsonResponse({
+            'background_image': hero.background_image.url if hero.background_image else '',
+            'button_link': hero.button_link
+        })
+    return JsonResponse({'background_image': '', 'button_link': '/packages'})

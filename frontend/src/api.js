@@ -16,3 +16,12 @@ export const chatAPI = {
     return data.response || "No response from server.";
   }
 };
+
+
+export const heroAPI = {
+  getHero: async () => {
+    const response = await fetch(`${API_BASE}/hero/`);
+    if (!response.ok) throw new Error('Failed to fetch hero');
+    return response.json();
+  }
+};

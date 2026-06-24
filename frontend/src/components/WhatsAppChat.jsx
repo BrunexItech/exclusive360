@@ -25,7 +25,6 @@ const WhatsAppChat = () => {
     scrollToBottom();
   }, [messages]);
 
-  // Auto-hide bubble after 5 seconds
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowBubble(false);
@@ -72,7 +71,7 @@ const WhatsAppChat = () => {
 
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="bg-green-500 hover:bg-green-600 text-white rounded-full p-4 shadow-2xl transition transform hover:scale-110 duration-300"
+          className="whatsapp-trigger bg-green-500 hover:bg-green-600 text-white rounded-full p-4 shadow-2xl transition transform hover:scale-110 duration-300"
           aria-label="WhatsApp Chat"
         >
           {isOpen ? (

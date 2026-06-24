@@ -1,23 +1,51 @@
-import heroImage from '../assets/exclusive_hero.png';
+import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { heroAPI } from '../api';
 
 const Hero = () => {
+  const [heroData, setHeroData] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    heroAPI.getHero()
+      .then(data => {
+        setHeroData(data);
+        setLoading(false);
+      })
+      .catch(() => setLoading(false));
+  }, []);
+
+  if (loading) {
+    return (
+      <section className="pt-20 h-screen flex items-center justify-center bg-darkgreen">
+        <div className="text-white text-xl">Loading...</div>
+      </section>
+    );
+  }
+
+  const imageUrl = heroData?.background_image 
+    ? `http://127.0.0.1:8007${heroData.background_image}`
+    : 'https://images.unsplash.com/photo-1516426122078-c23e76319801?w=1200';
+  const buttonLink = heroData?.button_link || '/packages';
+
   return (
-    <section 
-      id="home" 
+    <section
+      id="home"
       className="pt-20 h-screen flex items-center justify-center bg-cover bg-center relative"
-      style={{ backgroundImage: `url(${heroImage})` }}
+      style={{ backgroundImage: `url(${imageUrl})` }}
     >
-      {/* Dark overlay for text readability */}
       <div className="absolute inset-0 bg-black/50"></div>
-      
       <div className="relative z-10 text-center px-4 text-white">
         <h1 className="text-5xl md:text-7xl font-bold mb-4">
           Exclusive <span className="text-yellow-400">360</span> Journeys
         </h1>
         <p className="text-xl md:text-2xl mb-8">Luxury Safari Experiences Across Africa</p>
-        <button className="bg-yellow-400 hover:bg-yellow-500 text-darkbrown px-8 py-3 rounded-lg font-semibold transition">
+        <Link
+          to={buttonLink}
+          className="bg-yellow-400 hover:bg-yellow-500 text-darkbrown px-8 py-3 rounded-lg font-semibold transition inline-block"
+        >
           Explore Packages
-        </button>
+        </Link>
       </div>
     </section>
   );
