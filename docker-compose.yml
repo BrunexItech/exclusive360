@@ -43,7 +43,7 @@ services:
     ports:
       - "5178:5173"
     environment:
-      - VITE_API_URL=http://localhost:8007/api
+      - VITE_API_URL=http://38.242.200.152:8007/api
     depends_on:
       - backend
     restart: always
