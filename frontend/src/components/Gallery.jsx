@@ -1,47 +1,60 @@
+import { useState, useEffect } from 'react';
+import { galleryAPI } from '../api';
+
 const Gallery = () => {
-  const images = [
-    { id: 1, src: 'https://images.unsplash.com/photo-1516426122078-c23e76319801?w=600', alt: 'Elephant herd at sunset' },
-    { id: 2, src: 'https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=600', alt: 'Masai Mara river crossing' },
-    { id: 3, src: 'https://images.unsplash.com/photo-1564349683136-77e08dba1ef7?w=600', alt: 'Lion cubs on savanna' },
-    { id: 4, src: 'https://images.unsplash.com/photo-1534177616072-ef7dc120449d?w=600', alt: 'Giraffe silhouette' },
-    { id: 5, src: 'https://images.unsplash.com/photo-1503803548695-c2a7b4a5b875?w=600', alt: 'Safari vehicle with wildlife' },
-    { id: 6, src: 'https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?w=600', alt: 'African sunset baobab tree' },
-  ];
+  const [images, setImages] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [selectedImage, setSelectedImage] = useState(null);
+
+  useEffect(() => {
+    galleryAPI.getImages()
+      .then(data => {
+        setImages(data);
+        setLoading(false);
+      })
+      .catch(() => setLoading(false));
+  }, []);
+
+  const baseUrl = import.meta.env.VITE_API_URL.replace('/api', '');
+
+  if (loading) {
+    return (
+      <section className="py-20 px-4 bg-white">
+        <div className="container mx-auto text-center text-darkbrown">Loading gallery...</div>
+      </section>
+    );
+  }
+
+  if (images.length === 0) {
+    return null;
+  }
 
   return (
-    <section id="gallery" className="py-20 px-4 bg-white overflow-hidden">
+    <section id="gallery" className="py-20 px-4 bg-white">
       <div className="container mx-auto">
         <h2 className="text-4xl font-bold text-center text-darkgreen mb-4">Moments That Last Forever</h2>
-        
-        {/* Scrolling text - confined to container */}
-        <div className="overflow-hidden mb-2 max-w-3xl mx-auto">
-          <div className="animate-slide whitespace-nowrap text-center">
-            <span className="text-darkbrown text-lg mx-4">
-              Every safari tells a story — here are just a few frames from our journeys across Africa.
-            </span>
-            <span className="text-darkbrown text-lg mx-4">
-              Every safari tells a story — here are just a few frames from our journeys across Africa.
-            </span>
-          </div>
-        </div>
-
-        {/* Static italic text */}
-        <p className="text-center text-darkbrown/60 text-sm mb-12 italic">
+        <p className="text-center text-darkbrown/70 text-sm mb-12 italic">
           "The only thing better than experiencing it, is reliving it."
         </p>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4">
           {images.map((img) => (
             <div 
               key={img.id}
-              className="overflow-hidden rounded-xl shadow-lg hover:scale-105 transition duration-500 ease-in-out"
+              className="break-inside-avoid overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition duration-300 cursor-pointer group relative"
+              onClick={() => setSelectedImage(img)}
             >
               <img 
-                src={img.src} 
+                src={img.src ? `${baseUrl}${img.src}` : ''}
                 alt={img.alt}
-                className="w-full h-64 object-cover hover:brightness-110 transition"
+                className="w-full h-auto object-cover transition duration-500 group-hover:scale-110"
                 loading="lazy"
               />
+              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition duration-300 flex items-center justify-center">
+                <span className="text-white text-sm font-semibold opacity-0 group-hover:opacity-100 transition duration-300 bg-darkbrown/80 px-4 py-2 rounded-full">
+                  🔍 View
+                </span>
+              </div>
             </div>
           ))}
         </div>
@@ -51,16 +64,27 @@ const Gallery = () => {
         </p>
       </div>
 
-      <style>{`
-        @keyframes slide {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
-        }
-        .animate-slide {
-          display: flex;
-          animation: slide 12s linear infinite;
-        }
-      `}</style>
+      {selectedImage && (
+        <div 
+          className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4 cursor-pointer"
+          onClick={() => setSelectedImage(null)}
+        >
+          <div className="relative max-w-4xl w-full">
+            <img 
+              src={selectedImage.src ? `${baseUrl}${selectedImage.src}` : ''}
+              alt={selectedImage.alt}
+              className="w-full h-auto rounded-xl shadow-2xl"
+            />
+            <button 
+              className="absolute top-4 right-4 text-white text-3xl hover:text-yellow-400 transition"
+              onClick={() => setSelectedImage(null)}
+            >
+              ✕
+            </button>
+            <p className="text-white text-center mt-4 text-sm">{selectedImage.alt}</p>
+          </div>
+        </div>
+      )}
     </section>
   );
 };

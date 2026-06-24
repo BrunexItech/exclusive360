@@ -49,3 +49,12 @@ export const testimonialsAPI = {
     return response.json();
   }
 };
+
+
+export const galleryAPI = {
+  getImages: async () => {
+    const response = await fetch(`${API_BASE}/gallery/`);
+    if (!response.ok) throw new Error('Failed to fetch gallery images');
+    return response.json();
+  }
+};

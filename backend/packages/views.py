@@ -89,3 +89,17 @@ def testimonials_api(request):
             'image': t.image.url if t.image else '',
         })
     return JsonResponse(data, safe=False)
+
+
+from .models import GalleryImage
+
+def gallery_api(request):
+    images = GalleryImage.objects.all()
+    data = []
+    for img in images:
+        data.append({
+            'id': img.id,
+            'src': img.image.url if img.image else '',
+            'alt': img.alt_text or f'Gallery image {img.id}',
+        })
+    return JsonResponse(data, safe=False)

@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 const Footer = () => {
   return (
     <footer className="bg-darkbrown text-white pt-16 pb-6 px-4">
@@ -18,11 +20,11 @@ const Footer = () => {
           <div>
             <h4 className="font-semibold text-yellow-400 mb-3">Quick Links</h4>
             <ul className="space-y-2 text-sm text-white/60">
-              <li><a href="#home" className="hover:text-yellow-400 transition">Home</a></li>
-              <li><a href="#packages" className="hover:text-yellow-400 transition">Packages</a></li>
-              <li><a href="#about" className="hover:text-yellow-400 transition">About</a></li>
-              <li><a href="#gallery" className="hover:text-yellow-400 transition">Gallery</a></li>
-              <li><a href="#contact" className="hover:text-yellow-400 transition">Contact</a></li>
+              <li><Link to="/" className="hover:text-yellow-400 transition">Home</Link></li>
+              <li><Link to="/packages" className="hover:text-yellow-400 transition">Packages</Link></li>
+              <li><Link to="/about" className="hover:text-yellow-400 transition">About</Link></li>
+              <li><Link to="/#gallery" className="hover:text-yellow-400 transition">Gallery</Link></li>
+              <li><Link to="/contact" className="hover:text-yellow-400 transition">Contact</Link></li>
             </ul>
           </div>
 
@@ -44,7 +46,7 @@ const Footer = () => {
                 href="#" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="bg-white/10 hover:bg-[#1877F2] p-2.5 rounded-full transition text-xl"
+                className="bg-[#1877F2] hover:bg-white hover:text-[#1877F2] text-white p-2.5 rounded-full transition text-xl"
                 aria-label="Facebook"
               >
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -55,7 +57,7 @@ const Footer = () => {
                 href="#" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="bg-white/10 hover:bg-[#E4405F] p-2.5 rounded-full transition text-xl"
+                className="bg-[#E4405F] hover:bg-white hover:text-[#E4405F] text-white p-2.5 rounded-full transition text-xl"
                 aria-label="Instagram"
               >
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -66,7 +68,7 @@ const Footer = () => {
                 href="#" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="bg-white/10 hover:bg-[#1DA1F2] p-2.5 rounded-full transition text-xl"
+                className="bg-[#1DA1F2] hover:bg-white hover:text-[#1DA1F2] text-white p-2.5 rounded-full transition text-xl"
                 aria-label="Twitter"
               >
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -77,7 +79,7 @@ const Footer = () => {
                 href="#" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="bg-white/10 hover:bg-[#FF0000] p-2.5 rounded-full transition text-xl"
+                className="bg-[#FF0000] hover:bg-white hover:text-[#FF0000] text-white p-2.5 rounded-full transition text-xl"
                 aria-label="YouTube"
               >
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">

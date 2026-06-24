@@ -38,3 +38,10 @@ class Testimonial(models.Model):
 
     def __str__(self):
         return self.name
+    
+class GalleryImage(models.Model):
+    image = models.ImageField(upload_to='gallery/')
+    alt_text = models.CharField(max_length=200, blank=True)
+
+    def __str__(self):
+        return self.alt_text or f"Gallery Image {self.id}"
