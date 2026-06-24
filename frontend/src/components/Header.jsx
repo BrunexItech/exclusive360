@@ -26,12 +26,10 @@ const Header = () => {
   };
 
   const openWhatsApp = () => {
-    // Find and click the WhatsApp floating button
     const whatsappBtn = document.querySelector('.whatsapp-trigger');
     if (whatsappBtn) {
       whatsappBtn.click();
     } else {
-      // Fallback: scroll to bottom and click
       window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
       setTimeout(() => {
         const btn = document.querySelector('.whatsapp-trigger');
@@ -69,7 +67,13 @@ const Header = () => {
           className="flex items-center gap-2 group"
           onClick={scrollToTop}
         >
-          <img src={logo} alt="Exclusive 360" className="h-12 w-auto transition-transform group-hover:scale-105" />
+          <div className="bg-white p-1.5 rounded-lg border-2 border-yellow-400/80 shadow-[0_0_15px_rgba(255,215,0,0.3)]">
+            <img 
+              src={logo} 
+              alt="Exclusive 360" 
+              className="h-10 w-auto transition-transform group-hover:scale-105" 
+            />
+          </div>
           <span className="text-xl font-bold hidden sm:block text-white">
             Exclusive <span className="text-yellow-400 font-extrabold">360</span> Journeys
           </span>
