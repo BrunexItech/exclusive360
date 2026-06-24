@@ -31,6 +31,8 @@ const Testimonials = () => {
     setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
   };
 
+  const baseUrl = import.meta.env.VITE_API_URL.replace('/api', '');
+
   if (loading) {
     return (
       <section className="py-20 px-4 bg-darkgreen">
@@ -67,7 +69,7 @@ const Testimonials = () => {
                   }`}
                 >
                   <img 
-                    src={testimonial.image || 'https://i.pravatar.cc/100?img=1'} 
+                    src={testimonial.image ? `${baseUrl}${testimonial.image}` : 'https://i.pravatar.cc/100?img=1'} 
                     alt={testimonial.name}
                     className="w-20 h-20 rounded-full mx-auto mb-4 border-4 border-yellow-400 object-cover"
                   />
