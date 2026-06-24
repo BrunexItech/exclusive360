@@ -5,6 +5,7 @@ import About from './components/About';
 import Contact from './components/Contact';
 import PackagesPage from './components/PackagesPage';
 import Footer from './components/Footer';
+import WhatsAppChat from './components/WhatsAppChat';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/packages" element={<PackagesPage />} />
       </Routes>
       <Footer />
+      <WhatsAppChat /> {/* Now shows on all pages */}
     </BrowserRouter>
   );
 }
