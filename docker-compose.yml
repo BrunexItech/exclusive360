@@ -34,7 +34,10 @@ services:
     restart: always
 
   frontend:
-    build: ./frontend
+    build:
+      context: ./frontend
+      args:
+        - VITE_API_URL=http://38.242.200.152:8007/api
     container_name: exclusive_frontend
     ports:
       - "5178:80"
