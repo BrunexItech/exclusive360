@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHome, faBox, faInfoCircle, faEnvelope } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faInfoCircle, faGlobe, faBox, faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import logo from '../assets/exclusive360.png';
 
 const Header = () => {
@@ -40,8 +40,9 @@ const Header = () => {
 
   const navLinks = [
     { to: '/', label: 'Home', icon: faHome },
-    { to: '/packages', label: 'Packages', icon: faBox },
     { to: '/about', label: 'About', icon: faInfoCircle },
+    { to: '/destinations', label: 'Destinations', icon: faGlobe },
+    { to: '/packages', label: 'Packages', icon: faBox },
     { to: '/contact', label: 'Contact', icon: faEnvelope },
   ];
 

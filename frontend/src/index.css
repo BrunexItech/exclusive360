@@ -1,3 +1,222 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer utilities {
+  @keyframes shimmer {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(100%);
+    }
+  }
+
+  @keyframes spin-slow {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes bookOpen {
+    0% {
+      transform: perspective(1500px) rotateY(-180deg) scale(0.8);
+      opacity: 0;
+    }
+    60% {
+      transform: perspective(1500px) rotateY(-10deg) scale(1.02);
+    }
+    100% {
+      transform: perspective(1500px) rotateY(0deg) scale(1);
+      opacity: 1;
+    }
+  }
+
+  @keyframes pageFlip {
+    0% {
+      transform: perspective(1500px) rotateY(0deg);
+      opacity: 1;
+    }
+    50% {
+      transform: perspective(1500px) rotateY(-180deg);
+      opacity: 0.5;
+    }
+    100% {
+      transform: perspective(1500px) rotateY(0deg);
+      opacity: 1;
+    }
+  }
+
+  @keyframes typewriter {
+    from {
+      width: 0;
+    }
+    to {
+      width: 100%;
+    }
+  }
+
+  @keyframes blink {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
+    }
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+      transform: translateY(-10px) rotate(2deg);
+    }
+  }
+
+  @keyframes inkSplash {
+    0% {
+      transform: scale(0) rotate(0deg);
+      opacity: 0;
+    }
+    50% {
+      transform: scale(1.5) rotate(180deg);
+      opacity: 0.8;
+    }
+    100% {
+      transform: scale(1) rotate(360deg);
+      opacity: 1;
+    }
+  }
+
+  @keyframes drawLine {
+    from {
+      stroke-dashoffset: 1000;
+    }
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  @keyframes leafFloat {
+    0% {
+      transform: translateX(0) translateY(0) rotate(0deg);
+      opacity: 0;
+    }
+    10% {
+      opacity: 1;
+    }
+    90% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateX(200px) translateY(-100px) rotate(720deg);
+      opacity: 0;
+    }
+  }
+
+  @keyframes particleFloat {
+    0% {
+      transform: translateY(0) scale(0);
+      opacity: 0;
+    }
+    50% {
+      opacity: 0.5;
+    }
+    100% {
+      transform: translateY(-100px) scale(1);
+      opacity: 0;
+    }
+  }
+
+  .animate-shimmer {
+    animation: shimmer 3s infinite;
+  }
+
+  .animate-spin-slow {
+    animation: spin-slow 20s linear infinite;
+  }
+
+  .animate-fade-in-up {
+    animation: fadeInUp 0.6s ease-out forwards;
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.4s ease-out forwards;
+  }
+
+  .animate-book-open {
+    animation: bookOpen 1.5s ease-out forwards;
+  }
+
+  .animate-page-flip {
+    animation: pageFlip 2s ease-in-out infinite;
+  }
+
+  .animate-blink {
+    animation: blink 1s step-end infinite;
+  }
+
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  .animate-ink-splash {
+    animation: inkSplash 0.8s ease-out forwards;
+  }
+
+  .animate-leaf-float {
+    animation: leafFloat 8s ease-in infinite;
+  }
+
+  .animate-particle {
+    animation: particleFloat 3s ease-out infinite;
+  }
+
+  .typewriter {
+    overflow: hidden;
+    white-space: nowrap;
+    display: inline-block;
+    animation: typewriter 2s steps(40) forwards;
+  }
+
+  .typewriter-paragraph {
+    overflow: hidden;
+    display: block;
+  }
+
+  .typewriter-paragraph .line {
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    animation: typewriter 2s steps(40) forwards;
+  }
+
+  /* Paper texture overlay */
+  .paper-texture {
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg%3E%3Crect width='60' height='60' fill='none'/%3E%3Crect x='0' y='0' width='60' height='60' fill='rgba(245, 240, 232, 0.4)'/%3E%3C/g%3E%3C/svg%3E");
+  }
+}

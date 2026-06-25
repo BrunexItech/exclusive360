@@ -111,17 +111,19 @@ const Hero = () => {
             showVideo ? 'opacity-100' : 'opacity-0'
           }`}
         >
-          <video
-            ref={videoRef}
-            className="absolute inset-0 w-full h-full object-cover"
-            src={videoUrl}
-            autoPlay
-            loop
-            muted
-            playsInline
-            aria-hidden="true"
-            onLoadedData={() => setIsVideoReady(true)}
-          />
+          {videoUrl && (
+            <video
+              ref={videoRef}
+              className="absolute inset-0 w-full h-full object-cover"
+              src={videoUrl}
+              autoPlay
+              loop
+              muted
+              playsInline
+              aria-hidden="true"
+              onLoadedData={() => setIsVideoReady(true)}
+            />
+          )}
         </div>
         
         {/* Dark Overlay - reduced opacity for better gradient visibility */}
@@ -174,8 +176,6 @@ const Hero = () => {
           Explore Packages
         </Link>
       </div>
-
-      {/* Add custom animations - moved to global CSS */}
     </section>
   );
 };
