@@ -29,7 +29,10 @@ const Hero = () => {
   useEffect(() => {
     if (videoRef.current && videos.length > 0) {
       videoRef.current.load();
-      videoRef.current.play();
+      const playPromise = videoRef.current.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {});
+      }
     }
   }, [currentIndex, videos]);
 
@@ -60,13 +63,11 @@ const Hero = () => {
         <video
           key={currentIndex}
           ref={videoRef}
-          className="absolute inset-0 w-full h-full object-cover transition-opacity duration-1500 ease-in-out"
+          className="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out"
           src={videos[currentIndex]?.video ? `${baseUrl}${videos[currentIndex].video}` : ''}
           autoPlay
           muted
           playsInline
-          webkit-playsinline
-          x5-playsinline
           aria-hidden="true"
         />
         <div className="absolute inset-0 bg-black/50 z-10"></div>
