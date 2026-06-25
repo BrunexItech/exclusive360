@@ -74,7 +74,7 @@ const Header = () => {
               className="h-10 w-auto transition-transform group-hover:scale-105" 
             />
           </div>
-          <span className="text-xl font-bold hidden sm:block text-white">
+          <span className="text-xl font-bold text-white">
             Exclusive <span className="text-yellow-400 font-extrabold">360</span> Journeys
           </span>
         </Link>

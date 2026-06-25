@@ -65,7 +65,7 @@ const Hero = () => {
   const buttonLink = heroData?.button_link || '/packages';
 
   return (
-    <section id="home" className="relative h-[90vh] sm:h-[95vh] w-full overflow-hidden pt-20">
+    <section id="home" className="relative min-h-screen w-full overflow-hidden pt-16 sm:pt-20">
       {/* Background Layer */}
       <div className="absolute inset-0 w-full h-full">
         {/* Safari Gradient Background with Pattern */}
@@ -93,11 +93,11 @@ const Hero = () => {
               backgroundSize: '60px 60px'
             }} />
             
-            {/* Compass Rose Decoration */}
+            {/* Compass Rose Decoration - Responsive */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-10">
-              <div className="w-64 h-64 rounded-full border-4 border-white/20 animate-spin-slow" />
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 rounded-full border-2 border-white/10" />
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-white/20 rounded-full" />
+              <div className="w-32 h-32 sm:w-48 sm:h-48 md:w-64 md:h-64 rounded-full border-2 sm:border-4 border-white/20 animate-spin-slow" />
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24 sm:w-36 sm:h-36 md:w-48 md:h-48 rounded-full border border-white/10" />
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-6 h-6 sm:w-8 sm:h-8 bg-white/20 rounded-full" />
             </div>
           </div>
 
@@ -129,69 +129,53 @@ const Hero = () => {
       </div>
 
       {/* Content */}
-      <div className="relative z-20 h-full flex flex-col items-center justify-center text-center text-white px-4 max-w-4xl mx-auto">
+      <div className="relative z-20 min-h-screen flex flex-col items-center justify-center text-center text-white px-4 sm:px-6 md:px-8 max-w-4xl mx-auto">
         {/* Brand Name */}
-        <div className="mb-6">
-          <span className="text-yellow-400 text-sm tracking-[0.3em] uppercase font-semibold">Premium Safari</span>
+        <div className="mb-3 sm:mb-4 md:mb-6">
+          <span className="text-yellow-400 text-[10px] sm:text-xs md:text-sm tracking-[0.2em] sm:tracking-[0.3em] uppercase font-semibold">
+            Premium Safari
+          </span>
         </div>
         
-        <h1 className="text-5xl md:text-7xl font-bold mb-4 font-serif">
+        <h1 className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-2 sm:mb-3 md:mb-4 font-serif leading-tight">
           Exclusive <span className="text-yellow-400">360</span> Journeys
         </h1>
         
-        <p className="text-xl md:text-2xl mb-8 font-light tracking-wide">
+        <p className="text-base sm:text-lg md:text-xl lg:text-2xl mb-6 sm:mb-8 font-light tracking-wide px-2">
           Luxury Safari Experiences Across Africa
         </p>
 
-        {/* Package Indicators */}
-        <div className="flex gap-4 mb-8">
-          <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-yellow-400"></span>
-            <span className="text-xs uppercase tracking-wider text-yellow-400/80">Platinum</span>
+        {/* Package Indicators - Responsive */}
+        <div className="flex flex-wrap justify-center gap-3 sm:gap-4 md:gap-6 mb-6 sm:mb-8">
+          <div className="flex items-center gap-1.5 sm:gap-2">
+            <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-yellow-400"></span>
+            <span className="text-[8px] sm:text-[10px] md:text-xs uppercase tracking-wider text-yellow-400/80">
+              Platinum
+            </span>
           </div>
-          <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-amber-400"></span>
-            <span className="text-xs uppercase tracking-wider text-amber-400/80">Gold</span>
+          <div className="flex items-center gap-1.5 sm:gap-2">
+            <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-amber-400"></span>
+            <span className="text-[8px] sm:text-[10px] md:text-xs uppercase tracking-wider text-amber-400/80">
+              Gold
+            </span>
           </div>
-          <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-amber-600"></span>
-            <span className="text-xs uppercase tracking-wider text-amber-600/80">Bronze</span>
+          <div className="flex items-center gap-1.5 sm:gap-2">
+            <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-amber-600"></span>
+            <span className="text-[8px] sm:text-[10px] md:text-xs uppercase tracking-wider text-amber-600/80">
+              Bronze
+            </span>
           </div>
         </div>
 
         <Link
           to={buttonLink}
-          className="bg-yellow-400 hover:bg-yellow-500 text-[#3B1F0B] px-8 py-3 rounded-lg font-semibold transition transform hover:scale-105 inline-block shadow-lg"
+          className="bg-yellow-400 hover:bg-yellow-500 text-[#3B1F0B] px-6 sm:px-8 py-2.5 sm:py-3 rounded-lg font-semibold transition transform hover:scale-105 inline-block shadow-lg text-sm sm:text-base"
         >
           Explore Packages
         </Link>
       </div>
 
-      {/* Add custom animations */}
-      <style jsx>{`
-        @keyframes shimmer {
-          0% {
-            transform: translateX(-100%);
-          }
-          100% {
-            transform: translateX(100%);
-          }
-        }
-        @keyframes spin-slow {
-          from {
-            transform: rotate(0deg);
-          }
-          to {
-            transform: rotate(360deg);
-          }
-        }
-        .animate-shimmer {
-          animation: shimmer 3s infinite;
-        }
-        .animate-spin-slow {
-          animation: spin-slow 20s linear infinite;
-        }
-      `}</style>
+      {/* Add custom animations - moved to global CSS */}
     </section>
   );
 };
