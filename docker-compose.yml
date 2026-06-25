@@ -22,7 +22,6 @@ services:
   backend:
     build: ./backend
     container_name: exclusive_backend
-    command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - ./backend:/app
     env_file:
@@ -37,13 +36,8 @@ services:
   frontend:
     build: ./frontend
     container_name: exclusive_frontend
-    volumes:
-      - ./frontend:/app
-      - /app/node_modules
     ports:
-      - "5178:5173"
-    environment:
-      - VITE_API_URL=http://38.242.200.152:8007/api
+      - "5178:80"
     depends_on:
       - backend
     restart: always
