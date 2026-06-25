@@ -202,7 +202,7 @@ const About = () => {
   };
 
   return (
-    <section className="py-12 sm:py-16 md:py-20 px-4 bg-[#f5f0e8] min-h-screen paper-texture">
+    <section className="pt-[85px] sm:pt-24 md:pt-28 pb-12 sm:pb-16 md:pb-20 px-4 bg-[#f5f0e8] min-h-screen paper-texture">
       <div className="container mx-auto max-w-7xl">
         
         {/* Hero Section - Animated Book Opening */}

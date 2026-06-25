@@ -5,8 +5,10 @@ export default defineConfig({
   plugins: [react()],
   server: {
     allowedHosts: [
-      '7480-102-210-56-214.ngrok-free.app',
-      'localhost'
+      'exclusive360.ddns.net',
+      'localhost',
+      '127.0.0.1',
+      '.ngrok-free.app'
     ]
   }
 })

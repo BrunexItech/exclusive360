@@ -221,7 +221,7 @@ const PackagesPage = () => {
   };
 
   return (
-    <section className="py-16 sm:py-20 md:py-24 px-4 bg-gray-50 min-h-screen">
+    <section className="pt-[85px] sm:pt-24 md:pt-28 pb-16 sm:pb-20 md:pb-24 px-4 bg-gray-50 min-h-screen">
       <div className="container mx-auto max-w-7xl">
         {/* Header - with ref for scrolling back */}
         <div ref={packagesTopRef} className="text-center mb-12 md:mb-16">
