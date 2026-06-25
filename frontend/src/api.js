@@ -58,3 +58,11 @@ export const galleryAPI = {
     return response.json();
   }
 };
+
+export const heroVideoAPI = {
+  getVideos: async () => {
+    const response = await fetch(`${API_BASE}/hero-videos/`);
+    if (!response.ok) throw new Error('Failed to fetch hero videos');
+    return response.json();
+  }
+};

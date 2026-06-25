@@ -103,3 +103,17 @@ def gallery_api(request):
             'alt': img.alt_text or f'Gallery image {img.id}',
         })
     return JsonResponse(data, safe=False)
+
+from .models import HeroVideo
+
+def hero_videos_api(request):
+    videos = HeroVideo.objects.all().order_by('order')
+    data = []
+    for v in videos:
+        data.append({
+            'id': v.id,
+            'video': v.video.url if v.video else '',
+            'title': v.title,
+            'order': v.order,
+        })
+    return JsonResponse(data, safe=False)

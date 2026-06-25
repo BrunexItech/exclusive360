@@ -13,6 +13,7 @@ urlpatterns = [
     path('api/why-choose-us/', views.why_choose_us_api, name='why_choose_us_api'),
     path('api/testimonials/', views.testimonials_api, name='testimonials_api'),
     path('api/gallery/', views.gallery_api, name='gallery_api'),
+    path('api/hero-videos/', views.hero_videos_api, name='hero_videos_api'),
 ]
 
 # Serve media files in development

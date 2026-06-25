@@ -45,3 +45,14 @@ class GalleryImage(models.Model):
 
     def __str__(self):
         return self.alt_text or f"Gallery Image {self.id}"
+    
+class HeroVideo(models.Model):
+    video = models.FileField(upload_to='hero_videos/')
+    title = models.CharField(max_length=100, blank=True)
+    order = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        ordering = ['order']
+
+    def __str__(self):
+        return self.title or f"Video {self.id}"

@@ -1,19 +1,41 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { heroAPI } from '../api';
+import { heroVideoAPI } from '../api';
 
 const Hero = () => {
-  const [heroData, setHeroData] = useState(null);
+  const [videos, setVideos] = useState([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const [loading, setLoading] = useState(true);
+  const videoRef = useRef(null);
 
   useEffect(() => {
-    heroAPI.getHero()
+    heroVideoAPI.getVideos()
       .then(data => {
-        setHeroData(data);
+        setVideos(data);
         setLoading(false);
       })
       .catch(() => setLoading(false));
   }, []);
+
+  useEffect(() => {
+    if (videos.length === 0) return;
+    const interval = setInterval(() => {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % videos.length);
+    }, 10000);
+
+    return () => clearInterval(interval);
+  }, [videos.length]);
+
+  useEffect(() => {
+    if (videoRef.current && videos.length > 0) {
+      videoRef.current.load();
+      videoRef.current.play();
+    }
+  }, [currentIndex, videos]);
+
+  const baseUrl = import.meta.env.VITE_API_URL 
+    ? import.meta.env.VITE_API_URL.replace('/api', '')
+    : 'http://127.0.0.1:8007';
 
   if (loading) {
     return (
@@ -23,31 +45,41 @@ const Hero = () => {
     );
   }
 
-  // Build the base URL from environment variable
-  const baseUrl = import.meta.env.VITE_API_URL 
-    ? import.meta.env.VITE_API_URL.replace('/api', '')
-    : 'http://127.0.0.1:8007';
-
-  const imageUrl = heroData?.background_image 
-    ? `${baseUrl}${heroData.background_image}`
-    : 'https://images.unsplash.com/photo-1516426122078-c23e76319801?w=1200';
-
-  const buttonLink = heroData?.button_link || '/packages';
+  if (videos.length === 0) {
+    return (
+      <section className="pt-20 h-screen flex items-center justify-center bg-darkgreen">
+        <div className="text-white text-xl">No videos available</div>
+      </section>
+    );
+  }
 
   return (
-    <section
-      id="home"
-      className="pt-20 h-screen flex items-center justify-center bg-cover bg-center relative"
-      style={{ backgroundImage: `url(${imageUrl})` }}
-    >
-      <div className="absolute inset-0 bg-black/50"></div>
-      <div className="relative z-10 text-center px-4 text-white">
+    <section id="home" className="relative h-[90vh] sm:h-[95vh] w-full overflow-hidden pt-20">
+      {/* Video Background */}
+      <div className="absolute inset-0 w-full h-full">
+        <video
+          key={currentIndex}
+          ref={videoRef}
+          className="absolute inset-0 w-full h-full object-cover transition-opacity duration-1500 ease-in-out"
+          src={videos[currentIndex]?.video ? `${baseUrl}${videos[currentIndex].video}` : ''}
+          autoPlay
+          muted
+          playsInline
+          webkit-playsinline
+          x5-playsinline
+          aria-hidden="true"
+        />
+        <div className="absolute inset-0 bg-black/50 z-10"></div>
+      </div>
+
+      {/* Content */}
+      <div className="relative z-20 h-full flex flex-col items-center justify-center text-center text-white px-4 max-w-4xl mx-auto">
         <h1 className="text-5xl md:text-7xl font-bold mb-4">
           Exclusive <span className="text-yellow-400">360</span> Journeys
         </h1>
         <p className="text-xl md:text-2xl mb-8">Luxury Safari Experiences Across Africa</p>
         <Link
-          to={buttonLink}
+          to="/packages"
           className="bg-yellow-400 hover:bg-yellow-500 text-darkbrown px-8 py-3 rounded-lg font-semibold transition inline-block"
         >
           Explore Packages
