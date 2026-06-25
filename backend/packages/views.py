@@ -110,10 +110,20 @@ def hero_videos_api(request):
     videos = HeroVideo.objects.all().order_by('order')
     data = []
     for v in videos:
-        data.append({
-            'id': v.id,
-            'video': v.video.url if v.video else '',
-            'title': v.title,
-            'order': v.order,
-        })
+        if v.video:
+            data.append({
+                'id': v.id,
+                'video': v.video.url,
+                'type': 'file',
+                'title': v.title,
+                'order': v.order,
+            })
+        elif v.video_url:
+            data.append({
+                'id': v.id,
+                'video': v.video_url,
+                'type': 'url',
+                'title': v.title,
+                'order': v.order,
+            })
     return JsonResponse(data, safe=False)

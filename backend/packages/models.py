@@ -47,7 +47,8 @@ class GalleryImage(models.Model):
         return self.alt_text or f"Gallery Image {self.id}"
     
 class HeroVideo(models.Model):
-    video = models.FileField(upload_to='hero_videos/')
+    video = models.FileField(upload_to='hero_videos/', blank=True, null=True)
+    video_url = models.URLField(blank=True, null=True, help_text="Paste Cloudinary or external video URL")
     title = models.CharField(max_length=100, blank=True)
     order = models.PositiveIntegerField(default=0)
 

@@ -4,7 +4,7 @@ import { heroAPI, heroVideoAPI } from '../api';
 
 const Hero = () => {
   const [heroData, setHeroData] = useState(null);
-  const [videoUrl, setVideoUrl] = useState('');
+  const [videoData, setVideoData] = useState(null); // Changed from videoUrl
   const [showVideo, setShowVideo] = useState(false);
   const [isVideoReady, setIsVideoReady] = useState(false);
   const videoRef = useRef(null);
@@ -18,10 +18,7 @@ const Hero = () => {
 
         const videoData = await heroVideoAPI.getVideos();
         if (videoData && videoData.length > 0) {
-          const baseUrl = import.meta.env.VITE_API_URL 
-            ? import.meta.env.VITE_API_URL.replace('/api', '')
-            : 'http://127.0.0.1:8007';
-          setVideoUrl(`${baseUrl}${videoData[0].video}`);
+          setVideoData(videoData[0]); // Store full video object
         }
       } catch (error) {
         console.error('Error fetching hero data:', error);
@@ -31,9 +28,25 @@ const Hero = () => {
     fetchHeroData();
   }, []);
 
+  // Get video source based on type
+  const getVideoSrc = () => {
+    if (!videoData) return '';
+    const baseUrl = import.meta.env.VITE_API_URL 
+      ? import.meta.env.VITE_API_URL.replace('/api', '')
+      : 'http://127.0.0.1:8007';
+    
+    if (videoData.type === 'url') {
+      return videoData.video; // Direct URL (Cloudinary, Vimeo, etc.)
+    } else {
+      return `${baseUrl}${videoData.video}`; // Uploaded file
+    }
+  };
+
+  const videoSrc = getVideoSrc();
+
   // Handle video loading
   useEffect(() => {
-    if (videoRef.current && videoUrl) {
+    if (videoRef.current && videoSrc) {
       videoRef.current.load();
       const playPromise = videoRef.current.play();
       if (playPromise !== undefined) {
@@ -46,7 +59,7 @@ const Hero = () => {
           });
       }
     }
-  }, [videoUrl]);
+  }, [videoSrc]);
 
   // Smooth swap after video is ready
   useEffect(() => {
@@ -111,11 +124,11 @@ const Hero = () => {
             showVideo ? 'opacity-100' : 'opacity-0'
           }`}
         >
-          {videoUrl && (
+          {videoSrc && (
             <video
               ref={videoRef}
               className="absolute inset-0 w-full h-full object-cover"
-              src={videoUrl}
+              src={videoSrc}
               autoPlay
               loop
               muted
