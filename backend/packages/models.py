@@ -11,13 +11,15 @@ class Package(models.Model):
     TIER_CHOICES = [
         ('platinum', 'Platinum'),
         ('gold', 'Gold'),
-        ('bronze', 'Bronze'),
+        ('silver', 'Silver'),  # Changed from 'bronze'
+        ('custom', 'Custom'),  # Added custom option
     ]
 
     tier = models.CharField(max_length=10, choices=TIER_CHOICES, unique=True)
     price = models.CharField(max_length=50)
     color = models.CharField(max_length=100, default='bg-gradient-to-r from-gray-300 to-yellow-400')
     features = models.JSONField(default=list)  # List of features
+    is_custom = models.BooleanField(default=False)  # Flag for custom package
 
     def __str__(self):
         return f"{self.tier} - {self.price}"

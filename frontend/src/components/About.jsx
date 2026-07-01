@@ -93,7 +93,6 @@ const About = () => {
       const speed = paragraph.speed || 30;
       let index = 0;
       
-      // Clear any existing timer
       if (typingTimerRef.current) {
         clearInterval(typingTimerRef.current);
       }
@@ -107,13 +106,11 @@ const About = () => {
           index++;
         } else {
           clearInterval(typingTimerRef.current);
-          // Move to next paragraph after delay
           setTimeout(() => {
             if (activeParagraph < storyParagraphs.length - 1) {
               setActiveParagraph(prev => prev + 1);
             } else {
               setIsTypingComplete(true);
-              // Trigger signature animation
               setTimeout(() => {
                 if (signatureRef.current) {
                   const sigObserver = new IntersectionObserver(
@@ -150,18 +147,14 @@ const About = () => {
     const highlightWords = paragraph.highlightWords || [];
 
     return words.map((word, index) => {
-      // Check if word contains any italic or highlight phrases
       let isItalic = false;
       let isHighlight = false;
       let cleanWord = word.replace(/[.,!?;:"]/g, '');
 
       italicWords.forEach(phrase => {
-        if (text.includes(phrase)) {
-          // Complex check: if the phrase is in this word or phrase
-          const phraseWords = phrase.split(' ');
-          if (phraseWords.some(pw => word.includes(pw) || pw.includes(word))) {
-            isItalic = true;
-          }
+        const phraseWords = phrase.split(' ');
+        if (phraseWords.some(pw => word.includes(pw) || pw.includes(word))) {
+          isItalic = true;
         }
       });
 
@@ -202,7 +195,7 @@ const About = () => {
   };
 
   return (
-    <section className="pt-[85px] sm:pt-24 md:pt-28 pb-12 sm:pb-16 md:pb-20 px-4 bg-[#f5f0e8] min-h-screen paper-texture">
+    <section className="pt-[85px] sm:pt-24 md:pt-28 pb-12 sm:pb-16 md:pb-20 px-4 bg-[#FAF5EB] min-h-screen">
       <div className="container mx-auto max-w-7xl">
         
         {/* Hero Section - Animated Book Opening */}
@@ -236,13 +229,13 @@ const About = () => {
           <div className={`relative z-10 w-full max-w-5xl mx-auto px-4 transition-all duration-1000 ${isBookOpen ? 'opacity-100' : 'opacity-0'}`}>
             <div className="animate-book-open perspective-1000">
               {/* Book */}
-              <div className="relative bg-[#f5f0e8] rounded-lg shadow-2xl overflow-hidden border border-[#d4c9b8]/30">
+              <div className="relative bg-[#FAF5EB] rounded-lg shadow-2xl overflow-hidden border border-[#d1973e]/20">
                 {/* Book Spine */}
                 <div className="absolute left-0 top-0 bottom-0 w-2 bg-gradient-to-b from-[#800020] via-[#3B1F0B] to-[#1B3B1B] rounded-l-lg"></div>
                 
                 {/* Book Pages Effect */}
-                <div className="absolute inset-0 bg-gradient-to-r from-[#d4c9b8]/10 via-transparent to-transparent"></div>
-                <div className="absolute inset-0 bg-gradient-to-l from-[#d4c9b8]/10 via-transparent to-transparent"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-[#d1973e]/5 via-transparent to-transparent"></div>
+                <div className="absolute inset-0 bg-gradient-to-l from-[#d1973e]/5 via-transparent to-transparent"></div>
 
                 {/* Content */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 p-6 sm:p-8 md:p-12">
@@ -252,20 +245,20 @@ const About = () => {
                       <span className="text-[10px] sm:text-xs tracking-[0.3em] uppercase font-semibold">Chapter One</span>
                       <div className="flex-1 h-px bg-[#800020]/20"></div>
                     </div>
-                    <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold font-serif text-[#3B1F0B] leading-tight">
+                    <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light font-serif text-[#3B1F0B] leading-tight">
                       The Story of
                       <br />
-                      <span className="text-[#800020]">Exclusive 360</span>
+                      <span className="text-[#800020] font-serif">Exclusive 360</span>
                     </h1>
-                    <div className="w-16 h-1 bg-yellow-400"></div>
+                    <div className="w-16 h-0.5 bg-[#d1973e]"></div>
                     <p className="text-[#3B1F0B]/70 text-xs sm:text-sm italic">
                       "Every journey begins with a story. Ours started under the African sun."
                     </p>
                     {/* Elegant Decor */}
                     <div className="flex gap-2 mt-4">
-                      <div className="w-1.5 h-1.5 rounded-full bg-yellow-400 animate-pulse"></div>
-                      <div className="w-1.5 h-1.5 rounded-full bg-yellow-400 animate-pulse delay-100"></div>
-                      <div className="w-1.5 h-1.5 rounded-full bg-yellow-400 animate-pulse delay-200"></div>
+                      <div className="w-1.5 h-1.5 rounded-full bg-[#d1973e] animate-pulse"></div>
+                      <div className="w-1.5 h-1.5 rounded-full bg-[#d1973e] animate-pulse delay-100"></div>
+                      <div className="w-1.5 h-1.5 rounded-full bg-[#d1973e] animate-pulse delay-200"></div>
                     </div>
                   </div>
 
@@ -298,10 +291,10 @@ const About = () => {
 
           {/* Floating Particles */}
           <div className="absolute inset-0 pointer-events-none overflow-hidden">
-            <div className="absolute top-10 left-[10%] animate-particle text-yellow-400/20 text-2xl">✦</div>
-            <div className="absolute top-20 right-[15%] animate-particle delay-300 text-yellow-400/20 text-xl">✦</div>
-            <div className="absolute bottom-20 left-[20%] animate-particle delay-700 text-yellow-400/20 text-3xl">✦</div>
-            <div className="absolute bottom-10 right-[25%] animate-particle delay-500 text-yellow-400/20 text-xl">✦</div>
+            <div className="absolute top-10 left-[10%] animate-particle text-[#d1973e]/20 text-2xl">✦</div>
+            <div className="absolute top-20 right-[15%] animate-particle delay-300 text-[#d1973e]/20 text-xl">✦</div>
+            <div className="absolute bottom-20 left-[20%] animate-particle delay-700 text-[#d1973e]/20 text-3xl">✦</div>
+            <div className="absolute bottom-10 right-[25%] animate-particle delay-500 text-[#d1973e]/20 text-xl">✦</div>
           </div>
         </div>
 
@@ -316,16 +309,16 @@ const About = () => {
               </svg>
             </div>
 
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#3B1F0B] mb-3 sm:mb-4 font-serif">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-light text-[#3B1F0B] mb-3 sm:mb-4 font-serif">
               <span className="relative">
                 Our Story
-                <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-yellow-400"></span>
+                <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-[#d1973e]"></span>
               </span>
             </h2>
-            <div className="w-16 h-1 bg-yellow-400 mb-6 sm:mb-8"></div>
+            <div className="w-16 h-0.5 bg-[#d1973e] mb-6 sm:mb-8"></div>
 
             {/* Story Content - Sequential Typewriter */}
-            <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-5 sm:p-8 md:p-10 lg:p-12 shadow-lg border border-[#d4c9b8]/30">
+            <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-5 sm:p-8 md:p-10 lg:p-12 shadow-lg border border-[#d1973e]/20">
               <div className="space-y-4 sm:space-y-5 md:space-y-6 text-[#3B1F0B] text-base sm:text-lg leading-relaxed">
                 {storyParagraphs.map((paragraph, index) => {
                   const typedText = typedTexts[index] || '';
@@ -338,7 +331,7 @@ const About = () => {
                       key={index} 
                       className={`transition-opacity duration-500 ${isActive ? 'opacity-100' : 'opacity-0'}`}
                     >
-                      <p className="story-paragraph min-h-[2.5rem]">
+                      <p className="story-paragraph min-h-[2.5rem] font-serif font-light">
                         {isActive ? (
                           renderFormattedText(paragraph, typedText)
                         ) : (
@@ -360,10 +353,10 @@ const About = () => {
               </div>
 
               {/* Signature Area */}
-              <div ref={signatureRef} className="mt-6 sm:mt-8 pt-4 sm:pt-6 border-t border-[#d4c9b8]/30">
+              <div ref={signatureRef} className="mt-6 sm:mt-8 pt-4 sm:pt-6 border-t border-[#d1973e]/20">
                 <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4">
                   <div className="flex-1">
-                    <p className="text-xs sm:text-sm text-[#3B1F0B]/50">— Founder's Note</p>
+                    <p className="text-xs sm:text-sm text-[#3B1F0B]/50 font-serif">— Founder's Note</p>
                     {showSignature && (
                       <div className="mt-2 animate-fade-in">
                         <svg className="w-36 sm:w-44 md:w-52 h-12 sm:h-14 md:h-16" viewBox="0 0 200 60">
@@ -381,14 +374,14 @@ const About = () => {
                             }}
                           />
                         </svg>
-                        <p className="text-xs sm:text-sm font-semibold text-[#800020] mt-1">— Exclusive 360 Journeys Team</p>
+                        <p className="text-xs sm:text-sm font-semibold text-[#800020] mt-1 font-serif">— Exclusive 360 Journeys Team</p>
                       </div>
                     )}
                   </div>
                   <div className="flex gap-1.5 sm:gap-2">
-                    <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-yellow-400 animate-pulse"></div>
-                    <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-yellow-400 animate-pulse delay-150"></div>
-                    <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-yellow-400 animate-pulse delay-300"></div>
+                    <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-[#d1973e] animate-pulse"></div>
+                    <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-[#d1973e] animate-pulse delay-150"></div>
+                    <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-[#d1973e] animate-pulse delay-300"></div>
                   </div>
                 </div>
               </div>
@@ -398,15 +391,15 @@ const About = () => {
 
         {/* Mission & Vision */}
         <div className="grid md:grid-cols-2 gap-6 sm:gap-8 mb-16">
-          <div className="bg-white/80 backdrop-blur-sm p-5 sm:p-6 md:p-8 rounded-xl border-l-4 border-yellow-400 shadow-lg hover:shadow-xl transition duration-300">
-            <h3 className="text-xl sm:text-2xl font-bold text-[#800020] mb-2">🎯 Our Mission</h3>
+          <div className="bg-white/80 backdrop-blur-sm p-5 sm:p-6 md:p-8 rounded-xl border-l-4 border-[#d1973e] shadow-lg hover:shadow-xl transition duration-300">
+            <h3 className="text-xl sm:text-2xl font-light text-[#800020] mb-2 font-serif">🎯 Our Mission</h3>
             <p className="text-[#3B1F0B] text-sm sm:text-base leading-relaxed">
               To create transformative safari experiences that connect travelers with Africa's wilderness, 
               cultures, and communities — while preserving its natural heritage for generations to come.
             </p>
           </div>
-          <div className="bg-white/80 backdrop-blur-sm p-5 sm:p-6 md:p-8 rounded-xl border-l-4 border-yellow-400 shadow-lg hover:shadow-xl transition duration-300">
-            <h3 className="text-xl sm:text-2xl font-bold text-[#800020] mb-2">👁️ Our Vision</h3>
+          <div className="bg-white/80 backdrop-blur-sm p-5 sm:p-6 md:p-8 rounded-xl border-l-4 border-[#d1973e] shadow-lg hover:shadow-xl transition duration-300">
+            <h3 className="text-xl sm:text-2xl font-light text-[#800020] mb-2 font-serif">👁️ Our Vision</h3>
             <p className="text-[#3B1F0B] text-sm sm:text-base leading-relaxed">
               To be Africa's most trusted luxury safari brand, celebrated for excellence, sustainability, 
               and the profound joy we bring to every traveler who journeys with us.
@@ -416,27 +409,27 @@ const About = () => {
 
         {/* Why Choose Us */}
         <div className="mb-16">
-          <h2 className="text-2xl sm:text-3xl font-bold text-[#3B1F0B] mb-4 text-center font-serif">Why Choose Exclusive 360</h2>
-          <div className="w-16 h-1 bg-yellow-400 mx-auto mb-6 sm:mb-8"></div>
+          <h2 className="text-2xl sm:text-3xl font-light text-[#3B1F0B] mb-4 text-center font-serif">Why Choose Exclusive 360</h2>
+          <div className="w-16 h-0.5 bg-[#d1973e] mx-auto mb-6 sm:mb-8"></div>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-            <div className="group bg-white/80 backdrop-blur-sm p-4 sm:p-6 rounded-xl text-center shadow-lg hover:shadow-xl transition duration-300 hover:-translate-y-1">
+            <div className="group bg-white/80 backdrop-blur-sm p-4 sm:p-6 rounded-xl text-center shadow-lg hover:shadow-xl transition duration-300 hover:-translate-y-1 border border-[#3B1F0B]/5 hover:border-[#800020]/20">
               <div className="text-3xl sm:text-4xl mb-2 group-hover:scale-110 transition duration-300">🦁</div>
-              <h4 className="font-bold text-[#800020] text-sm sm:text-base">Expert Guides</h4>
+              <h4 className="font-semibold text-[#800020] text-sm sm:text-base font-serif">Expert Guides</h4>
               <p className="text-xs sm:text-sm text-[#3B1F0B]/70">10+ years experience, local knowledge.</p>
             </div>
-            <div className="group bg-white/80 backdrop-blur-sm p-4 sm:p-6 rounded-xl text-center shadow-lg hover:shadow-xl transition duration-300 hover:-translate-y-1">
+            <div className="group bg-white/80 backdrop-blur-sm p-4 sm:p-6 rounded-xl text-center shadow-lg hover:shadow-xl transition duration-300 hover:-translate-y-1 border border-[#3B1F0B]/5 hover:border-[#800020]/20">
               <div className="text-3xl sm:text-4xl mb-2 group-hover:scale-110 transition duration-300">🌍</div>
-              <h4 className="font-bold text-[#800020] text-sm sm:text-base">Tailored Safaris</h4>
+              <h4 className="font-semibold text-[#800020] text-sm sm:text-base font-serif">Tailored Safaris</h4>
               <p className="text-xs sm:text-sm text-[#3B1F0B]/70">Custom itineraries for your needs.</p>
             </div>
-            <div className="group bg-white/80 backdrop-blur-sm p-4 sm:p-6 rounded-xl text-center shadow-lg hover:shadow-xl transition duration-300 hover:-translate-y-1">
+            <div className="group bg-white/80 backdrop-blur-sm p-4 sm:p-6 rounded-xl text-center shadow-lg hover:shadow-xl transition duration-300 hover:-translate-y-1 border border-[#3B1F0B]/5 hover:border-[#800020]/20">
               <div className="text-3xl sm:text-4xl mb-2 group-hover:scale-110 transition duration-300">🏕️</div>
-              <h4 className="font-bold text-[#800020] text-sm sm:text-base">Luxury & Comfort</h4>
+              <h4 className="font-semibold text-[#800020] text-sm sm:text-base font-serif">Luxury & Comfort</h4>
               <p className="text-xs sm:text-sm text-[#3B1F0B]/70">Premium lodges and vehicles.</p>
             </div>
-            <div className="group bg-white/80 backdrop-blur-sm p-4 sm:p-6 rounded-xl text-center shadow-lg hover:shadow-xl transition duration-300 hover:-translate-y-1">
+            <div className="group bg-white/80 backdrop-blur-sm p-4 sm:p-6 rounded-xl text-center shadow-lg hover:shadow-xl transition duration-300 hover:-translate-y-1 border border-[#3B1F0B]/5 hover:border-[#800020]/20">
               <div className="text-3xl sm:text-4xl mb-2 group-hover:scale-110 transition duration-300">🌿</div>
-              <h4 className="font-bold text-[#800020] text-sm sm:text-base">Sustainable Tourism</h4>
+              <h4 className="font-semibold text-[#800020] text-sm sm:text-base font-serif">Sustainable Tourism</h4>
               <p className="text-xs sm:text-sm text-[#3B1F0B]/70">Conservation and community support.</p>
             </div>
           </div>
@@ -444,37 +437,37 @@ const About = () => {
 
         {/* Core Values */}
         <div className="mb-16 bg-[#800020]/5 backdrop-blur-sm p-5 sm:p-8 rounded-2xl shadow-lg border border-[#800020]/10">
-          <h2 className="text-2xl sm:text-3xl font-bold text-[#3B1F0B] mb-4 text-center font-serif">Our Core Values</h2>
-          <div className="w-16 h-1 bg-yellow-400 mx-auto mb-6 sm:mb-8"></div>
+          <h2 className="text-2xl sm:text-3xl font-light text-[#3B1F0B] mb-4 text-center font-serif">Our Core Values</h2>
+          <div className="w-16 h-0.5 bg-[#d1973e] mx-auto mb-6 sm:mb-8"></div>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
-            <div className="bg-white/80 backdrop-blur-sm p-3 sm:p-4 rounded-xl shadow-sm text-center hover:shadow-md transition duration-300">
+            <div className="bg-white/80 backdrop-blur-sm p-3 sm:p-4 rounded-xl shadow-sm text-center hover:shadow-md transition duration-300 border border-[#3B1F0B]/5 hover:border-[#d1973e]/30">
               <span className="text-xl sm:text-2xl">🤝</span>
-              <h5 className="font-bold text-[#800020] text-sm sm:text-base">Integrity</h5>
+              <h5 className="font-semibold text-[#800020] text-sm sm:text-base font-serif">Integrity</h5>
               <p className="text-xs sm:text-sm text-[#3B1F0B]/60">Honest and ethical.</p>
             </div>
-            <div className="bg-white/80 backdrop-blur-sm p-3 sm:p-4 rounded-xl shadow-sm text-center hover:shadow-md transition duration-300">
+            <div className="bg-white/80 backdrop-blur-sm p-3 sm:p-4 rounded-xl shadow-sm text-center hover:shadow-md transition duration-300 border border-[#3B1F0B]/5 hover:border-[#d1973e]/30">
               <span className="text-xl sm:text-2xl">⭐</span>
-              <h5 className="font-bold text-[#800020] text-sm sm:text-base">Excellence</h5>
+              <h5 className="font-semibold text-[#800020] text-sm sm:text-base font-serif">Excellence</h5>
               <p className="text-xs sm:text-sm text-[#3B1F0B]/60">Quality and detail.</p>
             </div>
-            <div className="bg-white/80 backdrop-blur-sm p-3 sm:p-4 rounded-xl shadow-sm text-center hover:shadow-md transition duration-300">
+            <div className="bg-white/80 backdrop-blur-sm p-3 sm:p-4 rounded-xl shadow-sm text-center hover:shadow-md transition duration-300 border border-[#3B1F0B]/5 hover:border-[#d1973e]/30">
               <span className="text-xl sm:text-2xl">🌱</span>
-              <h5 className="font-bold text-[#800020] text-sm sm:text-base">Sustainability</h5>
+              <h5 className="font-semibold text-[#800020] text-sm sm:text-base font-serif">Sustainability</h5>
               <p className="text-xs sm:text-sm text-[#3B1F0B]/60">Protecting ecosystems.</p>
             </div>
-            <div className="bg-white/80 backdrop-blur-sm p-3 sm:p-4 rounded-xl shadow-sm text-center hover:shadow-md transition duration-300">
+            <div className="bg-white/80 backdrop-blur-sm p-3 sm:p-4 rounded-xl shadow-sm text-center hover:shadow-md transition duration-300 border border-[#3B1F0B]/5 hover:border-[#d1973e]/30">
               <span className="text-xl sm:text-2xl">❤️</span>
-              <h5 className="font-bold text-[#800020] text-sm sm:text-base">Customer Focus</h5>
+              <h5 className="font-semibold text-[#800020] text-sm sm:text-base font-serif">Customer Focus</h5>
               <p className="text-xs sm:text-sm text-[#3B1F0B]/60">Your happiness matters.</p>
             </div>
-            <div className="bg-white/80 backdrop-blur-sm p-3 sm:p-4 rounded-xl shadow-sm text-center hover:shadow-md transition duration-300">
+            <div className="bg-white/80 backdrop-blur-sm p-3 sm:p-4 rounded-xl shadow-sm text-center hover:shadow-md transition duration-300 border border-[#3B1F0B]/5 hover:border-[#d1973e]/30">
               <span className="text-xl sm:text-2xl">💡</span>
-              <h5 className="font-bold text-[#800020] text-sm sm:text-base">Innovation</h5>
+              <h5 className="font-semibold text-[#800020] text-sm sm:text-base font-serif">Innovation</h5>
               <p className="text-xs sm:text-sm text-[#3B1F0B]/60">Fresh, exciting experiences.</p>
             </div>
-            <div className="bg-white/80 backdrop-blur-sm p-3 sm:p-4 rounded-xl shadow-sm text-center hover:shadow-md transition duration-300">
+            <div className="bg-white/80 backdrop-blur-sm p-3 sm:p-4 rounded-xl shadow-sm text-center hover:shadow-md transition duration-300 border border-[#3B1F0B]/5 hover:border-[#d1973e]/30">
               <span className="text-xl sm:text-2xl">🌅</span>
-              <h5 className="font-bold text-[#800020] text-sm sm:text-base">Passion</h5>
+              <h5 className="font-semibold text-[#800020] text-sm sm:text-base font-serif">Passion</h5>
               <p className="text-xs sm:text-sm text-[#3B1F0B]/60">We love what we do.</p>
             </div>
           </div>
@@ -483,20 +476,20 @@ const About = () => {
         {/* Statistics */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 mb-16 text-center">
           <div className="group bg-gradient-to-br from-[#800020] to-[#3B1F0B] text-white p-4 sm:p-6 rounded-xl shadow-lg hover:shadow-2xl transition duration-300 hover:-translate-y-2">
-            <div className="text-2xl sm:text-3xl md:text-4xl font-bold group-hover:text-yellow-400 transition duration-300">10+</div>
-            <div className="text-[10px] sm:text-xs md:text-sm text-yellow-400/80">Years of Experience</div>
+            <div className="text-2xl sm:text-3xl md:text-4xl font-light group-hover:text-[#d1973e] transition duration-300 font-serif">10+</div>
+            <div className="text-[10px] sm:text-xs md:text-sm text-[#d1973e]/80">Years of Experience</div>
           </div>
           <div className="group bg-gradient-to-br from-[#800020] to-[#3B1F0B] text-white p-4 sm:p-6 rounded-xl shadow-lg hover:shadow-2xl transition duration-300 hover:-translate-y-2">
-            <div className="text-2xl sm:text-3xl md:text-4xl font-bold group-hover:text-yellow-400 transition duration-300">500+</div>
-            <div className="text-[10px] sm:text-xs md:text-sm text-yellow-400/80">Successful Safaris</div>
+            <div className="text-2xl sm:text-3xl md:text-4xl font-light group-hover:text-[#d1973e] transition duration-300 font-serif">500+</div>
+            <div className="text-[10px] sm:text-xs md:text-sm text-[#d1973e]/80">Successful Safaris</div>
           </div>
           <div className="group bg-gradient-to-br from-[#800020] to-[#3B1F0B] text-white p-4 sm:p-6 rounded-xl shadow-lg hover:shadow-2xl transition duration-300 hover:-translate-y-2">
-            <div className="text-2xl sm:text-3xl md:text-4xl font-bold group-hover:text-yellow-400 transition duration-300">50+</div>
-            <div className="text-[10px] sm:text-xs md:text-sm text-yellow-400/80">Countries Served</div>
+            <div className="text-2xl sm:text-3xl md:text-4xl font-light group-hover:text-[#d1973e] transition duration-300 font-serif">50+</div>
+            <div className="text-[10px] sm:text-xs md:text-sm text-[#d1973e]/80">Countries Served</div>
           </div>
           <div className="group bg-gradient-to-br from-[#800020] to-[#3B1F0B] text-white p-4 sm:p-6 rounded-xl shadow-lg hover:shadow-2xl transition duration-300 hover:-translate-y-2">
-            <div className="text-2xl sm:text-3xl md:text-4xl font-bold group-hover:text-yellow-400 transition duration-300">100%</div>
-            <div className="text-[10px] sm:text-xs md:text-sm text-yellow-400/80">Client Satisfaction</div>
+            <div className="text-2xl sm:text-3xl md:text-4xl font-light group-hover:text-[#d1973e] transition duration-300 font-serif">100%</div>
+            <div className="text-[10px] sm:text-xs md:text-sm text-[#d1973e]/80">Client Satisfaction</div>
           </div>
         </div>
 
@@ -519,7 +512,7 @@ const About = () => {
           </div>
           
           <div className="relative z-10">
-            <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-2 sm:mb-3 font-serif">
+            <h3 className="text-xl sm:text-2xl md:text-3xl font-light text-white mb-2 sm:mb-3 font-serif">
               Ready for Your Safari Adventure?
             </h3>
             <p className="text-white/70 text-sm sm:text-base mb-4 sm:mb-6 max-w-lg mx-auto">
@@ -527,7 +520,7 @@ const About = () => {
             </p>
             <button 
               onClick={openWhatsApp}
-              className="inline-block bg-yellow-400 hover:bg-yellow-500 text-[#3B1F0B] px-6 sm:px-8 py-2.5 sm:py-3 rounded-lg font-bold transition text-sm sm:text-base shadow-lg hover:shadow-xl transform hover:-translate-y-1 duration-300"
+              className="inline-block bg-[#d1973e] hover:bg-[#b8862e] text-[#3B1F0B] px-6 sm:px-8 py-2.5 sm:py-3 rounded-lg font-semibold transition text-sm sm:text-base shadow-lg hover:shadow-xl transform hover:-translate-y-1 duration-300"
             >
               Book Your Adventure
             </button>

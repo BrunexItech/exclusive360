@@ -72,12 +72,12 @@ const Stats = () => {
         >
           <path 
             d="M0 40 C240 20, 480 60, 720 40 C960 20, 1200 60, 1440 40 L1440 60 L0 60Z" 
-            fill="#1B3B1B"
+            fill="#3B1F0B"
             opacity="0.8"
           />
           <path 
             d="M0 45 C240 25, 480 65, 720 45 C960 25, 1200 65, 1440 45 L1440 60 L0 60Z" 
-            fill="#1B3B1B"
+            fill="#3B1F0B"
             opacity="0.5"
           />
         </svg>
@@ -85,10 +85,10 @@ const Stats = () => {
 
       <section 
         ref={statsRef} 
-        className="relative overflow-hidden pt-12 pb-16 sm:pt-16 sm:pb-20 bg-[#1B3B1B]"
+        className="relative overflow-hidden pt-12 pb-16 sm:pt-16 sm:pb-20 bg-[#3B1F0B]"
       >
-        {/* Subtle Gradient Overlay - smoother transition */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#1B3B1B]/0 via-[#800020]/10 to-[#800020]/20"></div>
+        {/* Subtle Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#3B1F0B]/0 via-[#800020]/10 to-[#800020]/20"></div>
         
         {/* Pattern Overlay */}
         <div className="absolute inset-0 opacity-5">
@@ -106,14 +106,14 @@ const Stats = () => {
           }} />
         </div>
 
-        {/* Decorative Safari Elements */}
-        <div className="absolute top-5 left-5 text-4xl opacity-5 animate-float hidden lg:block">🌿</div>
-        <div className="absolute bottom-10 right-10 text-5xl opacity-5 animate-float delay-700 hidden lg:block">🌍</div>
-        <div className="absolute top-1/2 left-[5%] text-3xl opacity-5 animate-float delay-500 hidden lg:block">✨</div>
-        <div className="absolute top-1/3 right-[8%] text-3xl opacity-5 animate-float delay-300 hidden lg:block">🌟</div>
+        {/* Decorative Elements */}
+        <div className="absolute top-5 left-5 text-4xl opacity-5 animate-float hidden lg:block">✦</div>
+        <div className="absolute bottom-10 right-10 text-5xl opacity-5 animate-float delay-700 hidden lg:block">✦</div>
+        <div className="absolute top-1/2 left-[5%] text-3xl opacity-5 animate-float delay-500 hidden lg:block">✦</div>
+        <div className="absolute top-1/3 right-[8%] text-3xl opacity-5 animate-float delay-300 hidden lg:block">✦</div>
 
         {/* Subtle top glow line */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-px bg-gradient-to-r from-transparent via-yellow-400/20 to-transparent"></div>
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-px bg-gradient-to-r from-transparent via-[#d1973e]/20 to-transparent"></div>
 
         <div className="container mx-auto px-4 sm:px-6 relative z-10">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8">
@@ -123,18 +123,18 @@ const Stats = () => {
                 className="text-center group relative"
               >
                 {/* Glow effect on hover */}
-                <div className="absolute inset-0 bg-yellow-400/0 group-hover:bg-yellow-400/5 rounded-xl transition-all duration-500 -z-10"></div>
+                <div className="absolute inset-0 bg-[#d1973e]/0 group-hover:bg-[#d1973e]/5 rounded-xl transition-all duration-500 -z-10"></div>
                 
                 <div className="text-3xl sm:text-4xl md:text-5xl mb-2 group-hover:scale-110 transition-transform duration-300">
                   {stat.icon}
                 </div>
-                <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-yellow-400">
+                <div className="text-2xl sm:text-3xl md:text-4xl font-light text-[#d1973e] font-serif">
                   {counts[stat.id] || 0}{stat.suffix}
                 </div>
-                <div className="text-white/70 text-xs sm:text-sm mt-1">
+                <div className="text-white/70 text-xs sm:text-sm mt-1 font-light">
                   {stat.label}
                 </div>
-                <div className="w-0 h-0.5 bg-yellow-400 mx-auto mt-2 group-hover:w-12 transition-all duration-300"></div>
+                <div className="w-0 h-0.5 bg-[#d1973e] mx-auto mt-2 group-hover:w-12 transition-all duration-300"></div>
               </div>
             ))}
           </div>

@@ -1,3 +1,4 @@
+// DestinationDetail.jsx
 import { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 
@@ -538,10 +539,10 @@ Beyond the beaches, Mauritius offers lush tropical landscapes, vibrant coral ree
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-white">
+      <div className="min-h-screen flex items-center justify-center bg-[#faf8f4]">
         <div className="text-center">
-          <div className="w-12 h-12 border-4 border-[#800020] border-t-yellow-400 rounded-full animate-spin mx-auto"></div>
-          <p className="text-[#3B1F0B] mt-4">Loading destination...</p>
+          <div className="w-12 h-12 border-2 border-[#c9a84c] border-t-transparent rounded-full animate-spin mx-auto"></div>
+          <p className="text-[#1a1a2e]/60 mt-4 font-light">Loading destination...</p>
         </div>
       </div>
     );
@@ -549,12 +550,12 @@ Beyond the beaches, Mauritius offers lush tropical landscapes, vibrant coral ree
 
   if (!destination) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-white">
+      <div className="min-h-screen flex items-center justify-center bg-[#faf8f4]">
         <div className="text-center">
-          <div className="text-6xl mb-4">🔍</div>
-          <h2 className="text-2xl font-bold text-[#3B1F0B]">Destination not found</h2>
-          <p className="text-[#3B1F0B]/60 mt-2">The destination you're looking for doesn't exist.</p>
-          <Link to="/destinations" className="mt-4 inline-block bg-[#800020] text-white px-6 py-2 rounded-lg">
+          <div className="text-6xl mb-4 opacity-30">🔍</div>
+          <h2 className="text-2xl font-light text-[#1a1a2e] font-serif">Destination not found</h2>
+          <p className="text-[#1a1a2e]/40 mt-2 font-light">The destination you're looking for doesn't exist.</p>
+          <Link to="/destinations" className="mt-6 inline-block bg-[#c9a84c] text-white px-8 py-3 rounded-full font-light tracking-wider hover:bg-[#b8973a] transition">
             Back to Destinations
           </Link>
         </div>
@@ -563,54 +564,54 @@ Beyond the beaches, Mauritius offers lush tropical landscapes, vibrant coral ree
   }
 
   return (
-    <section className="pt-20 pb-16 bg-white min-h-screen">
+    <section className="bg-[#faf8f4] min-h-screen">
       {/* Back Button */}
-      <div className="container mx-auto px-4 sm:px-6 pt-4">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-6">
         <button
           onClick={() => navigate('/destinations')}
-          className="flex items-center gap-2 text-[#3B1F0B] hover:text-[#800020] transition font-semibold text-sm"
+          className="flex items-center gap-2 text-[#1a1a2e]/60 hover:text-[#1a1a2e] transition font-light text-sm tracking-wider"
         >
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
           </svg>
           Back to Destinations
         </button>
       </div>
 
-      {/* Hero Image */}
-      <div className="relative h-80 sm:h-[400px] md:h-[500px] mt-2">
+      {/* Hero Image - ROAR AFRICA Style */}
+      <div className="relative h-[50vh] min-h-[400px] max-h-[600px] mt-2 overflow-hidden">
         <img
           src={destination.image}
           alt={destination.name}
           className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#3B1F0B]/90 to-transparent"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/10 to-black/70"></div>
         
         {/* Overlay Content */}
-        <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-10 md:p-16">
+        <div className="absolute bottom-0 left-0 right-0 p-8 sm:p-12 lg:p-16">
           <div className="container mx-auto max-w-6xl">
-            <div className="flex flex-wrap items-center gap-3 mb-3">
-              <span className="bg-yellow-400 text-[#3B1F0B] text-xs font-bold px-3 py-1 rounded-full">
+            <div className="flex flex-wrap items-center gap-3 mb-4">
+              <span className="bg-[#c9a84c] text-white text-xs font-light px-4 py-1.5 rounded-full tracking-wider">
                 {destination.region}
               </span>
-              <span className="bg-white/20 backdrop-blur-sm text-white text-xs font-semibold px-3 py-1 rounded-full border border-white/30">
-                ★ {destination.rating}
+              <span className="bg-white/10 backdrop-blur-sm text-white text-xs font-light px-4 py-1.5 rounded-full border border-white/20 flex items-center gap-1.5 tracking-wider">
+                <span className="text-[#c9a84c]">★</span> {destination.rating}
               </span>
             </div>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white font-serif">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-light text-white font-serif tracking-wide">
               {destination.name}
             </h1>
-            <p className="text-white/80 text-sm sm:text-base md:text-lg mt-2 max-w-2xl">
+            <p className="text-white/60 text-sm sm:text-base md:text-lg mt-3 max-w-2xl font-light leading-relaxed">
               {destination.description}
             </p>
-            <div className="flex flex-wrap items-center gap-4 mt-4">
-              <span className="text-white/70 text-sm">
+            <div className="flex flex-wrap items-center gap-6 mt-4">
+              <span className="text-white/50 text-sm font-light tracking-wider">
                 🕐 {destination.duration}
               </span>
-              <span className="text-white/70 text-sm">
+              <span className="text-white/50 text-sm font-light tracking-wider">
                 💰 {destination.price}
               </span>
-              <span className="text-white/70 text-sm">
+              <span className="text-white/50 text-sm font-light tracking-wider">
                 🦁 {destination.wildlife}
               </span>
             </div>
@@ -618,30 +619,30 @@ Beyond the beaches, Mauritius offers lush tropical landscapes, vibrant coral ree
         </div>
       </div>
 
-      {/* Content */}
-      <div className="container mx-auto max-w-6xl px-4 sm:px-6 py-8 sm:py-12">
+      {/* Content - ROAR AFRICA Style */}
+      <div className="container mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
         <div className="grid lg:grid-cols-3 gap-8 lg:gap-12">
           {/* Main Content - 2/3 */}
-          <div className="lg:col-span-2 space-y-8">
+          <div className="lg:col-span-2 space-y-10">
             {/* About */}
             <div>
-              <h2 className="text-2xl sm:text-3xl font-bold text-[#3B1F0B] font-serif mb-4">
+              <h2 className="text-2xl sm:text-3xl font-light text-[#1a1a2e] font-serif tracking-wide mb-4">
                 About {destination.name}
               </h2>
-              <div className="w-12 h-1 bg-yellow-400 mb-4"></div>
-              <div className="text-[#3B1F0B]/70 text-sm sm:text-base leading-relaxed whitespace-pre-line">
+              <div className="w-12 h-0.5 bg-[#c9a84c] mb-6"></div>
+              <div className="text-[#1a1a2e]/60 text-sm sm:text-base leading-relaxed font-light whitespace-pre-line">
                 {destination.longDescription}
               </div>
             </div>
 
             {/* Wildlife */}
             <div>
-              <h3 className="text-xl sm:text-2xl font-bold text-[#3B1F0B] font-serif mb-3">
+              <h3 className="text-xl sm:text-2xl font-light text-[#1a1a2e] font-serif tracking-wide mb-4">
                 Wildlife You'll See
               </h3>
               <div className="flex flex-wrap gap-2">
                 {destination.animals.map((animal, idx) => (
-                  <span key={idx} className="bg-gray-100 px-3 py-1.5 rounded-full text-sm text-[#3B1F0B]">
+                  <span key={idx} className="bg-white px-4 py-2 rounded-full text-sm text-[#1a1a2e]/70 font-light border border-[#1a1a2e]/10">
                     {animal}
                   </span>
                 ))}
@@ -650,18 +651,18 @@ Beyond the beaches, Mauritius offers lush tropical landscapes, vibrant coral ree
 
             {/* Monthly Guide */}
             <div>
-              <h3 className="text-xl sm:text-2xl font-bold text-[#3B1F0B] font-serif mb-3">
+              <h3 className="text-xl sm:text-2xl font-light text-[#1a1a2e] font-serif tracking-wide mb-4">
                 Best Time to Visit
               </h3>
-              <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
+              <div className="grid grid-cols-3 sm:grid-cols-6 gap-3">
                 {Object.entries(destination.monthlyGuide).map(([month, data]) => (
-                  <div key={month} className="text-center p-2 rounded-lg bg-gray-50 hover:bg-gray-100 transition">
-                    <div className="text-xs font-bold text-[#3B1F0B]">{month}</div>
-                    <div className="text-lg">{data.weather}</div>
-                    <div className="text-sm">{data.wildlife}</div>
-                    <div className="w-full bg-gray-200 rounded-full h-1 mt-1">
+                  <div key={month} className="text-center p-3 rounded-lg bg-white hover:shadow-md transition-shadow">
+                    <div className="text-xs font-light text-[#1a1a2e]/60 uppercase tracking-wider">{month}</div>
+                    <div className="text-xl mt-1">{data.weather}</div>
+                    <div className="text-sm mt-0.5">{data.wildlife}</div>
+                    <div className="w-full bg-[#faf8f4] rounded-full h-1 mt-2">
                       <div 
-                        className="bg-yellow-400 h-1 rounded-full" 
+                        className="bg-[#c9a84c] h-1 rounded-full transition-all" 
                         style={{ width: `${data.rating * 10}%` }}
                       ></div>
                     </div>
@@ -672,17 +673,17 @@ Beyond the beaches, Mauritius offers lush tropical landscapes, vibrant coral ree
 
             {/* Itinerary */}
             <div>
-              <h3 className="text-xl sm:text-2xl font-bold text-[#3B1F0B] font-serif mb-3">
+              <h3 className="text-xl sm:text-2xl font-light text-[#1a1a2e] font-serif tracking-wide mb-4">
                 Suggested Itinerary
               </h3>
-              <div className="space-y-3">
+              <div className="space-y-4">
                 {destination.itinerary.map((day, idx) => (
-                  <div key={idx} className="border-l-4 border-yellow-400 pl-4 py-2 bg-gray-50 rounded-r-lg hover:bg-gray-100 transition">
-                    <div className="flex items-center gap-2">
-                      <span className="font-bold text-[#800020] text-sm">Day {day.day}:</span>
-                      <span className="font-semibold text-[#3B1F0B] text-sm">{day.title}</span>
+                  <div key={idx} className="border-l-2 border-[#c9a84c] pl-5 py-1 bg-white rounded-r-lg hover:shadow-sm transition-shadow">
+                    <div className="flex items-center gap-3">
+                      <span className="font-light text-[#c9a84c] text-sm tracking-wider">Day {day.day}</span>
+                      <span className="font-light text-[#1a1a2e] text-sm">{day.title}</span>
                     </div>
-                    <p className="text-xs sm:text-sm text-[#3B1F0B]/60 mt-0.5">{day.desc}</p>
+                    <p className="text-xs sm:text-sm text-[#1a1a2e]/50 font-light mt-1 leading-relaxed">{day.desc}</p>
                   </div>
                 ))}
               </div>
@@ -690,62 +691,63 @@ Beyond the beaches, Mauritius offers lush tropical landscapes, vibrant coral ree
 
             {/* Gallery */}
             <div>
-              <h3 className="text-xl sm:text-2xl font-bold text-[#3B1F0B] font-serif mb-3">
+              <h3 className="text-xl sm:text-2xl font-light text-[#1a1a2e] font-serif tracking-wide mb-4">
                 Safari Moments
               </h3>
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                 {destination.gallery.map((img, idx) => (
-                  <img
-                    key={idx}
-                    src={img}
-                    alt={`${destination.name} ${idx + 1}`}
-                    className="rounded-lg h-24 sm:h-32 w-full object-cover hover:scale-105 transition duration-300 cursor-pointer"
-                    onClick={() => setSelectedImage(idx)}
-                    loading="lazy"
-                  />
+                  <div key={idx} className="overflow-hidden rounded-lg">
+                    <img
+                      src={img}
+                      alt={`${destination.name} ${idx + 1}`}
+                      className="h-24 sm:h-32 w-full object-cover hover:scale-110 transition duration-700 cursor-pointer"
+                      onClick={() => setSelectedImage(idx)}
+                      loading="lazy"
+                    />
+                  </div>
                 ))}
               </div>
             </div>
           </div>
 
-          {/* Sidebar - 1/3 */}
+          {/* Sidebar - 1/3 - ROAR AFRICA Style */}
           <div className="lg:col-span-1 space-y-6">
             {/* Quick Info Card */}
-            <div className="bg-[#f5f0e8] p-6 rounded-xl sticky top-24">
-              <h4 className="text-lg font-bold text-[#3B1F0B] mb-4">Quick Info</h4>
-              <div className="space-y-3 text-sm">
-                <div className="flex justify-between border-b border-[#3B1F0B]/10 pb-2">
-                  <span className="text-[#3B1F0B]/60">Region</span>
-                  <span className="font-semibold text-[#3B1F0B]">{destination.region}</span>
+            <div className="bg-white p-8 rounded-xl shadow-sm sticky top-24 border border-[#1a1a2e]/5">
+              <h4 className="text-lg font-light text-[#1a1a2e] font-serif tracking-wide mb-6">Quick Info</h4>
+              <div className="space-y-4 text-sm">
+                <div className="flex justify-between border-b border-[#1a1a2e]/5 pb-3">
+                  <span className="text-[#1a1a2e]/40 font-light tracking-wider">Region</span>
+                  <span className="font-light text-[#1a1a2e]">{destination.region}</span>
                 </div>
-                <div className="flex justify-between border-b border-[#3B1F0B]/10 pb-2">
-                  <span className="text-[#3B1F0B]/60">Best Time</span>
-                  <span className="font-semibold text-[#3B1F0B]">{destination.bestTime}</span>
+                <div className="flex justify-between border-b border-[#1a1a2e]/5 pb-3">
+                  <span className="text-[#1a1a2e]/40 font-light tracking-wider">Best Time</span>
+                  <span className="font-light text-[#1a1a2e]">{destination.bestTime}</span>
                 </div>
-                <div className="flex justify-between border-b border-[#3B1F0B]/10 pb-2">
-                  <span className="text-[#3B1F0B]/60">Duration</span>
-                  <span className="font-semibold text-[#3B1F0B]">{destination.duration}</span>
+                <div className="flex justify-between border-b border-[#1a1a2e]/5 pb-3">
+                  <span className="text-[#1a1a2e]/40 font-light tracking-wider">Duration</span>
+                  <span className="font-light text-[#1a1a2e]">{destination.duration}</span>
                 </div>
-                <div className="flex justify-between border-b border-[#3B1F0B]/10 pb-2">
-                  <span className="text-[#3B1F0B]/60">Price Range</span>
-                  <span className="font-semibold text-[#800020]">{destination.price}</span>
+                <div className="flex justify-between border-b border-[#1a1a2e]/5 pb-3">
+                  <span className="text-[#1a1a2e]/40 font-light tracking-wider">Price Range</span>
+                  <span className="font-light text-[#c9a84c]">{destination.price}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-[#3B1F0B]/60">Rating</span>
-                  <span className="font-semibold text-yellow-500">★ {destination.rating}</span>
+                  <span className="text-[#1a1a2e]/40 font-light tracking-wider">Rating</span>
+                  <span className="font-light text-[#c9a84c]">★ {destination.rating}</span>
                 </div>
               </div>
 
-              <div className="mt-6 space-y-3">
+              <div className="mt-8 space-y-3">
                 <button
                   onClick={openWhatsApp}
-                  className="w-full bg-yellow-400 hover:bg-yellow-500 text-[#3B1F0B] py-3 rounded-lg font-bold transition transform hover:scale-105"
+                  className="w-full bg-[#c9a84c] hover:bg-[#b8973a] text-white py-3.5 rounded-full font-light tracking-wider transition transform hover:scale-[1.02]"
                 >
                   Book Now
                 </button>
                 <Link
                   to="/packages"
-                  className="w-full block text-center bg-[#800020] hover:bg-[#3B1F0B] text-white py-3 rounded-lg font-semibold transition"
+                  className="w-full block text-center bg-transparent border border-[#1a1a2e]/20 hover:border-[#1a1a2e] text-[#1a1a2e] py-3.5 rounded-full font-light tracking-wider transition"
                 >
                   View Packages
                 </Link>
@@ -753,16 +755,16 @@ Beyond the beaches, Mauritius offers lush tropical landscapes, vibrant coral ree
             </div>
 
             {/* Wildlife Highlights */}
-            <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-100">
-              <h4 className="text-lg font-bold text-[#3B1F0B] mb-3">Wildlife Highlights</h4>
+            <div className="bg-white p-6 rounded-xl shadow-sm border border-[#1a1a2e]/5">
+              <h4 className="text-sm font-light text-[#1a1a2e] tracking-wider mb-3">Wildlife Highlights</h4>
               <div className="flex flex-wrap gap-2">
                 {destination.animals.slice(0, 5).map((animal, idx) => (
-                  <span key={idx} className="bg-gray-50 px-3 py-1 rounded-full text-sm text-[#3B1F0B]">
+                  <span key={idx} className="bg-[#faf8f4] px-3 py-1.5 rounded-full text-sm text-[#1a1a2e]/70 font-light">
                     {animal}
                   </span>
                 ))}
                 {destination.animals.length > 5 && (
-                  <span className="bg-gray-50 px-3 py-1 rounded-full text-sm text-[#3B1F0B]">
+                  <span className="bg-[#faf8f4] px-3 py-1.5 rounded-full text-sm text-[#1a1a2e]/50 font-light">
                     +{destination.animals.length - 5} more
                   </span>
                 )}

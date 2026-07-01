@@ -2,51 +2,62 @@ import { Link } from 'react-router-dom';
 
 const Footer = () => {
   return (
-    <footer className="bg-darkbrown text-white pt-16 pb-6 px-4">
+    <footer className="bg-[#3B1F0B] text-white pt-16 pb-6 px-4">
       <div className="container mx-auto">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
           
           {/* Brand */}
           <div>
-            <h3 className="text-2xl font-bold mb-3">
-              Exclusive <span className="text-yellow-400">360</span> Journeys
+            <h3 className="text-2xl font-serif font-bold mb-3">
+              Exclusive <span className="text-[#d1973e]">360</span> Journeys
             </h3>
             <p className="text-white/60 text-sm leading-relaxed">
               Luxury safari experiences crafted with care, passion, and a deep love for Africa.
             </p>
+            {/* Decorative Line */}
+            <div className="w-12 h-0.5 bg-[#d1973e] mt-4"></div>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h4 className="font-semibold text-yellow-400 mb-3">Quick Links</h4>
+            <h4 className="font-semibold text-[#d1973e] mb-3 font-serif text-lg">Quick Links</h4>
             <ul className="space-y-2 text-sm text-white/60">
-              <li><Link to="/" className="hover:text-yellow-400 transition">Home</Link></li>
-              <li><Link to="/packages" className="hover:text-yellow-400 transition">Packages</Link></li>
-              <li><Link to="/about" className="hover:text-yellow-400 transition">About</Link></li>
-              <li><Link to="/#gallery" className="hover:text-yellow-400 transition">Gallery</Link></li>
-              <li><Link to="/contact" className="hover:text-yellow-400 transition">Contact</Link></li>
+              <li><Link to="/" className="hover:text-[#d1973e] transition duration-300">Home</Link></li>
+              <li><Link to="/packages" className="hover:text-[#d1973e] transition duration-300">Packages</Link></li>
+              <li><Link to="/about" className="hover:text-[#d1973e] transition duration-300">About</Link></li>
+              <li><Link to="/destinations" className="hover:text-[#d1973e] transition duration-300">Destinations</Link></li>
+              <li><Link to="/contact" className="hover:text-[#d1973e] transition duration-300">Contact</Link></li>
             </ul>
           </div>
 
           {/* Contact */}
           <div>
-            <h4 className="font-semibold text-yellow-400 mb-3">Contact Info</h4>
+            <h4 className="font-semibold text-[#d1973e] mb-3 font-serif text-lg">Contact Info</h4>
             <ul className="space-y-2 text-sm text-white/60">
-              <li>📍 Jamhuri Heights, Jonathan Ngeno Rd, Langata</li>
-              <li>📞 0729 140 646 / 0729 874 888</li>
-              <li>📧 info@exclusive360.com</li>
+              <li className="flex items-start gap-2">
+                <span className="text-[#d1973e]">📍</span>
+                <span>Jamhuri Heights, Jonathan Ngeno Rd, Langata</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-[#d1973e]">📞</span>
+                <span>0729 140 646 / 0729 874 888</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-[#d1973e]">📧</span>
+                <span>info@exclusive360.com</span>
+              </li>
             </ul>
           </div>
 
           {/* Social & Newsletter */}
           <div>
-            <h4 className="font-semibold text-yellow-400 mb-3">Follow Us</h4>
+            <h4 className="font-semibold text-[#d1973e] mb-3 font-serif text-lg">Follow Us</h4>
             <div className="flex gap-3 mb-4">
               <a 
                 href="#" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="bg-[#1877F2] hover:bg-white hover:text-[#1877F2] text-white p-2.5 rounded-full transition text-xl"
+                className="bg-white/10 hover:bg-[#d1973e] hover:text-[#3B1F0B] text-white p-2.5 rounded-full transition duration-300 text-xl border border-white/10 hover:border-[#d1973e]"
                 aria-label="Facebook"
               >
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -57,7 +68,7 @@ const Footer = () => {
                 href="#" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="bg-[#E4405F] hover:bg-white hover:text-[#E4405F] text-white p-2.5 rounded-full transition text-xl"
+                className="bg-white/10 hover:bg-[#d1973e] hover:text-[#3B1F0B] text-white p-2.5 rounded-full transition duration-300 text-xl border border-white/10 hover:border-[#d1973e]"
                 aria-label="Instagram"
               >
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -68,7 +79,7 @@ const Footer = () => {
                 href="#" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="bg-[#1DA1F2] hover:bg-white hover:text-[#1DA1F2] text-white p-2.5 rounded-full transition text-xl"
+                className="bg-white/10 hover:bg-[#d1973e] hover:text-[#3B1F0B] text-white p-2.5 rounded-full transition duration-300 text-xl border border-white/10 hover:border-[#d1973e]"
                 aria-label="Twitter"
               >
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -79,7 +90,7 @@ const Footer = () => {
                 href="#" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="bg-[#FF0000] hover:bg-white hover:text-[#FF0000] text-white p-2.5 rounded-full transition text-xl"
+                className="bg-white/10 hover:bg-[#d1973e] hover:text-[#3B1F0B] text-white p-2.5 rounded-full transition duration-300 text-xl border border-white/10 hover:border-[#d1973e]"
                 aria-label="YouTube"
               >
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -92,8 +103,14 @@ const Footer = () => {
         </div>
 
         {/* Bottom */}
-        <div className="border-t border-white/10 pt-6 text-center text-white/40 text-sm">
-          &copy; {new Date().getFullYear()} Exclusive 360 Journeys Ltd. All rights reserved.
+        <div className="border-t border-white/10 pt-6 flex flex-col sm:flex-row justify-between items-center gap-4 text-white/40 text-sm">
+          <span>
+            &copy; {new Date().getFullYear()} Exclusive 360 Journeys Ltd. All rights reserved.
+          </span>
+          <div className="flex gap-6">
+            <Link to="/privacy" className="hover:text-[#d1973e] transition duration-300">Privacy Policy</Link>
+            <Link to="/terms" className="hover:text-[#d1973e] transition duration-300">Terms of Service</Link>
+          </div>
         </div>
       </div>
     </footer>

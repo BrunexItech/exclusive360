@@ -1,3 +1,4 @@
+// PackagesPage.jsx
 import { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -7,6 +8,23 @@ const PackagesPage = () => {
   const cardRefs = useRef({});
   const packagesTopRef = useRef(null);
 
+  // Custom form state
+  const [customForm, setCustomForm] = useState({
+    fullName: '',
+    email: '',
+    phone: '',
+    destination: '',
+    duration: '',
+    groupSize: '',
+    budget: '',
+    travelDate: '',
+    accommodation: '',
+    interests: [],
+    specialRequests: '',
+  });
+
+  const [formSubmitted, setFormSubmitted] = useState(false);
+
   const packages = [
     {
       id: 'platinum',
@@ -14,15 +32,13 @@ const PackagesPage = () => {
       price: 'KES 650,000',
       tagline: 'The Ultimate Safari Experience',
       icon: '👑',
-      color: 'from-yellow-400 to-amber-600',
-      borderColor: 'border-yellow-400',
+      borderColor: 'border-[#d1973e]',
       badge: 'Best Seller',
       description: 'For those who seek the extraordinary. The Platinum package redefines luxury safari with exclusive access, private villas, and once-in-a-lifetime encounters.',
       whyChoose: 'Perfect for honeymooners, anniversaries, and discerning travelers who demand the very best.',
       duration: '7 Days / 6 Nights',
       groupSize: 'Private (2-6 pax)',
       accommodation: '5-star luxury lodges & private villas with butler service',
-      vehicle: 'Custom luxury 4x4 safari vehicle with pop-up roof',
       guide: 'Senior certified guide with 15+ years experience',
       included: [
         'All park entry fees and conservation levies',
@@ -36,21 +52,15 @@ const PackagesPage = () => {
         'Premium drinks and alcoholic beverages',
         'Airport transfers'
       ],
-      excluded: [
-        'International flights',
-        'Visa fees',
-        'Travel insurance',
-        'Personal items and souvenirs',
-        'Tips and gratuities'
-      ],
+      excluded: ['International flights', 'Visa fees', 'Travel insurance', 'Personal items and souvenirs', 'Tips and gratuities'],
       itinerary: [
-        { day: 1, title: 'Arrival & Welcome', desc: 'Arrive at Jomo Kenyatta International Airport. Private transfer to your luxury lodge. Welcome dinner under the stars.' },
-        { day: 2, title: 'Full Day Safari – Amboseli', desc: 'Early morning game drive in Amboseli National Park. View Mount Kilimanjaro with elephants in the foreground. Bush breakfast.' },
-        { day: 3, title: 'Lake Nakuru & Flamingos', desc: 'Fly to Lake Nakuru. Afternoon game drive to see rhinos, flamingos, and the famous tree-climbing lions.' },
-        { day: 4, title: 'Masai Mara – The Big Five', desc: 'Fly to Masai Mara National Reserve. Afternoon game drive in search of the Big Five.' },
-        { day: 5, title: 'Hot Air Balloon Safari', desc: 'Sunrise hot air balloon ride over the Mara. Champagne breakfast in the bush. Full day game drive.' },
-        { day: 6, title: 'Masai Culture & Sundowners', desc: 'Visit a Masai village and learn about their traditions. Sundowner cocktails overlooking the savanna.' },
-        { day: 7, title: 'Departure', desc: 'Morning game drive. Transfer to airstrip for flight to Nairobi. Final transfer to the airport for departure.' }
+        { day: 1, title: 'Arrival & Welcome', desc: 'Arrive at Jomo Kenyatta International Airport. Private transfer to your luxury lodge.' },
+        { day: 2, title: 'Full Day Safari – Amboseli', desc: 'Early morning game drive in Amboseli National Park. View Mount Kilimanjaro.' },
+        { day: 3, title: 'Lake Nakuru & Flamingos', desc: 'Fly to Lake Nakuru. See rhinos, flamingos, and tree-climbing lions.' },
+        { day: 4, title: 'Masai Mara – The Big Five', desc: 'Fly to Masai Mara. Afternoon game drive in search of the Big Five.' },
+        { day: 5, title: 'Hot Air Balloon Safari', desc: 'Sunrise hot air balloon ride over the Mara. Champagne breakfast in the bush.' },
+        { day: 6, title: 'Masai Culture & Sundowners', desc: 'Visit a Masai village. Sundowner cocktails overlooking the savanna.' },
+        { day: 7, title: 'Departure', desc: 'Morning game drive. Transfer to airstrip for flight to Nairobi.' }
       ],
       gallery: [
         'https://images.unsplash.com/photo-1516426122078-c23e76319801?w=600&q=80',
@@ -65,15 +75,13 @@ const PackagesPage = () => {
       price: 'KES 350,000',
       tagline: 'The Perfect Safari Balance',
       icon: '⭐',
-      color: 'from-yellow-200 to-yellow-600',
-      borderColor: 'border-yellow-300',
+      borderColor: 'border-[#d1973e]',
       badge: 'Popular Choice',
       description: 'The Gold package offers the perfect balance of luxury and value. Experience the best of African safari with premium accommodations and expert guiding.',
       whyChoose: 'Ideal for families, small groups, and travelers who want exceptional quality at a great value.',
       duration: '6 Days / 5 Nights',
       groupSize: 'Small group (4-8 pax)',
       accommodation: '4-star luxury tented camps & eco-lodges',
-      vehicle: 'Custom safari vehicle with pop-up roof',
       guide: 'Professional guide with 10+ years experience',
       included: [
         'All park entry fees and conservation levies',
@@ -84,20 +92,14 @@ const PackagesPage = () => {
         'Masai village cultural visit',
         'Airport transfers'
       ],
-      excluded: [
-        'International flights',
-        'Visa fees',
-        'Travel insurance',
-        'Personal items and souvenirs',
-        'Tips and gratuities'
-      ],
+      excluded: ['International flights', 'Visa fees', 'Travel insurance', 'Personal items and souvenirs', 'Tips and gratuities'],
       itinerary: [
-        { day: 1, title: 'Arrival & Welcome', desc: 'Arrive at Nairobi. Transfer to your luxury tented camp. Welcome dinner with traditional entertainment.' },
-        { day: 2, title: 'Lake Nakuru Safari', desc: 'Full day game drive in Lake Nakuru National Park. See rhinos, flamingos, and the famous tree-climbing lions.' },
-        { day: 3, title: 'Masai Mara Arrival', desc: 'Fly to Masai Mara National Reserve. Afternoon game drive in search of the Big Five.' },
-        { day: 4, title: 'Full Day Game Drive', desc: 'Full day safari with packed lunch. Explore the vast plains of the Mara and witness the Great Migration (seasonal).' },
-        { day: 5, title: 'Bush Breakfast & Sundowners', desc: 'Morning game drive with bush breakfast. Evening sundowner cocktail overlooking the savanna.' },
-        { day: 6, title: 'Departure', desc: 'Morning game drive. Transfer to airstrip for flight to Nairobi. Final transfer to the airport for departure.' }
+        { day: 1, title: 'Arrival & Welcome', desc: 'Arrive at Nairobi. Transfer to your luxury tented camp.' },
+        { day: 2, title: 'Lake Nakuru Safari', desc: 'Full day game drive in Lake Nakuru National Park. See rhinos and flamingos.' },
+        { day: 3, title: 'Masai Mara Arrival', desc: 'Fly to Masai Mara. Afternoon game drive in search of the Big Five.' },
+        { day: 4, title: 'Full Day Game Drive', desc: 'Full day safari with packed lunch. Witness the Great Migration (seasonal).' },
+        { day: 5, title: 'Bush Breakfast & Sundowners', desc: 'Morning game drive with bush breakfast. Evening sundowner cocktail.' },
+        { day: 6, title: 'Departure', desc: 'Morning game drive. Transfer to airstrip for flight to Nairobi.' }
       ],
       gallery: [
         'https://images.unsplash.com/photo-1516426122078-c23e76319801?w=600&q=80',
@@ -107,20 +109,18 @@ const PackagesPage = () => {
       ]
     },
     {
-      id: 'bronze',
-      tier: 'Bronze',
+      id: 'silver',
+      tier: 'Silver',
       price: 'KES 150,000',
       tagline: "The Adventurer's Choice",
       icon: '🔥',
-      color: 'from-amber-600 to-amber-800',
-      borderColor: 'border-amber-600',
+      borderColor: 'border-[#3B1F0B]',
       badge: 'Best Value',
-      description: "The Bronze package is designed for adventurers who want to experience the magic of African safari without the luxury price tag. Authentic, exciting, and memorable.",
-      whyChoose: 'Perfect for backpackers, students, and budget-conscious travelers who still want an authentic safari experience.',
+      description: "The Silver package is designed for adventurers who want to experience the magic of African safari without the luxury price tag.",
+      whyChoose: 'Perfect for backpackers, students, and budget-conscious travelers.',
       duration: '5 Days / 4 Nights',
       groupSize: 'Group (8-12 pax)',
       accommodation: '3-star budget camps & guesthouses',
-      vehicle: 'Standard safari vehicle with pop-up roof',
       guide: 'Experienced local guide with 5+ years experience',
       included: [
         'All park entry fees and conservation levies',
@@ -130,20 +130,49 @@ const PackagesPage = () => {
         'Nature walks with local guides',
         'Airport transfers'
       ],
-      excluded: [
-        'International flights',
-        'Visa fees',
-        'Travel insurance',
-        'Personal items and souvenirs',
-        'Tips and gratuities',
-        'Alcoholic drinks'
-      ],
+      excluded: ['International flights', 'Visa fees', 'Travel insurance', 'Personal items and souvenirs', 'Tips and gratuities', 'Alcoholic drinks'],
       itinerary: [
-        { day: 1, title: 'Arrival & Welcome', desc: 'Arrive at Nairobi. Transfer to your budget camp. Welcome dinner and briefing.' },
-        { day: 2, title: 'Lake Nakuru Safari', desc: 'Full day game drive in Lake Nakuru National Park. See rhinos, flamingos, and the famous tree-climbing lions.' },
-        { day: 3, title: 'Masai Mara Arrival', desc: 'Drive to Masai Mara National Reserve. Afternoon game drive in search of the Big Five.' },
-        { day: 4, title: 'Full Day Game Drive', desc: 'Full day safari with packed lunch. Explore the vast plains of the Mara.' },
-        { day: 5, title: 'Departure', desc: 'Morning game drive. Drive back to Nairobi. Final transfer to the airport for departure.' }
+        { day: 1, title: 'Arrival & Welcome', desc: 'Arrive at Nairobi. Transfer to your budget camp.' },
+        { day: 2, title: 'Lake Nakuru Safari', desc: 'Full day game drive in Lake Nakuru National Park.' },
+        { day: 3, title: 'Masai Mara Arrival', desc: 'Drive to Masai Mara. Afternoon game drive.' },
+        { day: 4, title: 'Full Day Game Drive', desc: 'Full day safari with packed lunch.' },
+        { day: 5, title: 'Departure', desc: 'Morning game drive. Drive back to Nairobi.' }
+      ],
+      gallery: [
+        'https://images.unsplash.com/photo-1516426122078-c23e76319801?w=600&q=80',
+        'https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=600&q=80',
+        'https://images.unsplash.com/photo-1564349683136-77e08dba1ef7?w=600&q=80',
+        'https://images.unsplash.com/photo-1534177616072-ef7dc120449d?w=600&q=80'
+      ]
+    },
+    {
+      id: 'custom',
+      tier: 'Custom',
+      price: 'Your Budget',
+      tagline: 'Your Dream Safari, Your Way',
+      icon: '✨',
+      borderColor: 'border-[#800020]',
+      badge: 'Tailor-Made',
+      isCustom: true,
+      description: "Design your perfect safari adventure. Tell us your preferences and we'll craft a bespoke itinerary just for you.",
+      whyChoose: 'Complete flexibility on every detail — duration, budget, destinations, activities, and accommodation.',
+      duration: 'Flexible - You Choose',
+      groupSize: 'You Choose',
+      accommodation: 'You Choose',
+      guide: 'Expert guide tailored to your interests',
+      included: [
+        'Custom itinerary designed just for you',
+        'Flexible duration based on your availability',
+        'Choice of accommodation from budget to luxury',
+        'Private or group safari options',
+        'Expert guide throughout your journey',
+        'Special interests and activities included'
+      ],
+      excluded: ['International flights', 'Visa fees', 'Travel insurance'],
+      itinerary: [
+        { day: 1, title: 'Your Journey Begins', desc: 'Tell us your dream, and we\'ll design the perfect itinerary just for you.' },
+        { day: 2, title: 'Custom Experiences', desc: 'From wildlife photography to cultural immersion — your safari, your interests.' },
+        { day: 3, title: 'Flexible Pacing', desc: 'Spend more time where you love, less where you don\'t.' }
       ],
       gallery: [
         'https://images.unsplash.com/photo-1516426122078-c23e76319801?w=600&q=80',
@@ -154,216 +183,196 @@ const PackagesPage = () => {
     }
   ];
 
-  // Function to scroll back to top of packages
+  // Handle custom form input changes
+  const handleCustomInputChange = (e) => {
+    const { name, value } = e.target;
+    setCustomForm(prev => ({ ...prev, [name]: value }));
+  };
+
+  // Handle interest toggle
+  const toggleInterest = (interest) => {
+    setCustomForm(prev => ({
+      ...prev,
+      interests: prev.interests.includes(interest)
+        ? prev.interests.filter(i => i !== interest)
+        : [...prev.interests, interest]
+    }));
+  };
+
+  // Handle custom form submission
+  const handleCustomSubmit = (e) => {
+    e.preventDefault();
+    // Send to WhatsApp
+    const message = `🦁 *CUSTOM SAFARI REQUEST*%0A%0A👤 Name: ${customForm.fullName}%0A📧 Email: ${customForm.email}%0A📱 Phone: ${customForm.phone}%0A%0A📍 Destination: ${customForm.destination}%0A📅 Duration: ${customForm.duration}%0A👥 Group Size: ${customForm.groupSize}%0A💰 Budget: ${customForm.budget}%0A🗓️ Travel Date: ${customForm.travelDate}%0A🏨 Accommodation: ${customForm.accommodation}%0A🎯 Interests: ${customForm.interests.join(', ')}%0A📝 Special Requests: ${customForm.specialRequests}`;
+    
+    const phoneNumber = '254700000000'; // Replace with actual number
+    window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
+    setFormSubmitted(true);
+  };
+
+  // Scroll to top function
   const scrollToPackagesTop = () => {
     if (packagesTopRef.current) {
       packagesTopRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
-    // Close the expanded card after scrolling
-    setTimeout(() => {
-      setExpandedId(null);
-    }, 300);
+    setTimeout(() => setExpandedId(null), 300);
   };
 
-  // Function to open WhatsApp chat (triggers the WhatsApp component)
+  // Open WhatsApp
   const openWhatsApp = () => {
-    // Find and click the WhatsApp trigger button
     const trigger = document.querySelector('.whatsapp-trigger');
-    if (trigger) {
-      trigger.click();
-    } else {
-      // Fallback: try to find by class
-      const buttons = document.querySelectorAll('button');
-      for (let btn of buttons) {
-        if (btn.classList.contains('whatsapp-trigger')) {
-          btn.click();
-          break;
-        }
-      }
-    }
+    if (trigger) trigger.click();
   };
 
   const toggleExpand = (id) => {
     if (expandedId === id) {
-      // If clicking the same card, close it and scroll to top
       scrollToPackagesTop();
     } else {
       setExpandedId(id);
-      // Scroll to card with smooth animation
       setTimeout(() => {
         const ref = cardRefs.current[id];
         if (ref) {
-          ref.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          const rect = ref.getBoundingClientRect();
+          const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+          window.scrollTo({ top: rect.top + scrollTop - 80, behavior: 'smooth' });
         }
-      }, 100);
+      }, 150);
     }
   };
 
-  const selectedPackage = packages.find(pkg => pkg.id === expandedId);
-
-  // Helper to get tier color
   const getTierColor = (tier) => {
     switch(tier) {
-      case 'Platinum': return 'text-yellow-400';
-      case 'Gold': return 'text-yellow-300';
-      case 'Bronze': return 'text-amber-600';
-      default: return 'text-darkgreen';
+      case 'Platinum': return 'text-[#d1973e]';
+      case 'Gold': return 'text-[#d1973e]';
+      case 'Silver': return 'text-[#3B1F0B]';
+      case 'Custom': return 'text-[#800020]';
+      default: return 'text-[#3B1F0B]';
     }
   };
 
   const getTierBadgeColor = (tier) => {
     switch(tier) {
-      case 'Platinum': return 'bg-yellow-400 text-darkbrown';
-      case 'Gold': return 'bg-yellow-200 text-darkbrown';
-      case 'Bronze': return 'bg-amber-700 text-white';
-      default: return 'bg-darkgreen text-white';
+      case 'Platinum': return 'bg-[#d1973e] text-white';
+      case 'Gold': return 'bg-[#d1973e] text-white';
+      case 'Silver': return 'bg-[#3B1F0B] text-white';
+      case 'Custom': return 'bg-[#800020] text-white';
+      default: return 'bg-[#3B1F0B] text-white';
     }
   };
 
+  const interestOptions = [
+    'Wildlife Photography', 'Big 5 Safari', 'Great Migration',
+    'Gorilla Trekking', 'Walking Safaris', 'Hot Air Balloon',
+    'Cultural Experiences', 'Beach Relaxation'
+  ];
+
+  const destinationOptions = ['Kenya', 'Tanzania', 'Botswana', 'South Africa', 'Rwanda', 'Namibia', 'Multiple Destinations'];
+  const durationOptions = ['3-5 Days', '6-8 Days', '9-12 Days', '13+ Days', 'Flexible'];
+  const groupOptions = ['Solo', 'Couple', '3-4 People', '5-8 People', '9-12 People', '12+ People'];
+  const budgetOptions = ['Under $2,000', '$2,000 - $5,000', '$5,000 - $10,000', '$10,000 - $20,000', '$20,000+', 'Flexible'];
+  const accommodationOptions = ['Budget Camping', 'Mid-range Lodges', 'Luxury Tented Camps', '5-star Luxury', 'Private Villas'];
+
   return (
-    <section className="pt-[85px] sm:pt-24 md:pt-28 pb-16 sm:pb-20 md:pb-24 px-4 bg-gray-50 min-h-screen">
+    <section className="pt-[85px] sm:pt-24 md:pt-28 pb-16 sm:pb-20 md:pb-24 px-4 sm:px-6 lg:px-8 bg-[#FAF5EB] min-h-screen">
       <div className="container mx-auto max-w-7xl">
-        {/* Header - with ref for scrolling back */}
-        <div ref={packagesTopRef} className="text-center mb-12 md:mb-16">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-darkgreen mb-4 font-serif">
+        {/* Header */}
+        <div ref={packagesTopRef} className="text-center mb-10 sm:mb-12 md:mb-16">
+          <span className="text-[#800020] text-xs sm:text-sm font-semibold tracking-[0.3em] uppercase">
             Choose Your Safari
+          </span>
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light text-[#3B1F0B] mt-2 font-serif tracking-wide">
+            Your <span className="text-[#800020]">Exclusive</span> Adventure
           </h1>
-          <p className="text-darkbrown text-base sm:text-lg md:text-xl max-w-2xl mx-auto">
-            Three unique ways to experience the wild. One unforgettable adventure.
+          <p className="text-[#3B1F0B]/60 text-sm sm:text-base md:text-lg max-w-2xl mx-auto mt-3 font-light leading-relaxed">
+            Four unique ways to experience the wild. One unforgettable adventure.
           </p>
-          <div className="w-24 h-1 bg-yellow-400 mx-auto mt-4"></div>
+          <div className="w-16 h-0.5 bg-[#d1973e] mx-auto mt-4"></div>
         </div>
 
-        {/* Package Cards with Sticky Stacking */}
-        <div className="space-y-8 md:space-y-12">
+        {/* Package Cards with Sticky Stacking - RESTORED */}
+        <div className="space-y-4 sm:space-y-6 md:space-y-8">
           {packages.map((pkg, index) => {
             const isExpanded = expandedId === pkg.id;
-            const isHovered = hoveredId === pkg.id;
 
             return (
               <div
                 key={pkg.id}
                 ref={(el) => (cardRefs.current[pkg.id] = el)}
                 className={`
-                  sticky top-4 sm:top-8 md:top-20 
                   transition-all duration-700 ease-in-out
-                  ${isExpanded ? 'z-30' : 'z-10'}
-                  ${isExpanded ? 'scale-100' : 'hover:scale-[1.01]'}
+                  sticky top-[85px] sm:top-24 md:top-28
+                  ${isExpanded ? 'z-30 scale-100' : 'z-10 hover:scale-[1.01]'}
+                  ${isExpanded ? 'mb-8' : 'mb-0'}
                 `}
                 style={{
                   transform: isExpanded ? 'scale(1)' : 'scale(0.98)',
                   opacity: isExpanded ? 1 : 0.95,
-                  marginTop: index === 0 ? '0' : `${index * 20}px`
+                  marginTop: index === 0 ? '0' : `${Math.min(index * 15, 40)}px`
                 }}
                 onMouseEnter={() => setHoveredId(pkg.id)}
                 onMouseLeave={() => setHoveredId(null)}
               >
                 <div className={`
-                  bg-white rounded-2xl overflow-hidden shadow-lg 
+                  bg-white rounded-xl sm:rounded-2xl overflow-hidden shadow-md 
                   transition-all duration-500 ease-in-out
-                  ${isExpanded ? 'shadow-2xl ring-2 ring-yellow-400/50' : 'shadow-lg hover:shadow-xl'}
+                  ${isExpanded ? 'shadow-2xl ring-2 ring-[#800020]/20' : 'hover:shadow-xl'}
                   ${isExpanded ? 'border-t-4' : 'border-t-0'}
                   ${pkg.borderColor}
                 `}>
-                  {/* Card Content */}
                   <div className="flex flex-col lg:flex-row">
-                    {/* Left - Visual (60%) */}
-                    <div className="lg:w-[60%] relative min-h-[300px] sm:min-h-[400px] lg:min-h-[500px] bg-darkgreen/10 overflow-hidden">
-                      {/* Background Image with Safari Gradient Overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-br from-[#800020] via-[#3B1F0B] to-[#1B3B1B]">
-                        {/* Animated Pattern */}
-                        <div className="absolute inset-0 opacity-20">
+                    {/* Left Side - Visual */}
+                    <div className="lg:w-2/5 relative min-h-[180px] sm:min-h-[220px] md:min-h-[280px] lg:min-h-[350px] bg-[#3B1F0B] overflow-hidden">
+                      <div className={`absolute inset-0 bg-gradient-to-br ${pkg.isCustom ? 'from-[#800020] via-[#3B1F0B] to-[#4A5D23]' : 'from-[#3B1F0B] via-[#4A5D23] to-[#2a1a0a]'}`}>
+                        <div className="absolute inset-0 opacity-10">
                           <div className="absolute inset-0" style={{
-                            backgroundImage: `
-                              repeating-linear-gradient(
-                                45deg,
-                                transparent,
-                                transparent 20px,
-                                rgba(255, 255, 255, 0.05) 20px,
-                                rgba(255, 255, 255, 0.05) 21px
-                              ),
-                              repeating-linear-gradient(
-                                -45deg,
-                                transparent,
-                                transparent 20px,
-                                rgba(255, 255, 255, 0.05) 20px,
-                                rgba(255, 255, 255, 0.05) 21px
-                              )
-                            `,
-                            animation: 'shimmer 8s linear infinite',
-                            backgroundSize: '60px 60px'
+                            backgroundImage: `repeating-linear-gradient(45deg, transparent, transparent 20px, rgba(255,255,255,0.05) 20px, rgba(255,255,255,0.05) 21px)`,
+                            backgroundSize: '40px 40px'
                           }} />
                         </div>
+                        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[#3B1F0B] to-transparent"></div>
+                        <div className="absolute bottom-2 left-4 text-4xl sm:text-5xl opacity-10">🦒</div>
+                        <div className="absolute bottom-4 right-6 text-3xl sm:text-4xl opacity-10">🐘</div>
                       </div>
 
-                      {/* Package Icon and Tier Badge - Overlay */}
-                      <div className="absolute inset-0 flex flex-col items-center justify-center z-10 p-6 text-white">
-                        <div className="text-6xl sm:text-7xl md:text-8xl mb-3 animate-fade-in-up">
-                          {pkg.icon}
-                        </div>
-                        <div className={`
-                          text-2xl sm:text-3xl md:text-4xl font-bold font-serif mb-2
-                          ${getTierColor(pkg.tier)}
-                        `}>
+                      <div className="absolute inset-0 flex flex-col items-center justify-center z-10 p-4 sm:p-6 text-white">
+                        <div className="text-4xl sm:text-5xl md:text-6xl mb-1 sm:mb-2">{pkg.icon}</div>
+                        <div className={`text-xl sm:text-2xl md:text-3xl font-light font-serif mb-1 tracking-wide ${getTierColor(pkg.tier)}`}>
                           {pkg.tier}
                         </div>
-                        <div className="text-sm sm:text-base md:text-lg text-white/80 text-center max-w-xs">
+                        <div className="text-xs sm:text-sm md:text-base text-white/70 text-center max-w-xs font-light px-2">
                           {pkg.tagline}
                         </div>
-                        <div className="mt-4">
-                          <span className={`
-                            inline-block text-xs sm:text-sm font-bold px-4 py-1.5 rounded-full
-                            ${getTierBadgeColor(pkg.tier)}
-                          `}>
+                        <div className="mt-2 sm:mt-3 flex flex-wrap items-center gap-1 sm:gap-2 justify-center">
+                          <span className={`inline-block text-[10px] sm:text-xs font-semibold px-3 sm:px-4 py-1 rounded-full tracking-wider ${getTierBadgeColor(pkg.tier)}`}>
                             {pkg.badge}
                           </span>
+                          {pkg.isCustom && (
+                            <span className="inline-block text-[10px] sm:text-xs font-semibold px-2 sm:px-3 py-1 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 text-white tracking-wider">
+                              ✦ Build Your Dream ✦
+                            </span>
+                          )}
                         </div>
                       </div>
 
-                      {/* Back Button - Only shows when expanded */}
-                      {isExpanded && (
-                        <div className="absolute top-4 left-4 z-20">
-                          <button
-                            onClick={scrollToPackagesTop}
-                            className="bg-white/90 hover:bg-white text-darkbrown px-4 py-2 rounded-lg text-sm font-semibold shadow-md hover:shadow-lg transition-all duration-300 flex items-center gap-2"
-                          >
-                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                            </svg>
-                            Back
-                          </button>
-                        </div>
-                      )}
-
-                      {/* Expand/Close Details Button */}
-                      <div className="absolute bottom-4 right-4 z-20">
+                      <div className="absolute bottom-3 right-3 z-20">
                         <button
                           onClick={() => {
-                            if (isExpanded) {
-                              scrollToPackagesTop();
-                            } else {
-                              toggleExpand(pkg.id);
-                            }
+                            if (isExpanded) scrollToPackagesTop();
+                            else toggleExpand(pkg.id);
                           }}
-                          className={`
-                            bg-white/90 hover:bg-white text-darkbrown 
-                            px-4 py-2 rounded-lg text-sm font-semibold
-                            transition-all duration-300
-                            flex items-center gap-2
-                            ${isExpanded ? 'shadow-lg' : 'shadow-md hover:shadow-lg'}
-                          `}
+                          className={`bg-white/90 hover:bg-white text-[#3B1F0B] px-2.5 sm:px-4 py-1.5 sm:py-2 rounded-lg text-[10px] sm:text-xs font-semibold transition-all duration-300 flex items-center gap-1 sm:gap-2 ${isExpanded ? 'shadow-lg' : 'shadow-md hover:shadow-lg'}`}
                         >
                           {isExpanded ? (
                             <>
-                              <span>Close Details</span>
-                              <svg className="w-4 h-4 rotate-180 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <span>Close</span>
+                              <svg className="w-3 h-3 sm:w-4 sm:h-4 rotate-180 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
                               </svg>
                             </>
                           ) : (
                             <>
                               <span>View Details</span>
-                              <svg className="w-4 h-4 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <svg className="w-3 h-3 sm:w-4 sm:h-4 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                               </svg>
                             </>
@@ -372,149 +381,280 @@ const PackagesPage = () => {
                       </div>
                     </div>
 
-                    {/* Right - Details (40%) */}
-                    <div className="lg:w-[40%] p-6 md:p-8 flex flex-col justify-between bg-white">
+                    {/* Right Side - Details */}
+                    <div className="lg:w-3/5 p-4 sm:p-5 md:p-6 lg:p-8 flex flex-col justify-between bg-white">
                       <div>
-                        <div className="flex items-start justify-between gap-4">
-                          <div>
-                            <h3 className="text-xl sm:text-2xl font-bold text-darkgreen">
+                        <div className="flex flex-wrap items-start justify-between gap-2">
+                          <div className="flex-1 min-w-[120px]">
+                            <h3 className="text-lg sm:text-xl md:text-2xl font-light text-[#3B1F0B] font-serif tracking-wide">
                               {pkg.tier}
                             </h3>
-                            <p className="text-sm text-darkbrown/60 mt-0.5">{pkg.duration}</p>
+                            <p className="text-xs sm:text-sm text-[#3B1F0B]/50 mt-0.5 font-light">{pkg.duration}</p>
                           </div>
                           <div className="text-right">
-                            <div className="text-2xl sm:text-3xl font-extrabold text-darkbrown">
+                            <div className={`text-xl sm:text-2xl md:text-3xl font-light ${pkg.isCustom ? 'text-[#800020]' : 'text-[#3B1F0B]'}`}>
                               {pkg.price}
                             </div>
-                            <div className="text-xs text-darkbrown/50">per person</div>
+                            <div className="text-[10px] sm:text-xs text-[#3B1F0B]/40 font-light">per person</div>
                           </div>
                         </div>
 
-                        <p className="text-darkbrown/70 text-sm mt-3 line-clamp-2">
+                        <p className="text-[#3B1F0B]/60 text-xs sm:text-sm mt-2 font-light leading-relaxed line-clamp-2">
                           {pkg.tagline}
                         </p>
 
-                        {/* Quick Specs */}
-                        <div className="mt-4 grid grid-cols-2 gap-2">
-                          <div className="bg-gray-50 rounded-lg p-2 text-center">
-                            <div className="text-xs text-darkbrown/50">Duration</div>
-                            <div className="text-sm font-semibold text-darkgreen">{pkg.duration}</div>
+                        <div className="mt-3 grid grid-cols-2 gap-1.5 sm:gap-2">
+                          <div className="bg-[#FAF5EB] rounded-lg p-1.5 sm:p-2 text-center">
+                            <div className="text-[9px] sm:text-xs text-[#3B1F0B]/40 font-light tracking-wider">Duration</div>
+                            <div className="text-xs sm:text-sm font-medium text-[#3B1F0B]">{pkg.duration}</div>
                           </div>
-                          <div className="bg-gray-50 rounded-lg p-2 text-center">
-                            <div className="text-xs text-darkbrown/50">Group</div>
-                            <div className="text-sm font-semibold text-darkgreen">{pkg.groupSize}</div>
+                          <div className="bg-[#FAF5EB] rounded-lg p-1.5 sm:p-2 text-center">
+                            <div className="text-[9px] sm:text-xs text-[#3B1F0B]/40 font-light tracking-wider">Group</div>
+                            <div className="text-xs sm:text-sm font-medium text-[#3B1F0B]">{pkg.groupSize}</div>
                           </div>
                         </div>
 
-                        {/* Expanded Content - Slides down with animation */}
-                        <div className={`
-                          overflow-hidden transition-all duration-700 ease-in-out
-                          ${isExpanded ? 'max-h-[5000px] opacity-100 mt-6' : 'max-h-0 opacity-0'}
-                        `}>
-                          <div className="space-y-6 animate-fade-in">
-                            {/* Description */}
-                            <div>
-                              <h4 className="text-sm font-semibold text-darkgreen uppercase tracking-wider mb-1">
-                                About This Package
-                              </h4>
-                              <p className="text-darkbrown/80 text-sm leading-relaxed">
-                                {pkg.description}
-                              </p>
-                              <p className="text-darkgreen/70 text-sm italic mt-2">
-                                {pkg.whyChoose}
-                              </p>
-                            </div>
-
-                            {/* Accommodation & Guide */}
-                            <div className="grid grid-cols-2 gap-3">
-                              <div className="bg-gray-50 rounded-lg p-3">
-                                <div className="text-xs text-darkbrown/50">Accommodation</div>
-                                <div className="text-sm font-medium text-darkgreen mt-0.5">{pkg.accommodation}</div>
-                              </div>
-                              <div className="bg-gray-50 rounded-lg p-3">
-                                <div className="text-xs text-darkbrown/50">Guide</div>
-                                <div className="text-sm font-medium text-darkgreen mt-0.5">{pkg.guide}</div>
-                              </div>
-                            </div>
-
-                            {/* What's Included */}
-                            <div>
-                              <h4 className="text-sm font-semibold text-darkgreen uppercase tracking-wider mb-2">
-                                ✅ What's Included
-                              </h4>
-                              <ul className="grid grid-cols-1 sm:grid-cols-2 gap-1">
-                                {pkg.included.map((item, idx) => (
-                                  <li key={idx} className="flex items-start gap-2 text-sm text-darkbrown/80">
-                                    <span className="text-green-600 mt-0.5">✓</span>
-                                    <span>{item}</span>
-                                  </li>
-                                ))}
-                              </ul>
-                            </div>
-
-                            {/* What's Not Included */}
-                            <div>
-                              <h4 className="text-sm font-semibold text-darkgreen uppercase tracking-wider mb-2">
-                                ❌ What's Not Included
-                              </h4>
-                              <ul className="grid grid-cols-1 sm:grid-cols-2 gap-1">
-                                {pkg.excluded.map((item, idx) => (
-                                  <li key={idx} className="flex items-start gap-2 text-sm text-darkbrown/80">
-                                    <span className="text-red-500 mt-0.5">✗</span>
-                                    <span>{item}</span>
-                                  </li>
-                                ))}
-                              </ul>
-                            </div>
-
-                            {/* Itinerary */}
-                            <div>
-                              <h4 className="text-sm font-semibold text-darkgreen uppercase tracking-wider mb-2">
-                                🗓️ Itinerary
-                              </h4>
-                              <div className="space-y-2 max-h-[400px] overflow-y-auto pr-2">
-                                {pkg.itinerary.map((day, idx) => (
-                                  <div key={idx} className="border-l-4 border-yellow-400 pl-3 py-2 bg-gray-50 rounded-r-lg">
-                                    <div className="flex items-center gap-2">
-                                      <span className="font-bold text-darkgreen text-sm">Day {day.day}:</span>
-                                      <span className="font-semibold text-darkbrown text-sm">{day.title}</span>
-                                    </div>
-                                    <p className="text-sm text-darkbrown/70 mt-0.5">{day.desc}</p>
+                        {/* Expanded Content */}
+                        <div className={`overflow-hidden transition-all duration-700 ease-in-out ${isExpanded ? 'max-h-[9999px] opacity-100 mt-4 sm:mt-6' : 'max-h-0 opacity-0'}`}>
+                          <div className="space-y-4 sm:space-y-6 animate-fade-in">
+                            {pkg.isCustom ? (
+                              // CUSTOM FORM - Clients fill in their preferences here
+                              <div>
+                                <h4 className="text-[10px] sm:text-xs font-semibold text-[#800020] uppercase tracking-[0.2em] mb-3">
+                                  ✦ Build Your Custom Safari
+                                </h4>
+                                {formSubmitted ? (
+                                  <div className="bg-green-50 border border-green-200 rounded-lg p-4 text-center">
+                                    <div className="text-3xl mb-2">🎉</div>
+                                    <p className="text-[#3B1F0B] font-semibold">Your custom safari request has been sent!</p>
+                                    <p className="text-[#3B1F0B]/60 text-sm mt-1">Our team will get back to you within 24 hours.</p>
+                                    <button
+                                      onClick={() => setFormSubmitted(false)}
+                                      className="mt-3 text-[#800020] font-semibold text-sm hover:underline"
+                                    >
+                                      Submit Another Request
+                                    </button>
                                   </div>
-                                ))}
+                                ) : (
+                                  <form onSubmit={handleCustomSubmit} className="space-y-3">
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                                      <input
+                                        type="text"
+                                        name="fullName"
+                                        placeholder="Full Name *"
+                                        value={customForm.fullName}
+                                        onChange={handleCustomInputChange}
+                                        required
+                                        className="w-full px-3 py-2 rounded-lg border border-[#3B1F0B]/20 focus:border-[#800020] focus:ring-1 focus:ring-[#800020] transition outline-none text-sm"
+                                      />
+                                      <input
+                                        type="email"
+                                        name="email"
+                                        placeholder="Email Address *"
+                                        value={customForm.email}
+                                        onChange={handleCustomInputChange}
+                                        required
+                                        className="w-full px-3 py-2 rounded-lg border border-[#3B1F0B]/20 focus:border-[#800020] focus:ring-1 focus:ring-[#800020] transition outline-none text-sm"
+                                      />
+                                    </div>
+                                    <input
+                                      type="tel"
+                                      name="phone"
+                                      placeholder="Phone Number *"
+                                      value={customForm.phone}
+                                      onChange={handleCustomInputChange}
+                                      required
+                                      className="w-full px-3 py-2 rounded-lg border border-[#3B1F0B]/20 focus:border-[#800020] focus:ring-1 focus:ring-[#800020] transition outline-none text-sm"
+                                    />
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                                      <select
+                                        name="destination"
+                                        value={customForm.destination}
+                                        onChange={handleCustomInputChange}
+                                        className="w-full px-3 py-2 rounded-lg border border-[#3B1F0B]/20 focus:border-[#800020] focus:ring-1 focus:ring-[#800020] transition outline-none text-sm bg-white"
+                                      >
+                                        <option value="">Select Destination</option>
+                                        {destinationOptions.map(d => <option key={d} value={d}>{d}</option>)}
+                                      </select>
+                                      <select
+                                        name="duration"
+                                        value={customForm.duration}
+                                        onChange={handleCustomInputChange}
+                                        className="w-full px-3 py-2 rounded-lg border border-[#3B1F0B]/20 focus:border-[#800020] focus:ring-1 focus:ring-[#800020] transition outline-none text-sm bg-white"
+                                      >
+                                        <option value="">Select Duration</option>
+                                        {durationOptions.map(d => <option key={d} value={d}>{d}</option>)}
+                                      </select>
+                                    </div>
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                                      <select
+                                        name="groupSize"
+                                        value={customForm.groupSize}
+                                        onChange={handleCustomInputChange}
+                                        className="w-full px-3 py-2 rounded-lg border border-[#3B1F0B]/20 focus:border-[#800020] focus:ring-1 focus:ring-[#800020] transition outline-none text-sm bg-white"
+                                      >
+                                        <option value="">Group Size</option>
+                                        {groupOptions.map(d => <option key={d} value={d}>{d}</option>)}
+                                      </select>
+                                      <select
+                                        name="budget"
+                                        value={customForm.budget}
+                                        onChange={handleCustomInputChange}
+                                        className="w-full px-3 py-2 rounded-lg border border-[#3B1F0B]/20 focus:border-[#800020] focus:ring-1 focus:ring-[#800020] transition outline-none text-sm bg-white"
+                                      >
+                                        <option value="">Budget Range</option>
+                                        {budgetOptions.map(d => <option key={d} value={d}>{d}</option>)}
+                                      </select>
+                                    </div>
+                                    <input
+                                      type="date"
+                                      name="travelDate"
+                                      value={customForm.travelDate}
+                                      onChange={handleCustomInputChange}
+                                      className="w-full px-3 py-2 rounded-lg border border-[#3B1F0B]/20 focus:border-[#800020] focus:ring-1 focus:ring-[#800020] transition outline-none text-sm"
+                                    />
+                                    <select
+                                      name="accommodation"
+                                      value={customForm.accommodation}
+                                      onChange={handleCustomInputChange}
+                                      className="w-full px-3 py-2 rounded-lg border border-[#3B1F0B]/20 focus:border-[#800020] focus:ring-1 focus:ring-[#800020] transition outline-none text-sm bg-white"
+                                    >
+                                      <option value="">Accommodation Preference</option>
+                                      {accommodationOptions.map(d => <option key={d} value={d}>{d}</option>)}
+                                    </select>
+                                    <div>
+                                      <p className="text-xs text-[#3B1F0B]/60 mb-1">Your Interests (click to select)</p>
+                                      <div className="flex flex-wrap gap-1">
+                                        {interestOptions.map(interest => (
+                                          <button
+                                            key={interest}
+                                            type="button"
+                                            onClick={() => toggleInterest(interest)}
+                                            className={`px-2 py-1 rounded-full text-xs transition ${customForm.interests.includes(interest) ? 'bg-[#800020] text-white' : 'bg-[#FAF5EB] text-[#3B1F0B]'}`}
+                                          >
+                                            {interest}
+                                          </button>
+                                        ))}
+                                      </div>
+                                    </div>
+                                    <textarea
+                                      name="specialRequests"
+                                      placeholder="Special requests or preferences..."
+                                      value={customForm.specialRequests}
+                                      onChange={handleCustomInputChange}
+                                      rows="2"
+                                      className="w-full px-3 py-2 rounded-lg border border-[#3B1F0B]/20 focus:border-[#800020] focus:ring-1 focus:ring-[#800020] transition outline-none text-sm resize-y"
+                                    />
+                                    <button
+                                      type="submit"
+                                      className="w-full bg-[#800020] hover:bg-[#3B1F0B] text-white py-2.5 rounded-lg font-semibold transition"
+                                    >
+                                      ✧ Submit Custom Safari Request
+                                    </button>
+                                  </form>
+                                )}
                               </div>
-                            </div>
+                            ) : (
+                              // Regular package details
+                              <>
+                                <div>
+                                  <h4 className="text-[10px] sm:text-xs font-semibold text-[#800020] uppercase tracking-[0.2em] mb-1">
+                                    About This Package
+                                  </h4>
+                                  <p className="text-[#3B1F0B]/70 text-xs sm:text-sm leading-relaxed font-light">
+                                    {pkg.description}
+                                  </p>
+                                  <p className="text-[#800020]/70 text-xs sm:text-sm italic mt-1 font-light">
+                                    {pkg.whyChoose}
+                                  </p>
+                                </div>
 
-                            {/* Gallery */}
-                            <div>
-                              <h4 className="text-sm font-semibold text-darkgreen uppercase tracking-wider mb-2">
-                                📸 Safari Moments
-                              </h4>
-                              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                                {pkg.gallery.map((img, idx) => (
-                                  <img
-                                    key={idx}
-                                    src={img}
-                                    alt={`Safari ${idx + 1}`}
-                                    className="rounded-lg h-20 w-full object-cover hover:scale-105 transition duration-300 cursor-pointer"
-                                    loading="lazy"
-                                  />
-                                ))}
-                              </div>
-                            </div>
+                                <div className="grid grid-cols-2 gap-2 sm:gap-3">
+                                  <div className="bg-[#FAF5EB] rounded-lg p-2 sm:p-3">
+                                    <div className="text-[9px] sm:text-xs text-[#3B1F0B]/40 font-light tracking-wider">Accommodation</div>
+                                    <div className="text-xs sm:text-sm font-medium text-[#3B1F0B] mt-0.5">{pkg.accommodation}</div>
+                                  </div>
+                                  <div className="bg-[#FAF5EB] rounded-lg p-2 sm:p-3">
+                                    <div className="text-[9px] sm:text-xs text-[#3B1F0B]/40 font-light tracking-wider">Guide</div>
+                                    <div className="text-xs sm:text-sm font-medium text-[#3B1F0B] mt-0.5">{pkg.guide}</div>
+                                  </div>
+                                </div>
 
-                            {/* CTA Buttons - Open WhatsApp */}
-                            <div className="pt-4 border-t border-gray-200">
-                              <div className="flex flex-col sm:flex-row gap-3">
+                                <div>
+                                  <h4 className="text-[10px] sm:text-xs font-semibold text-[#800020] uppercase tracking-[0.2em] mb-1">✅ What's Included</h4>
+                                  <ul className="grid grid-cols-1 sm:grid-cols-2 gap-0.5 sm:gap-1">
+                                    {pkg.included.map((item, idx) => (
+                                      <li key={idx} className="flex items-start gap-1.5 sm:gap-2 text-xs sm:text-sm text-[#3B1F0B]/70 font-light">
+                                        <span className="text-[#4A5D23] mt-0.5">✓</span>
+                                        <span>{item}</span>
+                                      </li>
+                                    ))}
+                                  </ul>
+                                </div>
+
+                                <div>
+                                  <h4 className="text-[10px] sm:text-xs font-semibold text-[#800020] uppercase tracking-[0.2em] mb-1">❌ What's Not Included</h4>
+                                  <ul className="grid grid-cols-1 sm:grid-cols-2 gap-0.5 sm:gap-1">
+                                    {pkg.excluded.map((item, idx) => (
+                                      <li key={idx} className="flex items-start gap-1.5 sm:gap-2 text-xs sm:text-sm text-[#3B1F0B]/70 font-light">
+                                        <span className="text-red-500 mt-0.5">✗</span>
+                                        <span>{item}</span>
+                                      </li>
+                                    ))}
+                                  </ul>
+                                </div>
+
+                                <div>
+                                  <h4 className="text-[10px] sm:text-xs font-semibold text-[#800020] uppercase tracking-[0.2em] mb-1">🗓️ Itinerary</h4>
+                                  <div className="space-y-1.5 sm:space-y-2 max-h-[200px] sm:max-h-[250px] overflow-y-auto pr-1 sm:pr-2">
+                                    {pkg.itinerary.map((day, idx) => (
+                                      <div key={idx} className="border-l-2 border-[#d1973e] pl-2 sm:pl-3 py-1.5 sm:py-2 bg-[#FAF5EB] rounded-r-lg">
+                                        <div className="flex flex-wrap items-center gap-1 sm:gap-2">
+                                          <span className="font-semibold text-[#800020] text-[10px] sm:text-xs tracking-wider">Day {day.day}</span>
+                                          <span className="font-medium text-[#3B1F0B] text-xs sm:text-sm">{day.title}</span>
+                                        </div>
+                                        <p className="text-[10px] sm:text-xs text-[#3B1F0B]/60 mt-0.5 font-light">{day.desc}</p>
+                                      </div>
+                                    ))}
+                                  </div>
+                                </div>
+
+                                <div>
+                                  <h4 className="text-[10px] sm:text-xs font-semibold text-[#800020] uppercase tracking-[0.2em] mb-1">📸 Safari Moments</h4>
+                                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5 sm:gap-2">
+                                    {pkg.gallery.map((img, idx) => (
+                                      <img key={idx} src={img} alt={`Safari ${idx + 1}`} className="rounded-lg h-12 sm:h-16 w-full object-cover hover:scale-105 transition duration-300 cursor-pointer" loading="lazy" />
+                                    ))}
+                                  </div>
+                                </div>
+                              </>
+                            )}
+
+                            {/* CTA Buttons */}
+                            <div className="pt-3 sm:pt-4 border-t border-[#FAF5EB]">
+                              <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
+                                {pkg.isCustom ? (
+                                  <button
+                                    onClick={() => {
+                                      if (!formSubmitted) {
+                                        document.querySelector('form')?.dispatchEvent(new Event('submit', { cancelable: true }));
+                                      }
+                                    }}
+                                    className="flex-1 bg-[#800020] hover:bg-[#3B1F0B] text-white px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg font-semibold transition text-center text-sm sm:text-base"
+                                  >
+                                    ✧ Submit Custom Safari
+                                  </button>
+                                ) : (
+                                  <button
+                                    onClick={openWhatsApp}
+                                    className="flex-1 bg-[#d1973e] hover:bg-[#c4882a] text-white px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg font-semibold transition text-center text-sm sm:text-base"
+                                  >
+                                    Book Now
+                                  </button>
+                                )}
                                 <button
                                   onClick={openWhatsApp}
-                                  className="flex-1 bg-yellow-400 hover:bg-yellow-500 text-darkbrown px-6 py-3 rounded-lg font-bold transition text-center"
-                                >
-                                  Book Now
-                                </button>
-                                <button
-                                  onClick={openWhatsApp}
-                                  className="flex-1 border-2 border-darkgreen/20 hover:border-darkgreen text-darkgreen px-6 py-3 rounded-lg font-semibold transition text-center"
+                                  className="flex-1 border-2 border-[#3B1F0B]/20 hover:border-[#800020] text-[#3B1F0B] px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg font-semibold transition text-center text-sm sm:text-base"
                                 >
                                   Talk to an Expert
                                 </button>
@@ -531,24 +671,34 @@ const PackagesPage = () => {
           })}
         </div>
 
-        {/* Bottom CTA - Opens WhatsApp */}
-        <div className="text-center mt-16 md:mt-24">
-          <div className="bg-darkgreen/5 rounded-2xl p-8 md:p-12 max-w-3xl mx-auto">
-            <h3 className="text-2xl sm:text-3xl font-bold text-darkgreen mb-2">
+        {/* Bottom CTA */}
+        <div className="text-center mt-12 sm:mt-16 md:mt-24">
+          <div className="bg-[#FAF5EB]/80 backdrop-blur-sm rounded-2xl p-6 sm:p-8 md:p-12 max-w-3xl mx-auto border border-[#800020]/10">
+            <h3 className="text-xl sm:text-2xl md:text-3xl font-light text-[#3B1F0B] mb-2 font-serif tracking-wide">
               Not sure which package is right for you?
             </h3>
-            <p className="text-darkbrown/70 mb-6">
+            <p className="text-[#3B1F0B]/60 text-sm sm:text-base mb-4 sm:mb-6 font-light">
               Our safari experts will help you choose the perfect experience for your needs.
             </p>
             <button
               onClick={openWhatsApp}
-              className="inline-block bg-yellow-400 hover:bg-yellow-500 text-darkbrown px-8 py-3 rounded-lg font-bold transition"
+              className="inline-block bg-[#800020] hover:bg-[#3B1F0B] text-white px-6 sm:px-8 py-2.5 sm:py-3 rounded-lg font-semibold transition transform hover:scale-105 text-sm sm:text-base"
             >
               Talk to an Expert
             </button>
           </div>
         </div>
       </div>
+
+      <style jsx>{`
+        @keyframes fade-in {
+          from { opacity: 0; transform: translateY(10px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+          animation: fade-in 0.5s ease-out forwards;
+        }
+      `}</style>
     </section>
   );
 };

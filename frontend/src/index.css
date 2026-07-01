@@ -152,6 +152,16 @@
     }
   }
 
+  /* Signature Drawing Animation */
+  @keyframes drawSignature {
+    from {
+      stroke-dashoffset: 1000;
+    }
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
   .animate-shimmer {
     animation: shimmer 3s infinite;
   }
@@ -196,6 +206,10 @@
     animation: particleFloat 3s ease-out infinite;
   }
 
+  .animate-draw-signature {
+    animation: drawSignature 2.5s ease-out forwards;
+  }
+
   .typewriter {
     overflow: hidden;
     white-space: nowrap;
@@ -217,6 +231,54 @@
 
   /* Paper texture overlay */
   .paper-texture {
-    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg%3E%3Crect width='60' height='60' fill='none'/%3E%3Crect x='0' y='0' width='60' height='60' fill='rgba(245, 240, 232, 0.4)'/%3E%3C/g%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg%3E%3Crect width='60' height='60' fill='none'/%3E%3Crect x='0' y='0' width='60' height='60' fill='rgba(250, 245, 235, 0.6)'/%3E%3C/g%3E%3C/svg%3E");
   }
+
+  /* Perspective utility for 3D book */
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+
+  /* Story paragraph styling */
+  .story-paragraph {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-weight: 300;
+    line-height: 1.8;
+  }
+
+  /* Script text styling */
+  .font-script {
+    font-family: 'Great Vibes', cursive;
+  }
+
+  /* Elegant serif headings */
+  .font-serif-heading {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-weight: 300;
+  }
+}
+
+/* Base styles */
+body {
+  background-color: #FAF5EB;
+  color: #3B1F0B;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #FAF5EB;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #800020;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #3B1F0B;
 }

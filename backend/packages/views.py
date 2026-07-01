@@ -64,6 +64,7 @@ def packages_api(request):
             'price': pkg.price,
             'color': pkg.color,
             'features': pkg.features,
+            'is_custom': pkg.is_custom,  # Added this flag for frontend
         })
     return JsonResponse(data, safe=False)
 

@@ -1,156 +1,168 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
+// Export destinations so other components can use the data
+export const destinations = [
+  {
+    id: 'kenya',
+    name: 'Kenya',
+    region: 'East Africa',
+    image: 'https://images.unsplash.com/photo-1614531341773-3bff8b7cb3fc?w=800&q=80',
+    description: 'Home to the Great Migration, Maasai culture, and iconic savanna landscapes.',
+    attractions: ['Maasai Mara', 'Great Migration', 'Big 5', 'Maasai Culture'],
+    bestTime: 'Jun - Oct',
+    price: 'From $5,000',
+    rating: 4.9,
+    duration: '7-10 Days',
+    wildlife: 'Big 5',
+    badge: 'Great Migration'
+  },
+  {
+    id: 'tanzania',
+    name: 'Tanzania',
+    region: 'East Africa',
+    image: 'https://images.unsplash.com/photo-1589177900326-900782f88a55?w=800&q=80',
+    description: 'Serengeti plains, Mount Kilimanjaro, and Zanzibar beaches.',
+    attractions: ['Serengeti', 'Ngorongoro Crater', 'Kilimanjaro', 'Zanzibar'],
+    bestTime: 'Jun - Sep',
+    price: 'From $6,500',
+    rating: 4.8,
+    duration: '8-12 Days',
+    wildlife: 'Big 5',
+    badge: 'Big 5 Safari'
+  },
+  {
+    id: 'botswana',
+    name: 'Botswana',
+    region: 'Southern Africa',
+    image: 'https://images.unsplash.com/photo-1591005383946-16532ba69aee?w=800&q=80',
+    description: 'Okavango Delta, elephant herds, and luxury tented camps.',
+    attractions: ['Okavango Delta', 'Chobe River', 'Elephant Herds', 'Luxury Camps'],
+    bestTime: 'May - Oct',
+    price: 'From $8,000',
+    rating: 4.9,
+    duration: '7-14 Days',
+    wildlife: 'Elephant Capital',
+    badge: 'Luxury Safari'
+  },
+  {
+    id: 'south-africa',
+    name: 'South Africa',
+    region: 'Southern Africa',
+    image: 'https://plus.unsplash.com/premium_photo-1697730061063-ad499e343f26?w=800&q=80',
+    description: 'Cape Town, Kruger National Park, and world-class winelands.',
+    attractions: ['Cape Town', 'Kruger Park', 'Winelands', 'Garden Route'],
+    bestTime: 'May - Sep',
+    price: 'From $4,500',
+    rating: 4.7,
+    duration: '5-10 Days',
+    wildlife: 'Big 5',
+    badge: 'Diverse Experiences'
+  },
+  {
+    id: 'rwanda',
+    name: 'Rwanda',
+    region: 'East Africa',
+    image: 'https://images.unsplash.com/photo-1489640818597-89b1edc97db5?w=800&q=80',
+    description: 'Mountain gorilla trekking in the misty Volcanoes National Park.',
+    attractions: ['Gorilla Trekking', 'Volcanoes NP', 'Lake Kivu', 'Kigali'],
+    bestTime: 'Jun - Sep',
+    price: 'From $7,500',
+    rating: 4.9,
+    duration: '3-5 Days',
+    wildlife: 'Mountain Gorillas',
+    badge: 'Gorilla Trekking'
+  },
+  {
+    id: 'namibia',
+    name: 'Namibia',
+    region: 'Southern Africa',
+    image: 'https://images.unsplash.com/photo-1545200381-89c298dea43d?w=800&q=80',
+    description: 'Towering sand dunes, Sossusvlei, and desert-adapted wildlife.',
+    attractions: ['Sossusvlei', 'Etosha NP', 'Skeleton Coast', 'Sand Dunes'],
+    bestTime: 'May - Oct',
+    price: 'From $5,500',
+    rating: 4.7,
+    duration: '7-10 Days',
+    wildlife: 'Desert Wildlife',
+    badge: 'Desert Adventure'
+  },
+  {
+    id: 'uganda',
+    name: 'Uganda',
+    region: 'East Africa',
+    image: 'https://plus.unsplash.com/premium_photo-1661876679866-dcad0b7d0742?w=800&q=80',
+    description: 'Chimpanzee tracking, lush rainforests, and the Source of the Nile.',
+    attractions: ['Chimpanzees', 'Bwindi Forest', 'Source of Nile', 'Rainforests'],
+    bestTime: 'Dec - Feb',
+    price: 'From $6,000',
+    rating: 4.6,
+    duration: '4-7 Days',
+    wildlife: 'Chimpanzees',
+    badge: 'Primate Safari'
+  },
+  {
+    id: 'zambia',
+    name: 'Zambia',
+    region: 'Southern Africa',
+    image: 'https://images.unsplash.com/photo-1639720091626-e8bad0008e23?w=800&q=80',
+    description: 'Victoria Falls, walking safaris, and the mighty Zambezi River.',
+    attractions: ['Victoria Falls', 'Walking Safaris', 'Zambezi River', 'South Luangwa'],
+    bestTime: 'May - Nov',
+    price: 'From $4,800',
+    rating: 4.5,
+    duration: '5-8 Days',
+    wildlife: 'Walking Safaris',
+    badge: 'Walking Safari'
+  },
+  {
+    id: 'zimbabwe',
+    name: 'Zimbabwe',
+    region: 'Southern Africa',
+    image: 'https://images.unsplash.com/photo-1575285272212-d52e915d01c7?w=800&q=80',
+    description: 'Victoria Falls, Hwange National Park, and rich cultural heritage.',
+    attractions: ['Victoria Falls', 'Hwange NP', 'Lake Kariba', 'Great Zimbabwe'],
+    bestTime: 'May - Oct',
+    price: 'From $4,200',
+    rating: 4.4,
+    duration: '5-8 Days',
+    wildlife: 'Big 5',
+    badge: 'Wildlife & Culture'
+  },
+  {
+    id: 'seychelles',
+    name: 'Seychelles',
+    region: 'Island Destinations',
+    image: 'https://images.unsplash.com/photo-1617362985992-d0b6814cacef?w=800&q=80',
+    description: 'Pristine beaches, crystal clear waters, and luxury island resorts.',
+    attractions: ['Pristine Beaches', 'Snorkeling', 'Luxury Resorts', 'Nature Trails'],
+    bestTime: 'Apr - Oct',
+    price: 'From $6,000',
+    rating: 4.8,
+    duration: '5-7 Days',
+    wildlife: 'Marine Life',
+    badge: 'Island Paradise'
+  },
+  {
+    id: 'mauritius',
+    name: 'Mauritius',
+    region: 'Island Destinations',
+    image: 'https://images.unsplash.com/photo-1582574643306-d00ea3f7d49b?w=800&q=80',
+    description: 'Tropical paradise with white sand beaches and vibrant coral reefs.',
+    attractions: ['White Beaches', 'Coral Reefs', 'Underwater Waterfall', 'Luxury Resorts'],
+    bestTime: 'May - Dec',
+    price: 'From $5,500',
+    rating: 4.7,
+    duration: '5-7 Days',
+    wildlife: 'Marine Life',
+    badge: 'Beach Getaway'
+  }
+];
+
 const DestinationsPage = () => {
   const [filter, setFilter] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
   const [hoveredId, setHoveredId] = useState(null);
-
-  const destinations = [
-    {
-      id: 'kenya',
-      name: 'Kenya',
-      region: 'East Africa',
-      image: 'https://images.unsplash.com/photo-1614531341773-3bff8b7cb3fc?w=800&q=80',
-      description: 'Home to the Great Migration, Maasai culture, and iconic savanna landscapes.',
-      attractions: ['Maasai Mara', 'Great Migration', 'Big 5', 'Maasai Culture'],
-      bestTime: 'Jun - Oct',
-      price: 'From $5,000',
-      rating: 4.9,
-      duration: '7-10 Days',
-      wildlife: 'Big 5'
-    },
-    {
-      id: 'tanzania',
-      name: 'Tanzania',
-      region: 'East Africa',
-      image: 'https://images.unsplash.com/photo-1589177900326-900782f88a55?w=800&q=80',
-      description: 'Serengeti plains, Mount Kilimanjaro, and Zanzibar beaches.',
-      attractions: ['Serengeti', 'Ngorongoro Crater', 'Kilimanjaro', 'Zanzibar'],
-      bestTime: 'Jun - Sep',
-      price: 'From $6,500',
-      rating: 4.8,
-      duration: '8-12 Days',
-      wildlife: 'Big 5'
-    },
-    {
-      id: 'botswana',
-      name: 'Botswana',
-      region: 'Southern Africa',
-      image: 'https://images.unsplash.com/photo-1591005383946-16532ba69aee?w=800&q=80',
-      description: 'Okavango Delta, elephant herds, and luxury tented camps.',
-      attractions: ['Okavango Delta', 'Chobe River', 'Elephant Herds', 'Luxury Camps'],
-      bestTime: 'May - Oct',
-      price: 'From $8,000',
-      rating: 4.9,
-      duration: '7-14 Days',
-      wildlife: 'Elephant Capital'
-    },
-    {
-      id: 'south-africa',
-      name: 'South Africa',
-      region: 'Southern Africa',
-      image: 'https://plus.unsplash.com/premium_photo-1697730061063-ad499e343f26?w=800&q=80',
-      description: 'Cape Town, Kruger National Park, and world-class winelands.',
-      attractions: ['Cape Town', 'Kruger Park', 'Winelands', 'Garden Route'],
-      bestTime: 'May - Sep',
-      price: 'From $4,500',
-      rating: 4.7,
-      duration: '5-10 Days',
-      wildlife: 'Big 5'
-    },
-    {
-      id: 'rwanda',
-      name: 'Rwanda',
-      region: 'East Africa',
-      image: 'https://images.unsplash.com/photo-1489640818597-89b1edc97db5?w=800&q=80',
-      description: 'Mountain gorilla trekking in the misty Volcanoes National Park.',
-      attractions: ['Gorilla Trekking', 'Volcanoes NP', 'Lake Kivu', 'Kigali'],
-      bestTime: 'Jun - Sep',
-      price: 'From $7,500',
-      rating: 4.9,
-      duration: '3-5 Days',
-      wildlife: 'Mountain Gorillas'
-    },
-    {
-      id: 'namibia',
-      name: 'Namibia',
-      region: 'Southern Africa',
-      image: 'https://images.unsplash.com/photo-1545200381-89c298dea43d?w=800&q=80',
-      description: 'Towering sand dunes, Sossusvlei, and desert-adapted wildlife.',
-      attractions: ['Sossusvlei', 'Etosha NP', 'Skeleton Coast', 'Sand Dunes'],
-      bestTime: 'May - Oct',
-      price: 'From $5,500',
-      rating: 4.7,
-      duration: '7-10 Days',
-      wildlife: 'Desert Wildlife'
-    },
-    {
-      id: 'uganda',
-      name: 'Uganda',
-      region: 'East Africa',
-      image: 'https://plus.unsplash.com/premium_photo-1661876679866-dcad0b7d0742?w=800&q=80',
-      description: 'Chimpanzee tracking, lush rainforests, and the Source of the Nile.',
-      attractions: ['Chimpanzees', 'Bwindi Forest', 'Source of Nile', 'Rainforests'],
-      bestTime: 'Dec - Feb',
-      price: 'From $6,000',
-      rating: 4.6,
-      duration: '4-7 Days',
-      wildlife: 'Chimpanzees'
-    },
-    {
-      id: 'zambia',
-      name: 'Zambia',
-      region: 'Southern Africa',
-      image: 'https://images.unsplash.com/photo-1639720091626-e8bad0008e23?w=800&q=80',
-      description: 'Victoria Falls, walking safaris, and the mighty Zambezi River.',
-      attractions: ['Victoria Falls', 'Walking Safaris', 'Zambezi River', 'South Luangwa'],
-      bestTime: 'May - Nov',
-      price: 'From $4,800',
-      rating: 4.5,
-      duration: '5-8 Days',
-      wildlife: 'Walking Safaris'
-    },
-    {
-      id: 'zimbabwe',
-      name: 'Zimbabwe',
-      region: 'Southern Africa',
-      image: 'https://images.unsplash.com/photo-1575285272212-d52e915d01c7?w=800&q=80',
-      description: 'Victoria Falls, Hwange National Park, and rich cultural heritage.',
-      attractions: ['Victoria Falls', 'Hwange NP', 'Lake Kariba', 'Great Zimbabwe'],
-      bestTime: 'May - Oct',
-      price: 'From $4,200',
-      rating: 4.4,
-      duration: '5-8 Days',
-      wildlife: 'Big 5'
-    },
-    {
-      id: 'seychelles',
-      name: 'Seychelles',
-      region: 'Island Destinations',
-      image: 'https://images.unsplash.com/photo-1617362985992-d0b6814cacef?w=800&q=80',
-      description: 'Pristine beaches, crystal clear waters, and luxury island resorts.',
-      attractions: ['Pristine Beaches', 'Snorkeling', 'Luxury Resorts', 'Nature Trails'],
-      bestTime: 'Apr - Oct',
-      price: 'From $6,000',
-      rating: 4.8,
-      duration: '5-7 Days',
-      wildlife: 'Marine Life'
-    },
-    {
-      id: 'mauritius',
-      name: 'Mauritius',
-      region: 'Island Destinations',
-      image: 'https://images.unsplash.com/photo-1582574643306-d00ea3f7d49b?w=800&q=80',
-      description: 'Tropical paradise with white sand beaches and vibrant coral reefs.',
-      attractions: ['White Beaches', 'Coral Reefs', 'Underwater Waterfall', 'Luxury Resorts'],
-      bestTime: 'May - Dec',
-      price: 'From $5,500',
-      rating: 4.7,
-      duration: '5-7 Days',
-      wildlife: 'Marine Life'
-    }
-  ];
 
   const regions = ['all', 'East Africa', 'Southern Africa', 'Island Destinations'];
 
@@ -177,7 +189,7 @@ const DestinationsPage = () => {
   };
 
   return (
-    <section className="pt-20 pb-16 bg-white min-h-screen">
+    <section className="pt-20 pb-16 bg-[#FAF5EB] min-h-screen">
       {/* Hero Section */}
       <div className="relative h-64 sm:h-80 md:h-96 bg-gradient-to-br from-[#800020] via-[#3B1F0B] to-[#1B3B1B] flex items-center justify-center">
         <div className="absolute inset-0 opacity-10">
@@ -195,10 +207,13 @@ const DestinationsPage = () => {
           }} />
         </div>
         <div className="relative z-10 text-center px-4">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white font-serif">
-            Explore Africa's <span className="text-yellow-400">Finest</span> Destinations
+          <span className="text-[#d1973e] text-xs sm:text-sm font-semibold tracking-[0.3em] uppercase">
+            Where to Go
+          </span>
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-light text-white mt-2 font-serif">
+            Explore Africa's <span className="text-[#d1973e] font-script">Finest</span> Destinations
           </h1>
-          <p className="text-white/70 text-sm sm:text-base md:text-lg mt-3 max-w-2xl mx-auto">
+          <p className="text-white/70 text-sm sm:text-base md:text-lg mt-3 max-w-2xl mx-auto font-light">
             From the savannas of Kenya to the beaches of Seychelles — find your perfect safari destination.
           </p>
           {/* Search Bar */}
@@ -209,7 +224,7 @@ const DestinationsPage = () => {
                 placeholder="Search destinations..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full px-5 py-3 pl-12 rounded-full bg-white/90 backdrop-blur-sm text-[#3B1F0B] placeholder-[#3B1F0B]/40 focus:outline-none focus:ring-2 focus:ring-yellow-400 shadow-lg"
+                className="w-full px-5 py-3 pl-12 rounded-full bg-white/90 backdrop-blur-sm text-[#3B1F0B] placeholder-[#3B1F0B]/40 focus:outline-none focus:ring-2 focus:ring-[#d1973e] shadow-lg"
               />
               <svg className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#3B1F0B]/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -229,7 +244,7 @@ const DestinationsPage = () => {
               className={`px-4 sm:px-6 py-2 rounded-full text-sm sm:text-base font-semibold transition-all duration-300 ${
                 filter === region
                   ? 'bg-[#800020] text-white shadow-lg transform scale-105'
-                  : 'bg-gray-100 text-[#3B1F0B] hover:bg-gray-200'
+                  : 'bg-white/80 text-[#3B1F0B] hover:bg-[#800020]/10'
               }`}
             >
               {region === 'all' ? 'All Destinations' : region}
@@ -239,7 +254,7 @@ const DestinationsPage = () => {
 
         {/* Results Count */}
         <div className="text-center mb-6">
-          <span className="text-[#3B1F0B]/60 text-sm">
+          <span className="text-[#3B1F0B]/60 text-sm font-light">
             Showing {filteredDestinations.length} destination{filteredDestinations.length !== 1 ? 's' : ''}
           </span>
         </div>
@@ -284,10 +299,10 @@ const DestinationsPage = () => {
                     {/* Content */}
                     <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 z-10">
                       <div className="flex items-center justify-between mb-1">
-                        <h3 className="text-xl sm:text-2xl font-bold text-white font-serif">
+                        <h3 className="text-xl sm:text-2xl font-light text-white font-serif">
                           {dest.name}
                         </h3>
-                        <span className="text-yellow-400 text-sm sm:text-base font-semibold">
+                        <span className="text-[#d1973e] text-sm sm:text-base font-semibold">
                           {dest.duration}
                         </span>
                       </div>
@@ -309,7 +324,7 @@ const DestinationsPage = () => {
                               e.stopPropagation();
                               openWhatsApp();
                             }}
-                            className="bg-yellow-400 hover:bg-yellow-500 text-[#3B1F0B] text-[10px] sm:text-xs font-bold px-3 sm:px-4 py-1.5 rounded-lg transition transform hover:scale-105"
+                            className="bg-[#d1973e] hover:bg-[#b8862e] text-[#3B1F0B] text-[10px] sm:text-xs font-bold px-3 sm:px-4 py-1.5 rounded-lg transition transform hover:scale-105"
                           >
                             Book Now
                           </button>
@@ -317,14 +332,14 @@ const DestinationsPage = () => {
                             to={`/destinations/${dest.id}`}
                             className="bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white text-[10px] sm:text-xs font-semibold px-3 sm:px-4 py-1.5 rounded-lg transition border border-white/30"
                           >
-                            View Details
+                            Explore
                           </Link>
                         </div>
                       </div>
                     </div>
 
                     {/* Hover Indicator */}
-                    <div className={`absolute bottom-0 left-0 h-1 bg-yellow-400 transition-all duration-500 ${
+                    <div className={`absolute bottom-0 left-0 h-0.5 bg-[#d1973e] transition-all duration-500 ${
                       isHovered ? 'w-full' : 'w-0'
                     }`}></div>
                   </div>
@@ -335,8 +350,8 @@ const DestinationsPage = () => {
         ) : (
           <div className="text-center py-16">
             <div className="text-6xl mb-4">🔍</div>
-            <h3 className="text-2xl font-bold text-[#3B1F0B]">No destinations found</h3>
-            <p className="text-[#3B1F0B]/60 mt-2">Try adjusting your search or filter</p>
+            <h3 className="text-2xl font-light text-[#3B1F0B] font-serif">No destinations found</h3>
+            <p className="text-[#3B1F0B]/60 mt-2 font-light">Try adjusting your search or filter</p>
             <button
               onClick={() => {
                 setSearchTerm('');
