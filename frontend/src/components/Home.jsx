@@ -5,7 +5,7 @@ import DestinationCarousel from './DestinationCarousel';
 import TestimonialCarousel from './TestimonialCarousel';
 import Packages from './Packages';
 import WhyChooseUs from './WhyChooseUs';
-import Testimonials from './Testimonials';
+
 import Gallery from './Gallery';
 import Destinations from './Destinations';
 import Sustainability from './Sustainability';
@@ -22,7 +22,7 @@ const Home = () => {
       <Packages />
       <WhyChooseUs />
       <TestimonialCarousel />    
-      <Testimonials />           
+                
       <Sustainability />
       <Gallery />
       <Destinations />
