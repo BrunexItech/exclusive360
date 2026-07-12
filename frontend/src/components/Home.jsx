@@ -7,7 +7,6 @@ import Packages from './Packages';
 import WhyChooseUs from './WhyChooseUs';
 
 import Gallery from './Gallery';
-import Destinations from './Destinations';
 import Sustainability from './Sustainability';
 import CTABanner from './CTABanner';
 import WhatsAppChat from './WhatsAppChat';
@@ -25,7 +24,6 @@ const Home = () => {
                 
       <Sustainability />
       <Gallery />
-      <Destinations />
       <CTABanner />
       <WhatsAppChat />
     </>

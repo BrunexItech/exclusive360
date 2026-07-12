@@ -126,45 +126,22 @@ const Hero = () => {
     }
   };
 
-  const openWhatsApp = () => {
-    const trigger = document.querySelector('.whatsapp-trigger');
-    if (trigger) trigger.click();
-  };
-
   const current = heroSlides[currentSlide];
 
   return (
     <section className="relative min-h-screen w-full overflow-hidden pt-16 sm:pt-20">
-      {/* Background Layer */}
+      {/* Background Layer - NO OPACITY, FULLY CLEAR */}
       <div className="absolute inset-0 w-full h-full">
-        {/* Safari Gradient Background */}
-        <div className="absolute inset-0 w-full h-full bg-gradient-to-br from-[#800020] via-[#3B1F0B] to-[#1B3B1B]">
-          {/* Animated Pattern Overlay */}
-          <div className="absolute inset-0 opacity-20">
-            <div className="absolute inset-0" style={{
-              backgroundImage: `
-                repeating-linear-gradient(
-                  45deg,
-                  transparent,
-                  transparent 20px,
-                  rgba(255, 255, 255, 0.05) 20px,
-                  rgba(255, 255, 255, 0.05) 21px
-                ),
-                repeating-linear-gradient(
-                  -45deg,
-                  transparent,
-                  transparent 20px,
-                  rgba(255, 255, 255, 0.05) 20px,
-                  rgba(255, 255, 255, 0.05) 21px
-                )
-              `,
-              animation: 'shimmer 8s linear infinite',
-              backgroundSize: '60px 60px'
-            }} />
-          </div>
+        {/* Poster Image Background - fully clear, no opacity */}
+        <div className="absolute inset-0 w-full h-full">
+          <img 
+            src="https://media.istockphoto.com/id/468961351/photo/zebras-in-tarangire-national-park-tanzania.jpg?s=612x612&w=0&k=20&c=tM2ajwcLDG8Ws9ei-FnsGnEOBjF7mHrrBu-uFSutH0c="
+            alt="Safari background"
+            className="w-full h-full object-cover"
+          />
         </div>
 
-        {/* Video */}
+        {/* Video - appears after loading, fully clear */}
         <div 
           className={`absolute inset-0 w-full h-full transition-opacity duration-1000 ease-in-out ${
             showVideo ? 'opacity-100' : 'opacity-0'
@@ -181,16 +158,17 @@ const Hero = () => {
               playsInline
               aria-hidden="true"
               onLoadedData={() => setIsVideoReady(true)}
+              poster="https://media.istockphoto.com/id/468961351/photo/zebras-in-tarangire-national-park-tanzania.jpg?s=612x612&w=0&k=20&c=tM2ajwcLDG8Ws9ei-FnsGnEOBjF7mHrrBu-uFSutH0c="
             />
           )}
         </div>
-        
-        {/* Dark Overlay */}
-        <div className="absolute inset-0 bg-black/40 z-10"></div>
       </div>
 
-      {/* Content */}
-      <div className="relative z-20 min-h-screen flex flex-col items-center justify-center text-center text-white px-4 sm:px-6 md:px-8 max-w-4xl mx-auto">
+      {/* Dark Overlay - For text readability only */}
+      <div className="absolute inset-0 bg-black/40 z-10"></div>
+
+      {/* Content - All text is WHITE */}
+      <div className="relative z-20 min-h-screen flex flex-col items-center justify-center text-center px-4 sm:px-6 md:px-8 max-w-4xl mx-auto">
         
         {/* Premium Safari Badge */}
         <div className="mb-3 sm:mb-4 md:mb-6">
@@ -199,7 +177,7 @@ const Hero = () => {
           </span>
         </div>
         
-        {/* Dynamic Slides */}
+        {/* Dynamic Slides - All text WHITE */}
         <div className="relative w-full min-h-[200px] sm:min-h-[250px] md:min-h-[300px]">
           {heroSlides.map((slide, index) => (
             <div
@@ -212,7 +190,7 @@ const Hero = () => {
                     : 'opacity-0 translate-x-full z-0'
               }`}
             >
-              <h1 className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-light mb-2 sm:mb-3 md:mb-4 font-serif leading-tight">
+              <h1 className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-light mb-2 sm:mb-3 md:mb-4 font-serif leading-tight text-white">
                 <em className="font-script text-[#d1973e] not-italic">{slide.title}</em>
                 <br />
                 {slide.subtitle}
@@ -225,8 +203,8 @@ const Hero = () => {
           ))}
         </div>
 
-        {/* Slide Indicators */}
-        <div className="flex gap-2 mb-6 sm:mb-8">
+        {/* Slide Indicators - White */}
+        <div className="flex gap-2">
           {heroSlides.map((_, index) => (
             <button
               key={index}
@@ -241,51 +219,7 @@ const Hero = () => {
           ))}
         </div>
 
-        {/* Package Indicators */}
-        <div className="flex flex-wrap justify-center gap-3 sm:gap-4 md:gap-6 mb-6 sm:mb-8">
-          <div className="flex items-center gap-1.5 sm:gap-2">
-            <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-[#d1973e]"></span>
-            <span className="text-[8px] sm:text-[10px] md:text-xs uppercase tracking-wider text-[#d1973e]/80">
-              Platinum
-            </span>
-          </div>
-          <div className="flex items-center gap-1.5 sm:gap-2">
-            <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-[#c2a87d]"></span>
-            <span className="text-[8px] sm:text-[10px] md:text-xs uppercase tracking-wider text-[#c2a87d]/80">
-              Gold
-            </span>
-          </div>
-          <div className="flex items-center gap-1.5 sm:gap-2">
-            <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-[#8a7a6a]"></span>
-            <span className="text-[8px] sm:text-[10px] md:text-xs uppercase tracking-wider text-[#8a7a6a]/80">
-              Silver
-            </span>
-          </div>
-          <div className="flex items-center gap-1.5 sm:gap-2">
-            <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-[#800020]"></span>
-            <span className="text-[8px] sm:text-[10px] md:text-xs uppercase tracking-wider text-[#800020]/80">
-              Custom
-            </span>
-          </div>
-        </div>
-
-        {/* CTA Buttons */}
-        <div className="flex flex-col sm:flex-row gap-4">
-          <Link
-            to={current.ctaLink}
-            className="bg-[#d1973e] hover:bg-[#b8862e] text-[#3B1F0B] px-6 sm:px-8 py-2.5 sm:py-3 rounded-lg font-semibold transition transform hover:scale-105 inline-block shadow-lg text-sm sm:text-base"
-          >
-            {current.ctaText}
-          </Link>
-          <button
-            onClick={openWhatsApp}
-            className="bg-white/10 backdrop-blur-sm hover:bg-white/20 border border-white/30 text-white px-6 sm:px-8 py-2.5 sm:py-3 rounded-lg font-semibold transition transform hover:scale-105 text-sm sm:text-base"
-          >
-            🦁 Book Your Safari
-          </button>
-        </div>
-
-        {/* Scroll Indicator */}
+        {/* Scroll Indicator - White */}
         <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
           <div className="w-6 h-10 rounded-full border-2 border-white/30 flex items-center justify-center">
             <div className="w-1 h-2 rounded-full bg-white/50 animate-pulse mt-1"></div>

@@ -25,12 +25,8 @@ const WhatsAppChat = () => {
     scrollToBottom();
   }, [messages]);
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowBubble(false);
-    }, 5000);
-    return () => clearTimeout(timer);
-  }, []);
+  // REMOVED: The timer that was hiding the bubble after 5 seconds
+  // Now the bubble stays visible and bounces infinitely
 
   const handleSend = async (text) => {
     if (!text.trim()) return;
@@ -61,7 +57,7 @@ const WhatsAppChat = () => {
     <>
       {/* Floating Button with Bubble */}
       <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end">
-        {/* Chat Bubble Prompt */}
+        {/* Chat Bubble Prompt - Bounces INFINITELY now */}
         {showBubble && !isOpen && (
           <div className="bg-white text-darkbrown px-4 py-2 rounded-2xl shadow-lg mb-3 animate-bounce relative">
             <span className="text-sm font-medium">💬 Need help? Chat with us!</span>

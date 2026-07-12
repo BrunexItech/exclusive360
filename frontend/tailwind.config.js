@@ -20,12 +20,12 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        // Script/handwritten font - Great Vibes (like Asilia's SundayApril)
+        // Script/handwritten font - Great Vibes
         'script': ['"Great Vibes"', 'cursive'],
-        // Elegant serif - Cormorant Garamond (like Roar Africa)
+        // Elegant serif - Cormorant Garamond
         'serif': ['"Cormorant Garamond"', 'Georgia', 'serif'],
-        // Clean sans-serif for body
-        'sans': ['system-ui', '-apple-system', 'sans-serif'],
+        // Clean sans-serif for body and navigation - Inter
+        'sans': ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
       },
       colors: {
         // Primary Colors

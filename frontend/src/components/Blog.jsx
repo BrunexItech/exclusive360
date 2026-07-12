@@ -162,40 +162,119 @@ const Blog = () => {
     <section className="pt-[85px] sm:pt-24 md:pt-28 pb-12 sm:pb-16 md:pb-20 bg-white min-h-screen">
       <div className="container mx-auto px-4 sm:px-6">
         
-        {/* Hero Section */}
+        {/* Refined Hero Section - With Borders & Creative Elements */}
         <div 
           ref={heroRef}
-          className={`relative rounded-2xl overflow-hidden mb-12 shadow-2xl bg-gradient-to-br from-[#800020] via-[#3B1F0B] to-[#1B3B1B] min-h-[200px] sm:min-h-[250px] md:min-h-[280px] flex items-center justify-center transition-all duration-700 ${
+          className={`relative rounded-2xl overflow-hidden mb-12 min-h-[220px] sm:min-h-[280px] md:min-h-[320px] flex items-center justify-center transition-all duration-700 border border-[#D4C5A9]/30 ${
             isVisible ? 'opacity-100' : 'opacity-0'
           }`}
+          style={{
+            background: 'linear-gradient(135deg, #F5F0E8 0%, #EDE6DC 40%, #F5F0E8 100%)'
+          }}
         >
-          <div className="absolute inset-0 opacity-10">
-            <div className="absolute inset-0" style={{
+          {/* Decorative Background Elements */}
+          <div className="absolute inset-0 overflow-hidden">
+            {/* African Pattern Border - Top Left */}
+            <div className="absolute top-0 left-0 w-32 h-32 border-t-2 border-l-2 border-[#8B7355]/15 rounded-tl-2xl"></div>
+            
+            {/* African Pattern Border - Bottom Right */}
+            <div className="absolute bottom-0 right-0 w-32 h-32 border-b-2 border-r-2 border-[#8B7355]/15 rounded-br-2xl"></div>
+            
+            {/* African Pattern Border - Top Right */}
+            <div className="absolute top-0 right-0 w-20 h-20 border-t-2 border-r-2 border-[#8B7355]/10 rounded-tr-2xl"></div>
+            
+            {/* African Pattern Border - Bottom Left */}
+            <div className="absolute bottom-0 left-0 w-20 h-20 border-b-2 border-l-2 border-[#8B7355]/10 rounded-bl-2xl"></div>
+
+            {/* Abstract Safari Silhouettes - Faint */}
+            <div className="absolute top-8 right-10 opacity-[0.04] text-8xl sm:text-9xl transform rotate-12 select-none font-serif">
+              🦒
+            </div>
+            <div className="absolute bottom-8 left-10 opacity-[0.04] text-7xl sm:text-8xl transform -rotate-6 select-none font-serif">
+              🐘
+            </div>
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-[0.02] text-[10rem] sm:text-[14rem] select-none font-serif">
+              🦁
+            </div>
+            
+            {/* Floating Story Elements */}
+            <div className="absolute top-1/4 right-[12%] animate-float-slow opacity-[0.06]">
+              <svg className="w-8 h-8 sm:w-10 sm:h-10" viewBox="0 0 24 24" fill="none" stroke="#2C1810" strokeWidth="1.5">
+                <path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+              </svg>
+            </div>
+            <div className="absolute bottom-1/3 left-[10%] animate-float-slow-delayed opacity-[0.05]">
+              <svg className="w-6 h-6 sm:w-8 sm:h-8" viewBox="0 0 24 24" fill="none" stroke="#2C1810" strokeWidth="1.5">
+                <path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+              </svg>
+            </div>
+            
+            {/* Subtle Grid Pattern */}
+            <div className="absolute inset-0 opacity-[0.02]" style={{
               backgroundImage: `
                 repeating-linear-gradient(
-                  45deg,
+                  0deg,
                   transparent,
-                  transparent 20px,
-                  rgba(255, 255, 255, 0.05) 20px,
-                  rgba(255, 255, 255, 0.05) 21px
+                  transparent 40px,
+                  #2C1810 40px,
+                  #2C1810 41px
+                ),
+                repeating-linear-gradient(
+                  90deg,
+                  transparent,
+                  transparent 40px,
+                  #2C1810 40px,
+                  #2C1810 41px
                 )
-              `,
-              backgroundSize: '40px 40px'
+              `
             }} />
           </div>
 
-          <div className="relative z-10 text-center px-4 py-10">
-            <span className="text-[#d1973e] text-xs sm:text-sm font-semibold tracking-[0.3em] uppercase">
+          {/* Content */}
+          <div className="relative z-10 text-center px-4 py-8 sm:py-10">
+            {/* Small floating category tags */}
+            <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mb-3 sm:mb-4">
+              <span className="text-[10px] sm:text-xs font-medium text-[#8B7355] bg-white/70 backdrop-blur-sm px-3 py-1 rounded-full border border-[#D4C5A9]/20 tracking-wider hover:bg-white transition-colors duration-300">
+                ✦ Stories
+              </span>
+              <span className="text-[10px] sm:text-xs font-medium text-[#8B7355] bg-white/70 backdrop-blur-sm px-3 py-1 rounded-full border border-[#D4C5A9]/20 tracking-wider hover:bg-white transition-colors duration-300">
+                ✦ Adventures
+              </span>
+              <span className="text-[10px] sm:text-xs font-medium text-[#8B7355] bg-white/70 backdrop-blur-sm px-3 py-1 rounded-full border border-[#D4C5A9]/20 tracking-wider hover:bg-white transition-colors duration-300">
+                ✦ Wildlife
+              </span>
+              <span className="text-[10px] sm:text-xs font-medium text-[#8B7355] bg-white/70 backdrop-blur-sm px-3 py-1 rounded-full border border-[#D4C5A9]/20 tracking-wider hover:bg-white transition-colors duration-300">
+                ✦ Wonders
+              </span>
+            </div>
+
+            <span className="text-[#8B0000] text-xs sm:text-sm font-semibold tracking-[0.3em] uppercase bg-white/80 backdrop-blur-sm px-4 py-1.5 rounded-full inline-block border border-[#8B0000]/10">
               Blog
             </span>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light text-white mt-2 font-serif">
-              All Stories from <span className="text-[#d1973e] font-script">Exclusive</span> 360
+            
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light text-[#2C1810] mt-3 sm:mt-4 font-serif tracking-wide leading-tight">
+              All Stories from <span className="text-[#8B0000] font-['Caveat'] text-4xl sm:text-5xl md:text-6xl lg:text-7xl">Exclusive</span> 360
             </h1>
-            <div className="w-16 h-0.5 bg-[#d1973e] mx-auto mt-4"></div>
-            <p className="text-white/70 text-sm sm:text-base md:text-lg mt-4 max-w-2xl mx-auto font-light">
+            
+            <div className="flex items-center justify-center gap-4 mt-3 sm:mt-4">
+              <div className="w-12 h-px bg-gradient-to-r from-transparent via-[#8B7355] to-transparent"></div>
+              <span className="text-[#8B7355] text-sm">✦</span>
+              <div className="w-12 h-px bg-gradient-to-r from-transparent via-[#8B7355] to-transparent"></div>
+            </div>
+            
+            <p className="text-[#2C1810]/60 text-sm sm:text-base md:text-lg mt-4 max-w-2xl mx-auto font-light leading-relaxed">
               Explore the destinations, adventures, people and passions of our world.
             </p>
           </div>
+
+          {/* Bottom accent line - theme colors */}
+          <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-[#8B0000] via-[#8B7355] to-[#556B2F]"></div>
+          
+          {/* Decorative corner dots */}
+          <div className="absolute top-3 left-3 w-2 h-2 rounded-full bg-[#8B7355]/20"></div>
+          <div className="absolute top-3 right-3 w-2 h-2 rounded-full bg-[#8B7355]/20"></div>
+          <div className="absolute bottom-3 left-3 w-2 h-2 rounded-full bg-[#8B7355]/20"></div>
+          <div className="absolute bottom-3 right-3 w-2 h-2 rounded-full bg-[#8B7355]/20"></div>
         </div>
 
         {/* Filter & Search */}
@@ -246,7 +325,7 @@ const Blog = () => {
           <div className={`mb-10 sm:mb-14 transition-all duration-700 delay-200 ${
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}>
-            <div className="group grid md:grid-cols-2 gap-0 bg-[#FAF5EB] rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 border border-[#3B1F0B]/5 hover:border-[#800020]/20">
+            <div className="group grid md:grid-cols-2 gap-0 bg-[#FAF5EB] rounded-2xl overflow-hidden border border-[#3B1F0B]/5 hover:border-[#800020]/20 transition-all duration-500">
               <div className="relative h-64 md:h-[320px] overflow-hidden">
                 <img
                   src={featuredPost.image}
@@ -266,7 +345,7 @@ const Blog = () => {
                   </button>
                 )}
                 <div className="absolute top-4 left-4 z-10">
-                  <span className="bg-[#d1973e] text-[#3B1F0B] text-xs font-semibold px-3 py-1 rounded-full shadow-lg">
+                  <span className="bg-[#d1973e] text-[#3B1F0B] text-xs font-semibold px-3 py-1 rounded-full">
                     Featured
                   </span>
                 </div>
@@ -298,13 +377,13 @@ const Blog = () => {
           </div>
         )}
 
-        {/* Blog Grid - Clean with proper spacing */}
+        {/* Blog Grid */}
         {remainingPosts.length > 0 ? (
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             {remainingPosts.map((post, index) => (
               <div
                 key={post.id}
-                className={`group bg-[#FAF5EB] rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-1 border border-[#3B1F0B]/5 hover:border-[#800020]/20 animate-fade-in-up`}
+                className={`group bg-[#FAF5EB] rounded-2xl overflow-hidden border border-[#3B1F0B]/5 hover:border-[#800020]/20 transition-all duration-500 hover:-translate-y-1 hover:shadow-lg animate-fade-in-up`}
                 style={{ animationDelay: `${(index + 1) * 0.1}s` }}
               >
                 <div className="relative overflow-hidden h-52 sm:h-56">
@@ -430,40 +509,46 @@ const Blog = () => {
           </nav>
         )}
 
-        {/* CTA Banner */}
-        <div className="mt-16 text-center bg-gradient-to-r from-[#800020] to-[#3B1F0B] p-6 sm:p-8 md:p-10 rounded-2xl shadow-2xl relative overflow-hidden">
-          <div className="absolute inset-0 opacity-10">
+        {/* CTA Banner - Elegant Beige/Gold Background */}
+        <div className="mt-16 text-center bg-gradient-to-r from-[#D4C5A9] via-[#C9B89C] to-[#D4C5A9] p-6 sm:p-8 md:p-10 rounded-2xl relative overflow-hidden border border-[#8B7355]/20 shadow-xl">
+          <div className="absolute inset-0 opacity-[0.08]">
             <div className="absolute inset-0" style={{
               backgroundImage: `
                 repeating-linear-gradient(
                   45deg,
                   transparent,
                   transparent 20px,
-                  rgba(255, 255, 255, 0.05) 20px,
-                  rgba(255, 255, 255, 0.05) 21px
+                  rgba(44, 24, 16, 0.05) 20px,
+                  rgba(44, 24, 16, 0.05) 21px
                 )
               `,
               backgroundSize: '40px 40px'
             }} />
           </div>
           
+          {/* Decorative gold accents */}
+          <div className="absolute top-4 left-4 w-8 h-8 border-t-2 border-l-2 border-[#8B7355]/20 rounded-tl-lg"></div>
+          <div className="absolute top-4 right-4 w-8 h-8 border-t-2 border-r-2 border-[#8B7355]/20 rounded-tr-lg"></div>
+          <div className="absolute bottom-4 left-4 w-8 h-8 border-b-2 border-l-2 border-[#8B7355]/20 rounded-bl-lg"></div>
+          <div className="absolute bottom-4 right-4 w-8 h-8 border-b-2 border-r-2 border-[#8B7355]/20 rounded-br-lg"></div>
+          
           <div className="relative z-10">
-            <h3 className="text-xl sm:text-2xl md:text-3xl font-light text-white mb-2 font-serif">
-              Ready to <span className="text-[#d1973e] font-script">Experience</span> Africa?
+            <h3 className="text-xl sm:text-2xl md:text-3xl font-light text-[#2C1810] mb-2 font-serif tracking-wide">
+              Ready to <span className="text-[#8B0000] font-['Caveat']">Experience</span> Africa?
             </h3>
-            <p className="text-white/70 text-sm sm:text-base mb-4 max-w-lg mx-auto font-light">
+            <p className="text-[#2C1810]/50 text-sm sm:text-base mb-6 max-w-lg mx-auto font-light">
               Let us help you plan the journey of a lifetime.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <button
                 onClick={openWhatsApp}
-                className="bg-[#d1973e] hover:bg-[#b8862e] text-[#3B1F0B] px-6 sm:px-8 py-2.5 rounded-lg font-semibold transition transform hover:scale-105 shadow-lg text-sm sm:text-base"
+                className="bg-[#8B0000] hover:bg-[#6B001A] text-white px-6 sm:px-8 py-3 rounded-lg font-semibold transition transform hover:scale-105 text-sm sm:text-base shadow-lg hover:shadow-xl"
               >
                 Start Planning ✧
               </button>
               <Link
                 to="/packages"
-                className="bg-white/10 backdrop-blur-sm hover:bg-white/20 border border-white/30 text-white px-6 sm:px-8 py-2.5 rounded-lg font-semibold transition transform hover:scale-105 text-sm sm:text-base"
+                className="bg-white/30 backdrop-blur-sm hover:bg-white/50 border border-[#8B7355]/30 text-[#2C1810] px-6 sm:px-8 py-3 rounded-lg font-semibold transition transform hover:scale-105 text-sm sm:text-base"
               >
                 View Packages
               </Link>
@@ -471,6 +556,31 @@ const Blog = () => {
           </div>
         </div>
       </div>
+
+      <style jsx>{`
+        @keyframes float-slow {
+          0%, 100% { transform: translateY(0px) rotate(0deg); }
+          50% { transform: translateY(-15px) rotate(5deg); }
+        }
+        @keyframes float-slow-delayed {
+          0%, 100% { transform: translateY(0px) rotate(0deg); }
+          50% { transform: translateY(-20px) rotate(-5deg); }
+        }
+        @keyframes fade-in-up {
+          from { opacity: 0; transform: translateY(30px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-float-slow {
+          animation: float-slow 6s ease-in-out infinite;
+        }
+        .animate-float-slow-delayed {
+          animation: float-slow-delayed 7s ease-in-out infinite;
+        }
+        .animate-fade-in-up {
+          animation: fade-in-up 0.6s ease-out forwards;
+          opacity: 0;
+        }
+      `}</style>
     </section>
   );
 };

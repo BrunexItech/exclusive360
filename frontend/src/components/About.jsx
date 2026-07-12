@@ -3,57 +3,81 @@ import { Link } from 'react-router-dom';
 
 const About = () => {
   const [isBookOpen, setIsBookOpen] = useState(false);
-  const [typedTexts, setTypedTexts] = useState({});
-  const [activeParagraph, setActiveParagraph] = useState(-1);
-  const [showSignature, setShowSignature] = useState(false);
-  const [isTypingComplete, setIsTypingComplete] = useState(false);
-  const storyRef = useRef(null);
-  const signatureRef = useRef(null);
-  const typingTimerRef = useRef(null);
+  const [showTestimonials, setShowTestimonials] = useState(false);
+  const [showSignature1, setShowSignature1] = useState(false);
+  const [showSignature2, setShowSignature2] = useState(false);
+  const [hoveredPoint, setHoveredPoint] = useState(null);
+  const [activeTimeline, setActiveTimeline] = useState(null);
+  const testimonialRef = useRef(null);
+  const signature1Ref = useRef(null);
+  const signature2Ref = useRef(null);
 
-  // Story data with styling instructions
-  const storyParagraphs = [
+  // Director Testimonials
+  const directorTestimonials = [
     {
-      text: 'In 2015, a dream was born beneath the vast African sky. A passion for the wild, a love for the land, and an unwavering commitment to creating unforgettable journeys.',
-      delay: 800,
-      speed: 35,
-      italicWords: ['dream', 'passion', 'love'],
-      highlightWords: ['unforgettable']
+      name: 'James Mwangi',
+      title: 'Co-Founder & Safari Director',
+      message: `For me, Africa is not just a place—it's a feeling. Every sunrise over the savanna, every elephant's gentle stride, every fire-lit evening under a blanket of stars—these moments are the heartbeat of what we do.
+
+I grew up in the shadow of Mount Kilimanjaro, where the rhythm of the wild was my lullaby. My father was a guide. He taught me that the best safaris aren't about checking off the Big Five—they're about connection. Connection to the land, to the animals, to the people who call this home.
+
+At Exclusive 360, we don't just take you on safari. We welcome you into our family. We share our stories, our laughter, our deep reverence for this incredible continent. Every itinerary is crafted with the same care and passion that I felt on my very first game drive—wide-eyed, curious, and utterly in love with Africa.`,
+      signature: 'James Mwangi'
     },
     {
-      text: 'What began as a small guiding operation in the heart of the Maasai Mara has blossomed into Exclusive 360 Journeys — a name synonymous with luxury, authenticity, and the magic of Africa.',
-      delay: 400,
-      speed: 30,
-      italicWords: ['Exclusive 360 Journeys', 'luxury', 'authenticity', 'magic'],
-      highlightWords: ['Maasai Mara']
+      name: 'Grace Akinyi',
+      title: 'Co-Founder & Experience Curator',
+      message: `They say the best journeys answer questions you didn't even know you had. I believe that with my whole heart. Every time I step into the bush, I discover something new—not just about the wildlife, but about myself.
+
+I was born in the coastal town of Malindi, where the Indian Ocean meets the African soul. My grandmother was a storyteller. She taught me that every creature, every tree, every grain of sand has a story to tell. And that's what I bring to Exclusive 360—the art of listening to Africa's stories and weaving them into unforgettable experiences.
+
+For me, luxury isn't about thread counts or champagne. It's about the feeling of being truly seen. It's about waking up to the sound of lions roaring in the distance. It's about sharing a meal with a Maasai elder and feeling the weight of centuries in their words. This is the Africa I love. This is the Africa I want to share with you.`,
+      signature: 'Grace Akinyi'
+    }
+  ];
+
+  // Difference Points
+  const differencePoints = [
+    'Journeys informed by generations of African heritage and lived experience.',
+    'Sharing our home, not selling a destination.',
+    'Long-standing relationships that allow rare access to outsiders.',
+    'Authentic, private experiences guided by deep local knowledge.',
+    'Continuity and discretion with the same trusted team throughout.',
+    'Every journey individually designed, shaped entirely around your needs.',
+    'Pioneering commitment to empowering women in the safari industry.'
+  ];
+
+  // Timeline Events
+  const timelineEvents = [
+    {
+      year: '2015',
+      title: 'A Dream is Born',
+      description: 'A passion for the wild and an unwavering commitment to creating unforgettable journeys began beneath the African sky.'
     },
     {
-      text: 'Our founders, born and raised in the shadows of Mount Kilimanjaro, grew up with the rhythm of the savanna in their veins. Elephants, lions, and the endless golden plains were their playground.',
-      delay: 400,
-      speed: 32,
-      italicWords: ['rhythm of the savanna', 'playground'],
-      highlightWords: ['Mount Kilimanjaro']
+      year: '2016',
+      title: 'First Safari',
+      description: 'Exclusive 360 Journeys launched its first safari operation in the heart of the Maasai Mara.'
     },
     {
-      text: 'Today, we continue that legacy. Each safari we craft is a love letter to Africa — a carefully curated experience that honors the land, its wildlife, and its people.',
-      delay: 300,
-      speed: 28,
-      italicWords: ['love letter', 'carefully curated'],
-      highlightWords: ['Africa']
+      year: '2018',
+      title: 'Expansion',
+      description: 'Expanded across Kenya, Tanzania, and Southern Africa, curating authentic experiences with luxury and care.'
     },
     {
-      text: 'From the lush forests of Uganda to the pristine beaches of Zanzibar, from the majestic Victoria Falls to the iconic Serengeti — we invite you to discover Africa through our eyes.',
-      delay: 400,
-      speed: 33,
-      italicWords: ['discover Africa through our eyes'],
-      highlightWords: ['Uganda', 'Zanzibar', 'Victoria Falls', 'Serengeti']
+      year: '2020',
+      title: 'Resilience & Growth',
+      description: 'Navigated challenges while supporting partners, conservation efforts, and local communities.'
     },
     {
-      text: 'This is not just a safari. This is a journey of the soul. This is Exclusive 360 Journeys.',
-      delay: 500,
-      speed: 40,
-      italicWords: ['journey of the soul'],
-      highlightWords: ['Exclusive 360 Journeys']
+      year: '2022',
+      title: 'A New Chapter',
+      description: 'Crafted bespoke journeys blending luxury, sustainability, and genuine human connection.'
+    },
+    {
+      year: '2024',
+      title: 'The Legacy Continues',
+      description: 'Today, we craft love letters to Africa — curated experiences that honor the land, wildlife, and people.'
     }
   ];
 
@@ -61,122 +85,71 @@ const About = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsBookOpen(true);
-    }, 500);
+    }, 400);
     return () => clearTimeout(timer);
   }, []);
 
-  // Sequential typing effect
+  // Intersection Observer for testimonials
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting && activeParagraph === -1) {
-            setActiveParagraph(0);
+          if (entry.isIntersecting) {
+            setShowTestimonials(true);
           }
         });
       },
-      { threshold: 0.2 }
+      { threshold: 0.1 }
     );
 
-    if (storyRef.current) {
-      observer.observe(storyRef.current);
+    if (testimonialRef.current) {
+      observer.observe(testimonialRef.current);
     }
 
     return () => observer.disconnect();
-  }, [activeParagraph]);
+  }, []);
 
-  // Handle sequential typing
+  // Signature observers
   useEffect(() => {
-    if (activeParagraph >= 0 && activeParagraph < storyParagraphs.length) {
-      const paragraph = storyParagraphs[activeParagraph];
-      const text = paragraph.text;
-      const speed = paragraph.speed || 30;
-      let index = 0;
-      
-      if (typingTimerRef.current) {
-        clearInterval(typingTimerRef.current);
-      }
-
-      typingTimerRef.current = setInterval(() => {
-        if (index <= text.length) {
-          setTypedTexts(prev => ({
-            ...prev,
-            [activeParagraph]: text.substring(0, index)
-          }));
-          index++;
-        } else {
-          clearInterval(typingTimerRef.current);
-          setTimeout(() => {
-            if (activeParagraph < storyParagraphs.length - 1) {
-              setActiveParagraph(prev => prev + 1);
-            } else {
-              setIsTypingComplete(true);
-              setTimeout(() => {
-                if (signatureRef.current) {
-                  const sigObserver = new IntersectionObserver(
-                    (entries) => {
-                      entries.forEach((entry) => {
-                        if (entry.isIntersecting) {
-                          setShowSignature(true);
-                          sigObserver.disconnect();
-                        }
-                      });
-                    },
-                    { threshold: 0.3 }
-                  );
-                  sigObserver.observe(signatureRef.current);
-                }
-              }, 500);
-            }
-          }, paragraph.delay || 500);
+    if (showTestimonials) {
+      setTimeout(() => {
+        const observer1 = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                setShowSignature1(true);
+                observer1.disconnect();
+              }
+            });
+          },
+          { threshold: 0.3 }
+        );
+        if (signature1Ref.current) {
+          observer1.observe(signature1Ref.current);
         }
-      }, speed);
+
+        const observer2 = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                setShowSignature2(true);
+                observer2.disconnect();
+              }
+            });
+          },
+          { threshold: 0.3 }
+        );
+        if (signature2Ref.current) {
+          observer2.observe(signature2Ref.current);
+        }
+
+        return () => {
+          observer1.disconnect();
+          observer2.disconnect();
+        };
+      }, 500);
     }
-
-    return () => {
-      if (typingTimerRef.current) {
-        clearInterval(typingTimerRef.current);
-      }
-    };
-  }, [activeParagraph]);
-
-  // Helper to render text with formatting
-  const renderFormattedText = (paragraph, text) => {
-    const words = text.split(' ');
-    const italicWords = paragraph.italicWords || [];
-    const highlightWords = paragraph.highlightWords || [];
-
-    return words.map((word, index) => {
-      let isItalic = false;
-      let isHighlight = false;
-      let cleanWord = word.replace(/[.,!?;:"]/g, '');
-
-      italicWords.forEach(phrase => {
-        const phraseWords = phrase.split(' ');
-        if (phraseWords.some(pw => word.includes(pw) || pw.includes(word))) {
-          isItalic = true;
-        }
-      });
-
-      highlightWords.forEach(phrase => {
-        const phraseWords = phrase.split(' ');
-        if (phraseWords.some(pw => word.includes(pw) || pw.includes(word))) {
-          isHighlight = true;
-        }
-      });
-
-      let className = '';
-      if (isItalic) className += ' italic ';
-      if (isHighlight) className += ' text-[#800020] font-semibold ';
-
-      return (
-        <span key={index} className={className}>
-          {word}
-          {index < words.length - 1 ? ' ' : ''}
-        </span>
-      );
-    });
-  };
+  }, [showTestimonials]);
 
   // Helper to open WhatsApp
   const openWhatsApp = () => {
@@ -195,338 +168,400 @@ const About = () => {
   };
 
   return (
-    <section className="pt-[85px] sm:pt-24 md:pt-28 pb-12 sm:pb-16 md:pb-20 px-4 bg-[#FAF5EB] min-h-screen">
-      <div className="container mx-auto max-w-7xl">
-        
-        {/* Hero Section - Animated Book Opening */}
-        <div className="relative rounded-2xl overflow-hidden mb-16 shadow-2xl min-h-[400px] sm:min-h-[500px] flex items-center justify-center">
-          {/* Background Gradient */}
-          <div className="absolute inset-0 bg-gradient-to-br from-[#800020] via-[#3B1F0B] to-[#1B3B1B]">
+    <section className="min-h-screen bg-white overflow-x-hidden">
+      
+      {/* Hero Section - Almost Zero Opacity Overlay */}
+      <div className="relative min-h-[550px] sm:min-h-[650px] flex items-center justify-center overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          <img 
+            src="https://images.unsplash.com/photo-1614531341773-3bff8b7cb3fc?q=80&w=1032&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            alt="African Safari Sunset"
+            className="w-full h-full object-cover brightness-105"
+            loading="eager"
+          />
+          {/* Almost zero opacity overlay */}
+          <div className="absolute inset-0 bg-gradient-to-b from-[#2C1810]/5 via-[#2C1810]/3 to-[#2C1810]/10"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-[#8B0000]/5 via-transparent to-[#556B2F]/3"></div>
+        </div>
+
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          {[...Array(12)].map((_, i) => (
+            <div
+              key={i}
+              className="absolute rounded-full"
+              style={{
+                width: Math.random() * 6 + 2 + 'px',
+                height: Math.random() * 6 + 2 + 'px',
+                top: Math.random() * 100 + '%',
+                left: Math.random() * 100 + '%',
+                background: ['#D4C5A9', '#8B7355', '#8B0000', '#556B2F'][Math.floor(Math.random() * 4)],
+                opacity: 0.08 + Math.random() * 0.15,
+                animation: `gentleFloat ${8 + Math.random() * 10}s ease-in-out infinite ${Math.random() * 5}s`,
+              }}
+            />
+          ))}
+        </div>
+
+        <div className={`relative z-10 w-full max-w-6xl mx-auto px-4 transition-all duration-1000 ${isBookOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
+          <div className="relative bg-[#F5F0E8]/95 backdrop-blur-md rounded-3xl shadow-2xl overflow-hidden border border-[#D4C5A9]/30">
+            <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-[#8B0000] via-[#8B7355] to-[#2C1810]"></div>
+            <div className="absolute inset-0 bg-gradient-to-r from-[#D4C5A9]/5 via-transparent to-[#556B2F]/5"></div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 p-8 sm:p-10 md:p-14">
+              <div className="space-y-5">
+                <div className="flex items-center gap-3 text-[#8B0000]">
+                  <span className="text-[11px] tracking-[0.35em] uppercase font-semibold bg-[#8B0000]/10 px-4 py-1.5 rounded-full">Welcome</span>
+                  <div className="flex-1 h-px bg-gradient-to-r from-[#8B7355]/40 to-transparent"></div>
+                </div>
+                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light font-serif text-[#2C1810] leading-[1.1]">
+                  The Story of
+                  <br />
+                  <span className="text-[#8B0000] font-serif relative inline-block">
+                    Exclusive 360
+                    <span className="absolute -bottom-2 left-0 w-full h-0.5 bg-gradient-to-r from-[#8B7355] to-transparent"></span>
+                  </span>
+                </h1>
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-0.5 bg-[#8B7355]"></div>
+                  <span className="text-[#2C1810]/40 text-xs tracking-widest font-light">EST. 2015</span>
+                </div>
+                <p className="text-[#2C1810]/60 text-base sm:text-lg italic font-serif leading-relaxed max-w-md">
+                  "Every journey begins with a story. Ours started under the African sun."
+                </p>
+                <div className="flex gap-3 mt-2">
+                  {[...Array(3)].map((_, i) => (
+                    <div 
+                      key={i}
+                      className="w-2 h-2 rounded-full bg-[#8B7355] animate-pulse"
+                      style={{ animationDelay: `${i * 150}ms` }}
+                    />
+                  ))}
+                </div>
+              </div>
+
+              <div className="relative flex items-center justify-center">
+                <div className="w-full rounded-xl overflow-hidden shadow-xl">
+                  <img 
+                    src="https://images.unsplash.com/photo-1516426122078-c23e76319801?w=800&q=80" 
+                    alt="African Safari"
+                    className="w-full h-56 sm:h-64 md:h-72 object-cover hover:scale-105 transition duration-700"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#2C1810]/20 to-transparent"></div>
+                </div>
+                <div className="absolute -bottom-3 -right-3 w-20 h-20 border border-[#8B7355]/20 rounded-full"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* The Difference */}
+      <div className="container mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-20 sm:py-24">
+        <div className="text-center mb-16">
+          <span className="text-[#8B0000] text-xs sm:text-sm font-semibold tracking-[0.35em] uppercase bg-[#8B0000]/10 px-6 py-2 rounded-full inline-block">
+            The Exclusive 360 Difference
+          </span>
+          <h2 className="text-4xl sm:text-5xl md:text-6xl font-light text-[#2C1810] mt-6 font-serif tracking-wide">
+            What Sets <span className="text-[#8B0000]">Us Apart</span>
+          </h2>
+          <div className="flex justify-center mt-6">
+            <div className="w-20 h-0.5 bg-gradient-to-r from-transparent via-[#8B7355] to-transparent"></div>
+          </div>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-5">
+          {differencePoints.map((point, index) => (
+            <div 
+              key={index} 
+              className="group relative bg-[#F5F0E8] p-6 rounded-2xl border border-[#D4C5A9]/30 hover:border-[#8B7355]/50 shadow-sm hover:shadow-xl transition-all duration-500 hover:-translate-y-1"
+              onMouseEnter={() => setHoveredPoint(index)}
+              onMouseLeave={() => setHoveredPoint(null)}
+            >
+              <div className="absolute inset-0 bg-gradient-to-r from-[#D4C5A9]/20 to-[#556B2F]/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <div className="relative flex items-start gap-4">
+                <div className="flex-shrink-0 w-10 h-10 rounded-full bg-[#8B7355]/10 flex items-center justify-center group-hover:bg-[#8B7355]/20 transition-all duration-300">
+                  <span className="text-[#8B7355] text-lg font-serif">✦</span>
+                </div>
+                <p className="text-[#2C1810] text-sm leading-relaxed font-light group-hover:text-[#2C1810]/90 transition-colors">
+                  {point}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Timeline */}
+      <div className="bg-[#FAF7F2] py-16 sm:py-20 relative overflow-hidden">
+        <div className="absolute inset-0 opacity-30">
+          <div className="absolute inset-0" style={{
+            backgroundImage: `radial-gradient(circle at 30% 50%, #D4C5A9 1px, transparent 1px)`,
+            backgroundSize: '60px 60px'
+          }} />
+        </div>
+        <div className="container mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center mb-12">
+            <span className="text-[#8B0000] text-xs sm:text-sm font-semibold tracking-[0.35em] uppercase bg-white/80 backdrop-blur-sm px-6 py-2 rounded-full inline-block">
+              Our Journey
+            </span>
+            <h2 className="text-4xl sm:text-5xl md:text-6xl font-light text-[#2C1810] mt-6 font-serif tracking-wide">
+              The <span className="text-[#8B0000]">Exclusive 360</span> Timeline
+            </h2>
+            <div className="flex justify-center mt-6">
+              <div className="w-20 h-0.5 bg-gradient-to-r from-transparent via-[#8B7355] to-transparent"></div>
+            </div>
+          </div>
+
+          <div className="relative max-w-5xl mx-auto">
+            <div className="absolute left-1/2 transform -translate-x-1/2 w-0.5 h-full bg-gradient-to-b from-[#D4C5A9] via-[#8B7355] to-[#D4C5A9]"></div>
+
+            {timelineEvents.map((event, index) => (
+              <div 
+                key={index} 
+                className={`relative flex items-start mb-12 last:mb-0 ${
+                  index % 2 === 0 ? 'flex-row' : 'flex-row-reverse'
+                } group`}
+                onMouseEnter={() => setActiveTimeline(index)}
+                onMouseLeave={() => setActiveTimeline(null)}
+              >
+                <div className="absolute left-1/2 transform -translate-x-1/2 z-10">
+                  <div 
+                    className={`w-4 h-4 rounded-full border-4 border-white shadow-lg transition-all duration-500 ${
+                      activeTimeline === index ? 'scale-150' : 'scale-100'
+                    }`}
+                    style={{ 
+                      background: activeTimeline === index ? '#8B0000' : '#8B7355',
+                      boxShadow: activeTimeline === index ? '0 0 30px rgba(139, 0, 0, 0.3)' : '0 0 20px rgba(139, 115, 85, 0.2)'
+                    }}
+                  />
+                </div>
+
+                <div className={`w-[calc(50%-30px)] ${index % 2 === 0 ? 'pr-8 text-right' : 'pl-8 text-left'}`}>
+                  <div 
+                    className={`bg-white p-6 rounded-xl shadow-sm transition-all duration-500 ${
+                      activeTimeline === index ? 'shadow-xl scale-[1.02]' : 'hover:shadow-md'
+                    }`}
+                    style={{
+                      borderLeft: index % 2 === 0 ? '3px solid #8B7355' : 'none',
+                      borderRight: index % 2 !== 0 ? '3px solid #8B7355' : 'none'
+                    }}
+                  >
+                    <span className="text-[#8B0000] text-xl font-light font-serif block mb-1">{event.year}</span>
+                    <h3 className="text-lg font-light text-[#2C1810] font-serif tracking-wide">{event.title}</h3>
+                    <div className={`w-10 h-0.5 bg-[#8B7355] mt-1.5 ${index % 2 === 0 ? 'ml-auto' : 'ml-0'}`}></div>
+                    <p className="text-[#2C1810]/60 text-sm leading-relaxed font-light mt-2">{event.description}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Director Testimonials - Side by Side with Handwritten Fonts */}
+      <div ref={testimonialRef} className="container mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-20 sm:py-24 bg-white">
+        <div className="text-center mb-16">
+          <span className="text-[#8B0000] text-xs sm:text-sm font-semibold tracking-[0.35em] uppercase bg-[#8B0000]/10 px-6 py-2 rounded-full inline-block">
+            From Our Founders
+          </span>
+          <h2 className="text-4xl sm:text-5xl md:text-6xl font-light text-[#2C1810] mt-6 font-serif tracking-wide">
+            Words from <span className="text-[#8B0000]">The Heart</span>
+          </h2>
+          <div className="flex justify-center mt-6">
+            <div className="w-20 h-0.5 bg-gradient-to-r from-transparent via-[#8B7355] to-transparent"></div>
+          </div>
+          <p className="text-[#2C1810]/50 mt-5 text-sm font-light max-w-2xl mx-auto">
+            Two stories. One passion. A lifetime of dedication to Africa.
+          </p>
+        </div>
+
+        <div className="relative">
+          <div className="absolute -top-20 -left-20 w-64 h-64 bg-[#D4C5A9]/20 rounded-full blur-3xl"></div>
+          <div className="absolute -bottom-20 -right-20 w-64 h-64 bg-[#556B2F]/10 rounded-full blur-3xl"></div>
+
+          <div className="grid md:grid-cols-2 gap-8">
+            {directorTestimonials.map((testimonial, index) => (
+              <div
+                key={index}
+                className={`transition-all duration-1000 transform ${
+                  showTestimonials ? 'translate-y-0 opacity-100' : 'translate-y-16 opacity-0'
+                }`}
+                style={{ transitionDelay: `${index * 300}ms` }}
+              >
+                <div className="h-full bg-[#F5F0E8] rounded-3xl shadow-xl border border-[#D4C5A9]/30 overflow-hidden hover:shadow-2xl transition-all duration-500 hover:-translate-y-1">
+                  <div className="p-6 sm:p-8 md:p-10">
+                    <div className="flex items-center gap-4 mb-6">
+                      <div className="w-14 h-14 rounded-full bg-gradient-to-br from-[#8B0000] to-[#8B7355] flex items-center justify-center text-white text-2xl font-light font-serif shadow-lg flex-shrink-0">
+                        {testimonial.name.charAt(0)}
+                      </div>
+                      <div>
+                        <h3 className="text-xl sm:text-2xl font-light text-[#2C1810] font-serif tracking-wide">
+                          {testimonial.name}
+                        </h3>
+                        <p className="text-[#2C1810]/50 text-xs sm:text-sm font-light">{testimonial.title}</p>
+                      </div>
+                    </div>
+
+                    {/* Directors' Letters - Handwritten with Caveat font */}
+                    <div className="relative">
+                      <div className="text-[#8B7355] text-4xl opacity-10 absolute -top-2 -left-1 font-serif">"</div>
+                      <div className="space-y-3 text-[#2C1810] leading-relaxed pt-3">
+                        {testimonial.message.split('\n\n').map((paragraph, idx) => (
+                          <p key={idx} className="text-base sm:text-lg md:text-xl font-['Caveat'] font-medium text-[#2C1810] pl-5">
+                            {paragraph}
+                          </p>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Signatures - Different styles for each director */}
+                    <div ref={index === 0 ? signature1Ref : signature2Ref} className="mt-6 pt-5 border-t border-[#D4C5A9]/40">
+                      <div className="flex items-end justify-between flex-wrap gap-3">
+                        <div>
+                          {(index === 0 ? showSignature1 : showSignature2) && (
+                            <div className="animate-fade-in">
+                              {index === 0 ? (
+                                // James Mwangi - Dancing Script (more formal cursive)
+                                <p className="font-['Dancing_Script'] text-2xl sm:text-3xl text-[#8B0000] tracking-wide">
+                                  {testimonial.signature}
+                                </p>
+                              ) : (
+                                // Grace Akinyi - Satisfy (more elegant vintage script)
+                                <p className="font-['Satisfy'] text-2xl sm:text-3xl text-[#8B0000] tracking-wide">
+                                  {testimonial.signature}
+                                </p>
+                              )}
+                            </div>
+                          )}
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className="text-[#8B7355]/30 text-[10px]">✦</span>
+                          <span className="text-[#2C1810]/20 text-[8px] font-light tracking-widest">Exclusive 360</span>
+                          <span className="text-[#8B7355]/30 text-[10px]">✦</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Mission & Vision - Stacked Vertically */}
+      <div className="container mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 pb-20 bg-white">
+        <div className="space-y-8">
+          <div className="group bg-[#F5F0E8] p-8 sm:p-10 rounded-3xl border-l-4 border-[#8B7355] shadow-md hover:shadow-2xl transition-all duration-500 hover:-translate-y-1">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-12 h-12 rounded-full bg-[#8B7355]/10 flex items-center justify-center group-hover:bg-[#8B7355]/20 transition-colors">
+                <span className="text-[#8B7355] text-xl">✦</span>
+              </div>
+              <h3 className="text-2xl sm:text-3xl font-light text-[#8B0000] font-serif">Our Mission</h3>
+            </div>
+            <p className="text-[#2C1810] text-base sm:text-lg leading-relaxed font-light">
+              To create transformative safari experiences that connect travelers with Africa's wilderness, 
+              cultures, and communities — while preserving its natural heritage for generations to come.
+            </p>
+          </div>
+          
+          <div className="group bg-[#F5F0E8] p-8 sm:p-10 rounded-3xl border-l-4 border-[#556B2F] shadow-md hover:shadow-2xl transition-all duration-500 hover:-translate-y-1">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-12 h-12 rounded-full bg-[#556B2F]/10 flex items-center justify-center group-hover:bg-[#556B2F]/20 transition-colors">
+                <span className="text-[#556B2F] text-xl">✦</span>
+              </div>
+              <h3 className="text-2xl sm:text-3xl font-light text-[#8B0000] font-serif">Our Vision</h3>
+            </div>
+            <p className="text-[#2C1810] text-base sm:text-lg leading-relaxed font-light">
+              To be Africa's most trusted luxury safari brand, celebrated for excellence, sustainability, 
+              and the profound joy we bring to every traveler who journeys with us.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Call to Action - With Borders on Both Sides */}
+      <div className="container mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 pb-20 bg-white">
+        <div className="relative group">
+          <div className="absolute inset-0 bg-gradient-to-r from-[#8B7355] to-[#D4C5A9] rounded-3xl blur-2xl opacity-20 group-hover:opacity-40 transition-opacity duration-700"></div>
+          <div className="relative text-center bg-[#F5F0E8] p-10 sm:p-14 md:p-20 rounded-3xl shadow-xl overflow-hidden border-l-4 border-r-4 border-[#8B7355]">
             <div className="absolute inset-0 opacity-20">
               <div className="absolute inset-0" style={{
                 backgroundImage: `
                   repeating-linear-gradient(
                     45deg,
                     transparent,
-                    transparent 20px,
-                    rgba(255, 255, 255, 0.03) 20px,
-                    rgba(255, 255, 255, 0.03) 21px
-                  ),
-                  repeating-linear-gradient(
-                    -45deg,
-                    transparent,
-                    transparent 20px,
-                    rgba(255, 255, 255, 0.03) 20px,
-                    rgba(255, 255, 255, 0.03) 21px
+                    transparent 30px,
+                    rgba(139, 115, 85, 0.05) 30px,
+                    rgba(139, 115, 85, 0.05) 31px
                   )
                 `,
                 backgroundSize: '60px 60px'
               }} />
             </div>
-          </div>
-
-          {/* Book Container */}
-          <div className={`relative z-10 w-full max-w-5xl mx-auto px-4 transition-all duration-1000 ${isBookOpen ? 'opacity-100' : 'opacity-0'}`}>
-            <div className="animate-book-open perspective-1000">
-              {/* Book */}
-              <div className="relative bg-[#FAF5EB] rounded-lg shadow-2xl overflow-hidden border border-[#d1973e]/20">
-                {/* Book Spine */}
-                <div className="absolute left-0 top-0 bottom-0 w-2 bg-gradient-to-b from-[#800020] via-[#3B1F0B] to-[#1B3B1B] rounded-l-lg"></div>
-                
-                {/* Book Pages Effect */}
-                <div className="absolute inset-0 bg-gradient-to-r from-[#d1973e]/5 via-transparent to-transparent"></div>
-                <div className="absolute inset-0 bg-gradient-to-l from-[#d1973e]/5 via-transparent to-transparent"></div>
-
-                {/* Content */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 p-6 sm:p-8 md:p-12">
-                  {/* Left Page */}
-                  <div className="space-y-4">
-                    <div className="flex items-center gap-2 text-[#800020]">
-                      <span className="text-[10px] sm:text-xs tracking-[0.3em] uppercase font-semibold">Chapter One</span>
-                      <div className="flex-1 h-px bg-[#800020]/20"></div>
-                    </div>
-                    <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light font-serif text-[#3B1F0B] leading-tight">
-                      The Story of
-                      <br />
-                      <span className="text-[#800020] font-serif">Exclusive 360</span>
-                    </h1>
-                    <div className="w-16 h-0.5 bg-[#d1973e]"></div>
-                    <p className="text-[#3B1F0B]/70 text-xs sm:text-sm italic">
-                      "Every journey begins with a story. Ours started under the African sun."
-                    </p>
-                    {/* Elegant Decor */}
-                    <div className="flex gap-2 mt-4">
-                      <div className="w-1.5 h-1.5 rounded-full bg-[#d1973e] animate-pulse"></div>
-                      <div className="w-1.5 h-1.5 rounded-full bg-[#d1973e] animate-pulse delay-100"></div>
-                      <div className="w-1.5 h-1.5 rounded-full bg-[#d1973e] animate-pulse delay-200"></div>
-                    </div>
-                  </div>
-
-                  {/* Right Page - Safari Image */}
-                  <div className="relative flex items-center justify-center">
-                    <div className="w-full rounded-lg overflow-hidden shadow-md">
-                      <img 
-                        src="https://images.unsplash.com/photo-1516426122078-c23e76319801?w=800&q=80" 
-                        alt="African Safari Sunset with Acacia Tree"
-                        className="w-full h-48 sm:h-56 md:h-64 object-cover hover:scale-105 transition duration-500"
-                        loading="lazy"
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                {/* Page Number */}
-                <div className="absolute bottom-3 sm:bottom-4 right-4 sm:right-8 text-xs text-[#3B1F0B]/30 font-serif">
-                  — 1 —
-                </div>
-
-                {/* Corner Decorations */}
-                <div className="absolute top-3 sm:top-4 left-3 sm:left-4 w-4 sm:w-6 h-4 sm:h-6 border-t-2 border-l-2 border-[#800020]/10"></div>
-                <div className="absolute top-3 sm:top-4 right-3 sm:right-4 w-4 sm:w-6 h-4 sm:h-6 border-t-2 border-r-2 border-[#800020]/10"></div>
-                <div className="absolute bottom-3 sm:bottom-4 left-3 sm:left-4 w-4 sm:w-6 h-4 sm:h-6 border-b-2 border-l-2 border-[#800020]/10"></div>
-                <div className="absolute bottom-3 sm:bottom-4 right-3 sm:right-4 w-4 sm:w-6 h-4 sm:h-6 border-b-2 border-r-2 border-[#800020]/10"></div>
+            
+            <div className="relative z-10">
+              <h3 className="text-3xl sm:text-4xl md:text-5xl font-light text-[#2C1810] mb-4 font-serif tracking-wide">
+                Ready for Your Safari Adventure?
+              </h3>
+              <p className="text-[#2C1810]/60 text-sm sm:text-base mb-8 max-w-lg mx-auto font-light">
+                Let's craft the journey of a lifetime — tailored just for you.
+              </p>
+              <button 
+                onClick={openWhatsApp}
+                className="inline-block bg-[#8B0000] hover:bg-[#6B0000] text-white px-10 sm:px-12 py-4 sm:py-4.5 rounded-full font-semibold transition-all duration-300 text-sm sm:text-base shadow-lg hover:shadow-xl transform hover:-translate-y-1 hover:scale-[1.02] active:scale-95"
+              >
+                Book Your Adventure
+              </button>
+              <div className="mt-6 flex items-center justify-center gap-2 text-[#2C1810]/20 text-xs tracking-widest">
+                <span>✦</span>
+                <span>Exclusive 360 Journeys</span>
+                <span>✦</span>
               </div>
             </div>
-          </div>
-
-          {/* Floating Particles */}
-          <div className="absolute inset-0 pointer-events-none overflow-hidden">
-            <div className="absolute top-10 left-[10%] animate-particle text-[#d1973e]/20 text-2xl">✦</div>
-            <div className="absolute top-20 right-[15%] animate-particle delay-300 text-[#d1973e]/20 text-xl">✦</div>
-            <div className="absolute bottom-20 left-[20%] animate-particle delay-700 text-[#d1973e]/20 text-3xl">✦</div>
-            <div className="absolute bottom-10 right-[25%] animate-particle delay-500 text-[#d1973e]/20 text-xl">✦</div>
-          </div>
-        </div>
-
-        {/* Our Story - Live Writing Section */}
-        <div ref={storyRef} className="mb-16 max-w-5xl mx-auto">
-          <div className="relative">
-            {/* Decorative Element */}
-            <div className="absolute -top-6 sm:-top-8 -left-4 sm:-left-8 w-12 sm:w-16 h-12 sm:h-16 opacity-5">
-              <svg viewBox="0 0 100 100" fill="#800020">
-                <path d="M50 10 C30 30, 20 60, 50 90 C80 60, 70 30, 50 10Z" />
-                <circle cx="50" cy="50" r="5" fill="#800020" />
-              </svg>
-            </div>
-
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-light text-[#3B1F0B] mb-3 sm:mb-4 font-serif">
-              <span className="relative">
-                Our Story
-                <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-[#d1973e]"></span>
-              </span>
-            </h2>
-            <div className="w-16 h-0.5 bg-[#d1973e] mb-6 sm:mb-8"></div>
-
-            {/* Story Content - Sequential Typewriter */}
-            <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-5 sm:p-8 md:p-10 lg:p-12 shadow-lg border border-[#d1973e]/20">
-              <div className="space-y-4 sm:space-y-5 md:space-y-6 text-[#3B1F0B] text-base sm:text-lg leading-relaxed">
-                {storyParagraphs.map((paragraph, index) => {
-                  const typedText = typedTexts[index] || '';
-                  const isActive = index <= activeParagraph;
-                  const isComplete = typedText.length === paragraph.text.length;
-                  const isLast = index === storyParagraphs.length - 1;
-
-                  return (
-                    <div 
-                      key={index} 
-                      className={`transition-opacity duration-500 ${isActive ? 'opacity-100' : 'opacity-0'}`}
-                    >
-                      <p className="story-paragraph min-h-[2.5rem] font-serif font-light">
-                        {isActive ? (
-                          renderFormattedText(paragraph, typedText)
-                        ) : (
-                          <span className="opacity-0">{paragraph.text}</span>
-                        )}
-                        {isActive && !isComplete && (
-                          <span className="inline-block w-0.5 h-5 bg-[#800020] ml-0.5 animate-blink"></span>
-                        )}
-                        {isActive && isComplete && !isLast && (
-                          <span className="inline-block w-0.5 h-5 bg-[#800020]/30 ml-0.5"></span>
-                        )}
-                        {isActive && isComplete && isLast && (
-                          <span className="inline-block w-0.5 h-5 bg-[#800020] ml-0.5 animate-blink"></span>
-                        )}
-                      </p>
-                    </div>
-                  );
-                })}
-              </div>
-
-              {/* Signature Area */}
-              <div ref={signatureRef} className="mt-6 sm:mt-8 pt-4 sm:pt-6 border-t border-[#d1973e]/20">
-                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4">
-                  <div className="flex-1">
-                    <p className="text-xs sm:text-sm text-[#3B1F0B]/50 font-serif">— Founder's Note</p>
-                    {showSignature && (
-                      <div className="mt-2 animate-fade-in">
-                        <svg className="w-36 sm:w-44 md:w-52 h-12 sm:h-14 md:h-16" viewBox="0 0 200 60">
-                          <path
-                            d="M10 40 C20 20, 30 10, 40 30 C50 50, 60 20, 70 35 C80 50, 90 25, 100 40 C110 55, 120 30, 130 40 C140 50, 150 35, 160 45 C170 55, 180 40, 190 50"
-                            stroke="#800020"
-                            strokeWidth="2.5"
-                            fill="none"
-                            strokeLinecap="round"
-                            className={showSignature ? 'animate-draw-signature' : ''}
-                            style={{
-                              strokeDasharray: 1000,
-                              strokeDashoffset: showSignature ? 0 : 1000,
-                              transition: 'stroke-dashoffset 2.5s ease-out'
-                            }}
-                          />
-                        </svg>
-                        <p className="text-xs sm:text-sm font-semibold text-[#800020] mt-1 font-serif">— Exclusive 360 Journeys Team</p>
-                      </div>
-                    )}
-                  </div>
-                  <div className="flex gap-1.5 sm:gap-2">
-                    <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-[#d1973e] animate-pulse"></div>
-                    <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-[#d1973e] animate-pulse delay-150"></div>
-                    <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-[#d1973e] animate-pulse delay-300"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Mission & Vision */}
-        <div className="grid md:grid-cols-2 gap-6 sm:gap-8 mb-16">
-          <div className="bg-white/80 backdrop-blur-sm p-5 sm:p-6 md:p-8 rounded-xl border-l-4 border-[#d1973e] shadow-lg hover:shadow-xl transition duration-300">
-            <h3 className="text-xl sm:text-2xl font-light text-[#800020] mb-2 font-serif">🎯 Our Mission</h3>
-            <p className="text-[#3B1F0B] text-sm sm:text-base leading-relaxed">
-              To create transformative safari experiences that connect travelers with Africa's wilderness, 
-              cultures, and communities — while preserving its natural heritage for generations to come.
-            </p>
-          </div>
-          <div className="bg-white/80 backdrop-blur-sm p-5 sm:p-6 md:p-8 rounded-xl border-l-4 border-[#d1973e] shadow-lg hover:shadow-xl transition duration-300">
-            <h3 className="text-xl sm:text-2xl font-light text-[#800020] mb-2 font-serif">👁️ Our Vision</h3>
-            <p className="text-[#3B1F0B] text-sm sm:text-base leading-relaxed">
-              To be Africa's most trusted luxury safari brand, celebrated for excellence, sustainability, 
-              and the profound joy we bring to every traveler who journeys with us.
-            </p>
-          </div>
-        </div>
-
-        {/* Why Choose Us */}
-        <div className="mb-16">
-          <h2 className="text-2xl sm:text-3xl font-light text-[#3B1F0B] mb-4 text-center font-serif">Why Choose Exclusive 360</h2>
-          <div className="w-16 h-0.5 bg-[#d1973e] mx-auto mb-6 sm:mb-8"></div>
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-            <div className="group bg-white/80 backdrop-blur-sm p-4 sm:p-6 rounded-xl text-center shadow-lg hover:shadow-xl transition duration-300 hover:-translate-y-1 border border-[#3B1F0B]/5 hover:border-[#800020]/20">
-              <div className="text-3xl sm:text-4xl mb-2 group-hover:scale-110 transition duration-300">🦁</div>
-              <h4 className="font-semibold text-[#800020] text-sm sm:text-base font-serif">Expert Guides</h4>
-              <p className="text-xs sm:text-sm text-[#3B1F0B]/70">10+ years experience, local knowledge.</p>
-            </div>
-            <div className="group bg-white/80 backdrop-blur-sm p-4 sm:p-6 rounded-xl text-center shadow-lg hover:shadow-xl transition duration-300 hover:-translate-y-1 border border-[#3B1F0B]/5 hover:border-[#800020]/20">
-              <div className="text-3xl sm:text-4xl mb-2 group-hover:scale-110 transition duration-300">🌍</div>
-              <h4 className="font-semibold text-[#800020] text-sm sm:text-base font-serif">Tailored Safaris</h4>
-              <p className="text-xs sm:text-sm text-[#3B1F0B]/70">Custom itineraries for your needs.</p>
-            </div>
-            <div className="group bg-white/80 backdrop-blur-sm p-4 sm:p-6 rounded-xl text-center shadow-lg hover:shadow-xl transition duration-300 hover:-translate-y-1 border border-[#3B1F0B]/5 hover:border-[#800020]/20">
-              <div className="text-3xl sm:text-4xl mb-2 group-hover:scale-110 transition duration-300">🏕️</div>
-              <h4 className="font-semibold text-[#800020] text-sm sm:text-base font-serif">Luxury & Comfort</h4>
-              <p className="text-xs sm:text-sm text-[#3B1F0B]/70">Premium lodges and vehicles.</p>
-            </div>
-            <div className="group bg-white/80 backdrop-blur-sm p-4 sm:p-6 rounded-xl text-center shadow-lg hover:shadow-xl transition duration-300 hover:-translate-y-1 border border-[#3B1F0B]/5 hover:border-[#800020]/20">
-              <div className="text-3xl sm:text-4xl mb-2 group-hover:scale-110 transition duration-300">🌿</div>
-              <h4 className="font-semibold text-[#800020] text-sm sm:text-base font-serif">Sustainable Tourism</h4>
-              <p className="text-xs sm:text-sm text-[#3B1F0B]/70">Conservation and community support.</p>
-            </div>
-          </div>
-        </div>
-
-        {/* Core Values */}
-        <div className="mb-16 bg-[#800020]/5 backdrop-blur-sm p-5 sm:p-8 rounded-2xl shadow-lg border border-[#800020]/10">
-          <h2 className="text-2xl sm:text-3xl font-light text-[#3B1F0B] mb-4 text-center font-serif">Our Core Values</h2>
-          <div className="w-16 h-0.5 bg-[#d1973e] mx-auto mb-6 sm:mb-8"></div>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
-            <div className="bg-white/80 backdrop-blur-sm p-3 sm:p-4 rounded-xl shadow-sm text-center hover:shadow-md transition duration-300 border border-[#3B1F0B]/5 hover:border-[#d1973e]/30">
-              <span className="text-xl sm:text-2xl">🤝</span>
-              <h5 className="font-semibold text-[#800020] text-sm sm:text-base font-serif">Integrity</h5>
-              <p className="text-xs sm:text-sm text-[#3B1F0B]/60">Honest and ethical.</p>
-            </div>
-            <div className="bg-white/80 backdrop-blur-sm p-3 sm:p-4 rounded-xl shadow-sm text-center hover:shadow-md transition duration-300 border border-[#3B1F0B]/5 hover:border-[#d1973e]/30">
-              <span className="text-xl sm:text-2xl">⭐</span>
-              <h5 className="font-semibold text-[#800020] text-sm sm:text-base font-serif">Excellence</h5>
-              <p className="text-xs sm:text-sm text-[#3B1F0B]/60">Quality and detail.</p>
-            </div>
-            <div className="bg-white/80 backdrop-blur-sm p-3 sm:p-4 rounded-xl shadow-sm text-center hover:shadow-md transition duration-300 border border-[#3B1F0B]/5 hover:border-[#d1973e]/30">
-              <span className="text-xl sm:text-2xl">🌱</span>
-              <h5 className="font-semibold text-[#800020] text-sm sm:text-base font-serif">Sustainability</h5>
-              <p className="text-xs sm:text-sm text-[#3B1F0B]/60">Protecting ecosystems.</p>
-            </div>
-            <div className="bg-white/80 backdrop-blur-sm p-3 sm:p-4 rounded-xl shadow-sm text-center hover:shadow-md transition duration-300 border border-[#3B1F0B]/5 hover:border-[#d1973e]/30">
-              <span className="text-xl sm:text-2xl">❤️</span>
-              <h5 className="font-semibold text-[#800020] text-sm sm:text-base font-serif">Customer Focus</h5>
-              <p className="text-xs sm:text-sm text-[#3B1F0B]/60">Your happiness matters.</p>
-            </div>
-            <div className="bg-white/80 backdrop-blur-sm p-3 sm:p-4 rounded-xl shadow-sm text-center hover:shadow-md transition duration-300 border border-[#3B1F0B]/5 hover:border-[#d1973e]/30">
-              <span className="text-xl sm:text-2xl">💡</span>
-              <h5 className="font-semibold text-[#800020] text-sm sm:text-base font-serif">Innovation</h5>
-              <p className="text-xs sm:text-sm text-[#3B1F0B]/60">Fresh, exciting experiences.</p>
-            </div>
-            <div className="bg-white/80 backdrop-blur-sm p-3 sm:p-4 rounded-xl shadow-sm text-center hover:shadow-md transition duration-300 border border-[#3B1F0B]/5 hover:border-[#d1973e]/30">
-              <span className="text-xl sm:text-2xl">🌅</span>
-              <h5 className="font-semibold text-[#800020] text-sm sm:text-base font-serif">Passion</h5>
-              <p className="text-xs sm:text-sm text-[#3B1F0B]/60">We love what we do.</p>
-            </div>
-          </div>
-        </div>
-
-        {/* Statistics */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 mb-16 text-center">
-          <div className="group bg-gradient-to-br from-[#800020] to-[#3B1F0B] text-white p-4 sm:p-6 rounded-xl shadow-lg hover:shadow-2xl transition duration-300 hover:-translate-y-2">
-            <div className="text-2xl sm:text-3xl md:text-4xl font-light group-hover:text-[#d1973e] transition duration-300 font-serif">10+</div>
-            <div className="text-[10px] sm:text-xs md:text-sm text-[#d1973e]/80">Years of Experience</div>
-          </div>
-          <div className="group bg-gradient-to-br from-[#800020] to-[#3B1F0B] text-white p-4 sm:p-6 rounded-xl shadow-lg hover:shadow-2xl transition duration-300 hover:-translate-y-2">
-            <div className="text-2xl sm:text-3xl md:text-4xl font-light group-hover:text-[#d1973e] transition duration-300 font-serif">500+</div>
-            <div className="text-[10px] sm:text-xs md:text-sm text-[#d1973e]/80">Successful Safaris</div>
-          </div>
-          <div className="group bg-gradient-to-br from-[#800020] to-[#3B1F0B] text-white p-4 sm:p-6 rounded-xl shadow-lg hover:shadow-2xl transition duration-300 hover:-translate-y-2">
-            <div className="text-2xl sm:text-3xl md:text-4xl font-light group-hover:text-[#d1973e] transition duration-300 font-serif">50+</div>
-            <div className="text-[10px] sm:text-xs md:text-sm text-[#d1973e]/80">Countries Served</div>
-          </div>
-          <div className="group bg-gradient-to-br from-[#800020] to-[#3B1F0B] text-white p-4 sm:p-6 rounded-xl shadow-lg hover:shadow-2xl transition duration-300 hover:-translate-y-2">
-            <div className="text-2xl sm:text-3xl md:text-4xl font-light group-hover:text-[#d1973e] transition duration-300 font-serif">100%</div>
-            <div className="text-[10px] sm:text-xs md:text-sm text-[#d1973e]/80">Client Satisfaction</div>
-          </div>
-        </div>
-
-        {/* Call to Action */}
-        <div className="text-center bg-gradient-to-r from-[#800020] to-[#3B1F0B] p-6 sm:p-8 md:p-12 rounded-2xl shadow-2xl relative overflow-hidden">
-          {/* Decorative Background Pattern */}
-          <div className="absolute inset-0 opacity-10">
-            <div className="absolute inset-0" style={{
-              backgroundImage: `
-                repeating-linear-gradient(
-                  45deg,
-                  transparent,
-                  transparent 20px,
-                  rgba(255, 255, 255, 0.05) 20px,
-                  rgba(255, 255, 255, 0.05) 21px
-                )
-              `,
-              backgroundSize: '40px 40px'
-            }} />
-          </div>
-          
-          <div className="relative z-10">
-            <h3 className="text-xl sm:text-2xl md:text-3xl font-light text-white mb-2 sm:mb-3 font-serif">
-              Ready for Your Safari Adventure?
-            </h3>
-            <p className="text-white/70 text-sm sm:text-base mb-4 sm:mb-6 max-w-lg mx-auto">
-              Let's craft the journey of a lifetime — tailored just for you.
-            </p>
-            <button 
-              onClick={openWhatsApp}
-              className="inline-block bg-[#d1973e] hover:bg-[#b8862e] text-[#3B1F0B] px-6 sm:px-8 py-2.5 sm:py-3 rounded-lg font-semibold transition text-sm sm:text-base shadow-lg hover:shadow-xl transform hover:-translate-y-1 duration-300"
-            >
-              Book Your Adventure
-            </button>
           </div>
         </div>
       </div>
+
+      {/* CSS Animations - Only essential animations */}
+      <style jsx>{`
+        @keyframes gentleFloat {
+          0%, 100% { 
+            transform: translateY(0) rotate(0deg) scale(1); 
+            opacity: 0.08; 
+          }
+          50% { 
+            opacity: 0.2; 
+            transform: translateY(-40px) rotate(8deg) scale(1.1); 
+          }
+        }
+        @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(15px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes pulse {
+          0%, 100% { transform: scale(1); opacity: 0.5; }
+          50% { transform: scale(1.1); opacity: 0.8; }
+        }
+        .animate-fade-in { animation: fadeIn 0.8s ease-out forwards; }
+        .animate-pulse { animation: pulse 2s ease-in-out infinite; }
+        .perspective-1000 { perspective: 1000px; }
+        .animate-book-open {
+          animation: bookOpen 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+        }
+        @keyframes bookOpen {
+          0% { transform: rotateY(-8deg) scale(0.96); opacity: 0; }
+          100% { transform: rotateY(0) scale(1); opacity: 1; }
+        }
+        .shadow-3xl { box-shadow: 0 30px 60px -15px rgba(44, 24, 16, 0.3); }
+        .delay-100 { animation-delay: 0.1s; }
+        .delay-150 { animation-delay: 0.15s; }
+        .delay-200 { animation-delay: 0.2s; }
+        .delay-300 { animation-delay: 0.3s; }
+        .delay-500 { animation-delay: 0.5s; }
+        .delay-700 { animation-delay: 0.7s; }
+      `}</style>
     </section>
   );
 };

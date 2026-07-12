@@ -11,10 +11,10 @@ const Stats = () => {
   const hasAnimated = useRef(false);
 
   const statsData = [
-    { id: 'years', label: 'Years of Experience', target: 10, icon: '📅', suffix: '+' },
-    { id: 'safaris', label: 'Successful Safaris', target: 500, icon: '🦁', suffix: '+' },
-    { id: 'countries', label: 'Countries Served', target: 50, icon: '🌍', suffix: '+' },
-    { id: 'satisfaction', label: 'Client Satisfaction', target: 100, icon: '⭐', suffix: '%' }
+    { id: 'years', label: 'Years of Experience', target: 10, suffix: '+' },
+    { id: 'safaris', label: 'Successful Safaris', target: 500, suffix: '+' },
+    { id: 'countries', label: 'Countries Served', target: 50, suffix: '+' },
+    { id: 'satisfaction', label: 'Client Satisfaction', target: 100, suffix: '%' }
   ];
 
   useEffect(() => {
@@ -72,68 +72,42 @@ const Stats = () => {
         >
           <path 
             d="M0 40 C240 20, 480 60, 720 40 C960 20, 1200 60, 1440 40 L1440 60 L0 60Z" 
-            fill="#3B1F0B"
-            opacity="0.8"
+            fill="#FAF5EB"
           />
           <path 
             d="M0 45 C240 25, 480 65, 720 45 C960 25, 1200 65, 1440 45 L1440 60 L0 60Z" 
-            fill="#3B1F0B"
-            opacity="0.5"
+            fill="#FAF5EB"
           />
         </svg>
       </div>
 
       <section 
         ref={statsRef} 
-        className="relative overflow-hidden pt-12 pb-16 sm:pt-16 sm:pb-20 bg-[#3B1F0B]"
+        className="relative overflow-hidden pt-12 pb-16 sm:pt-16 sm:pb-20 bg-[#FAF5EB]"
       >
-        {/* Subtle Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#3B1F0B]/0 via-[#800020]/10 to-[#800020]/20"></div>
-        
-        {/* Pattern Overlay */}
-        <div className="absolute inset-0 opacity-5">
-          <div className="absolute inset-0" style={{
-            backgroundImage: `
-              repeating-linear-gradient(
-                45deg,
-                transparent,
-                transparent 20px,
-                rgba(255, 255, 255, 0.1) 20px,
-                rgba(255, 255, 255, 0.1) 21px
-              )
-            `,
-            backgroundSize: '40px 40px'
-          }} />
-        </div>
-
-        {/* Decorative Elements */}
-        <div className="absolute top-5 left-5 text-4xl opacity-5 animate-float hidden lg:block">✦</div>
-        <div className="absolute bottom-10 right-10 text-5xl opacity-5 animate-float delay-700 hidden lg:block">✦</div>
-        <div className="absolute top-1/2 left-[5%] text-3xl opacity-5 animate-float delay-500 hidden lg:block">✦</div>
-        <div className="absolute top-1/3 right-[8%] text-3xl opacity-5 animate-float delay-300 hidden lg:block">✦</div>
-
-        {/* Subtle top glow line */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-px bg-gradient-to-r from-transparent via-[#d1973e]/20 to-transparent"></div>
-
         <div className="container mx-auto px-4 sm:px-6 relative z-10">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8">
-            {statsData.map((stat) => (
+            {statsData.map((stat, index) => (
               <div 
                 key={stat.id} 
                 className="text-center group relative"
               >
-                {/* Glow effect on hover */}
-                <div className="absolute inset-0 bg-[#d1973e]/0 group-hover:bg-[#d1973e]/5 rounded-xl transition-all duration-500 -z-10"></div>
+                {/* Divider Line - vertical between stats */}
+                {index < statsData.length - 1 && (
+                  <div className="hidden md:block absolute right-0 top-1/2 -translate-y-1/2 w-px h-12 bg-[#d1973e]/20"></div>
+                )}
                 
-                <div className="text-3xl sm:text-4xl md:text-5xl mb-2 group-hover:scale-110 transition-transform duration-300">
-                  {stat.icon}
-                </div>
-                <div className="text-2xl sm:text-3xl md:text-4xl font-light text-[#d1973e] font-serif">
+                {/* Number */}
+                <div className="text-3xl sm:text-4xl md:text-5xl font-light text-[#d1973e] font-serif mb-2 group-hover:scale-110 transition-transform duration-300">
                   {counts[stat.id] || 0}{stat.suffix}
                 </div>
-                <div className="text-white/70 text-xs sm:text-sm mt-1 font-light">
+                
+                {/* Label */}
+                <div className="text-[#3B1F0B]/50 text-xs sm:text-sm mt-1 font-light tracking-wide uppercase">
                   {stat.label}
                 </div>
+                
+                {/* Underline on hover */}
                 <div className="w-0 h-0.5 bg-[#d1973e] mx-auto mt-2 group-hover:w-12 transition-all duration-300"></div>
               </div>
             ))}
