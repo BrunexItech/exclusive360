@@ -57,7 +57,7 @@ const Header = () => {
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 sm:h-20">
-          {/* Logo - select-none cursor-pointer */}
+          {/* Logo */}
           <Link 
             to="/" 
             className="flex items-center gap-2 group select-none cursor-pointer"
@@ -98,7 +98,7 @@ const Header = () => {
               ))}
             </ul>
 
-            {/* CTA Button - "Book Now" - select-none cursor-pointer */}
+            {/* CTA Button - "Book Now" */}
             <button
               onClick={openWhatsApp}
               className="bg-[#d1973e] hover:bg-[#c4882a] text-white px-6 py-2 rounded-full text-sm font-medium tracking-wider transition duration-300 hover:scale-105 select-none cursor-pointer"
@@ -107,30 +107,23 @@ const Header = () => {
             </button>
           </nav>
 
-          {/* Mobile Menu Button - select-none cursor-pointer */}
+          {/* Mobile Menu Button - Always Visible on Small & Medium */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="lg:hidden flex items-center justify-center w-10 h-10 select-none cursor-pointer"
+            className="lg:hidden flex items-center justify-center w-12 h-12 rounded-full hover:bg-gray-100 transition-colors duration-200 select-none cursor-pointer"
             aria-label="Toggle Menu"
           >
-            {isOpen ? (
-              <FontAwesomeIcon 
-                icon={faTimes} 
-                className={`w-6 h-6 ${scrolled ? 'text-[#3B1F0B]' : 'text-[#3B1F0B]'}`} 
-              />
-            ) : (
-              <FontAwesomeIcon 
-                icon={faBars} 
-                className={`w-6 h-6 ${scrolled ? 'text-[#3B1F0B]' : 'text-[#3B1F0B]'}`} 
-              />
-            )}
+            <FontAwesomeIcon 
+              icon={isOpen ? faTimes : faBars} 
+              className="w-6 h-6 text-[#3B1F0B]" 
+            />
           </button>
         </div>
       </div>
 
-      {/* Mobile Menu - Slide Out */}
+      {/* Mobile Menu - Slide Out from Right */}
       <div
-        className={`fixed top-0 right-0 h-full w-72 bg-[#FAF5EB] shadow-2xl transform transition-transform duration-500 ease-in-out z-50 ${
+        className={`fixed top-0 right-0 h-full w-80 sm:w-96 bg-[#FAF5EB] shadow-2xl transform transition-transform duration-500 ease-in-out z-50 ${
           isOpen ? 'translate-x-0' : 'translate-x-full'
         } lg:hidden`}
       >
@@ -140,7 +133,8 @@ const Header = () => {
             <img src={logo} alt="Exclusive 360" className="h-8 w-auto select-none" />
             <button
               onClick={() => setIsOpen(false)}
-              className="text-[#3B1F0B] hover:text-[#800020] select-none cursor-pointer"
+              className="text-[#3B1F0B] hover:text-[#800020] select-none cursor-pointer p-2"
+              aria-label="Close Menu"
             >
               <FontAwesomeIcon icon={faTimes} className="w-5 h-5" />
             </button>
