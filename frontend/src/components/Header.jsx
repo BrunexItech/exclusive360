@@ -98,7 +98,6 @@ const Header = () => {
               ))}
             </ul>
 
-            {/* CTA Button - "Book Now" */}
             <button
               onClick={openWhatsApp}
               className="bg-[#d1973e] hover:bg-[#c4882a] text-white px-6 py-2 rounded-full text-sm font-medium tracking-wider transition duration-300 hover:scale-105 select-none cursor-pointer"
@@ -107,7 +106,7 @@ const Header = () => {
             </button>
           </nav>
 
-          {/* Mobile Menu Button - Always Visible on Small & Medium */}
+          {/* Mobile Menu Button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
             className="lg:hidden flex items-center justify-center w-12 h-12 rounded-full hover:bg-gray-100 transition-colors duration-200 select-none cursor-pointer"
@@ -121,11 +120,11 @@ const Header = () => {
         </div>
       </div>
 
-      {/* Mobile Menu - Slide Out from Right */}
+      {/* Mobile Menu - Appears Instantly */}
       <div
-        className={`fixed top-0 right-0 h-full w-80 sm:w-96 bg-[#FAF5EB] shadow-2xl transform transition-transform duration-500 ease-in-out z-50 ${
-          isOpen ? 'translate-x-0' : 'translate-x-full'
-        } lg:hidden`}
+        className={`fixed top-0 right-0 h-full w-80 sm:w-96 bg-[#FAF5EB] shadow-2xl z-50 lg:hidden transition-opacity duration-300 ease-in-out ${
+          isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
+        }`}
       >
         <div className="flex flex-col h-full">
           {/* Mobile Menu Header */}
@@ -188,7 +187,7 @@ const Header = () => {
 
       {/* Mobile Menu Overlay */}
       <div
-        className={`fixed inset-0 bg-black/50 transition-opacity duration-500 z-40 lg:hidden ${
+        className={`fixed inset-0 bg-black/50 transition-opacity duration-300 z-40 lg:hidden ${
           isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
         }`}
         onClick={() => setIsOpen(false)}
