@@ -135,7 +135,7 @@ const Hero = () => {
         {/* Poster Image Background - fully clear, no opacity */}
         <div className="absolute inset-0 w-full h-full">
           <img 
-            src="https://media.istockphoto.com/id/468961351/photo/zebras-in-tarangire-national-park-tanzania.jpg?s=612x612&w=0&k=20&c=tM2ajwcLDG8Ws9ei-FnsGnEOBjF7mHrrBu-uFSutH0c="
+            src="https://images.unsplash.com/photo-1534567153574-2b12153a87f0?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
             alt="Safari background"
             className="w-full h-full object-cover"
           />
